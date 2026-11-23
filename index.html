@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sổ Quà Ba Lan 🎁</title>
+  <!-- Google Fonts: Comic Neue -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            comic: ['"Comic Neue"', '"Comic Sans MS"', 'cursive', 'sans-serif'],
+          },
+          colors: {
+            butter: {
+              50: '#FEFCE8',
+              100: '#FEF9C3',
+              200: '#FEF08A',
+              300: '#FDE047',
+              400: '#FACC15',
+              500: '#EAB308',
+              600: '#CA8A04',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
+      background-color: #FEFCE8;
+      color: #451a03;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #FDE047;
+      border-radius: 4px;
+    }
+    .btn-bounce:active {
+      transform: scale(0.96);
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-24 selection:bg-yellow-200">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-30 bg-[#FEF9C3]/95 backdrop-blur-md border-b-2 border-yellow-200 px-4 py-3 shadow-sm">
+    <div class="max-w-md mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🎁</span>
+        <div>
+          <h1 class="text-xl font-bold tracking-wide text-yellow-950 leading-tight">Sổ Quà Ba Lan</h1>
+          <p class="text-xs text-yellow-700 font-medium">Phân chia quà tặng người thân & bạn bè</p>
+        </div>
+      </div>
+      <button onclick="openAddModal()" class="btn-bounce bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-3 py-1.5 rounded-2xl shadow-sm text-sm flex items-center gap-1 border-2 border-yellow-500">
+        <span>+ Tặng quà</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER (Tối ưu cho Mobile) -->
+  <main class="max-w-md mx-auto px-4 pt-3 space-y-4">
+
+    <!-- DASHBOARD THỐNG KÊ (Đơn giản, ít chữ, chạm để lọc) -->
+    <div class="grid grid-cols-3 gap-2">
+      <!-- Đã tặng -->
+      <div onclick="setFilter('gifted')" class="cursor-pointer bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-2.5 text-center shadow-sm btn-bounce transition hover:bg-emerald-100">
+        <div class="text-xs font-bold text-emerald-800 flex items-center justify-center gap-1">
+          <span>✅ Đã tặng</span>
+        </div>
+        <div id="stat-gifted" class="text-2xl font-black text-emerald-700 mt-0.5">0</div>
+        <div class="text-[10px] text-emerald-600 font-bold">món</div>
+      </div>
+
+      <!-- Chuẩn bị tặng -->
+      <div onclick="setFilter('preparing')" class="cursor-pointer bg-amber-50 border-2 border-amber-300 rounded-2xl p-2.5 text-center shadow-sm btn-bounce transition hover:bg-amber-100">
+        <div class="text-xs font-bold text-amber-800 flex items-center justify-center gap-1">
+          <span>🎁 Chuẩn bị</span>
+        </div>
+        <div id="stat-preparing" class="text-2xl font-black text-amber-700 mt-0.5">0</div>
+        <div class="text-[10px] text-amber-600 font-bold">món</div>
+      </div>
+
+      <!-- Chưa tặng / Còn tồn kho -->
+      <div onclick="setFilter('all')" class="cursor-pointer bg-yellow-100/80 border-2 border-yellow-300 rounded-2xl p-2.5 text-center shadow-sm btn-bounce transition hover:bg-yellow-200">
+        <div class="text-xs font-bold text-yellow-900 flex items-center justify-center gap-1">
+          <span>📦 Chưa tặng</span>
+        </div>
+        <div id="stat-remaining" class="text-2xl font-black text-yellow-800 mt-0.5">148</div>
+        <div class="text-[10px] text-yellow-700 font-bold">/ 148 món</div>
+      </div>
+    </div>
+
+    <!-- TABS ĐIỀU HƯỚNG -->
+    <div class="flex bg-yellow-200/70 p-1 rounded-2xl border border-yellow-300">
+      <button id="tab-recipients-btn" onclick="switchTab('recipients')" class="flex-1 py-1.5 text-sm font-bold rounded-xl transition bg-white text-yellow-950 shadow-sm">
+        👥 Người nhận (<span id="recipient-count">0</span>)
+      </button>
+      <button id="tab-inventory-btn" onclick="switchTab('inventory')" class="flex-1 py-1.5 text-sm font-bold rounded-xl transition text-yellow-800 hover:text-yellow-950">
+        📋 Kho quà (49 loại)
+      </button>
+    </div>
+
+    <!-- TAB 1: DANH SÁCH NGƯỜI NHẬN -->
+    <section id="tab-recipients" class="space-y-3">
+      <!-- Tìm kiếm & Lọc trạng thái -->
+      <div class="flex items-center gap-2">
+        <div class="relative flex-1">
+          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Tìm tên người nhận..." class="w-full bg-white border-2 border-yellow-200 rounded-2xl px-3 py-1.5 pl-8 text-sm focus:outline-none focus:border-yellow-400 placeholder-yellow-800/40 text-yellow-950 font-bold">
+          <span class="absolute left-2.5 top-1.5 text-xs text-yellow-700">🔍</span>
+        </div>
+        <select id="status-filter" onchange="setFilter(this.value)" class="bg-white border-2 border-yellow-200 rounded-2xl px-2.5 py-1.5 text-xs font-bold text-yellow-900 focus:outline-none focus:border-yellow-400">
+          <option value="all">Tất cả</option>
+          <option value="preparing">Chuẩn bị</option>
+          <option value="gifted">Đã tặng</option>
+          <option value="pending">Chưa tặng</option>
+        </select>
+      </div>
+
+      <!-- Danh sách card người nhận -->
+      <div id="recipients-list" class="space-y-2.5">
+        <!-- Render bằng JavaScript -->
+      </div>
+
+      <!-- Trạng thái trống -->
+      <div id="empty-recipients" class="hidden text-center py-10 px-4 bg-white/70 border-2 border-dashed border-yellow-300 rounded-3xl">
+        <div class="text-4xl mb-2">💌</div>
+        <h3 class="text-base font-bold text-yellow-950">Chưa có người nhận nào</h3>
+        <p class="text-xs text-yellow-800/70 mt-1 mb-4">Bấm nút bên dưới để chọn quà tặng cho người quen nhé đại ca!</p>
+        <button onclick="openAddModal()" class="bg-yellow-400 text-yellow-950 font-bold px-4 py-2 rounded-2xl border-2 border-yellow-500 shadow-sm text-sm btn-bounce">
+          + Thêm người nhận đầu tiên
+        </button>
+      </div>
+    </section>
+
+    <!-- TAB 2: KHO QUÀ (INVENTORY VIEW VỚI HÌNH ICON) -->
+    <section id="tab-inventory" class="hidden space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-yellow-900">Chi tiết 49 loại quà trong kho:</span>
+        <select id="category-filter" onchange="renderInventory()" class="bg-white border-2 border-yellow-200 rounded-2xl px-2 py-1 text-xs font-bold text-yellow-900 focus:outline-none">
+          <option value="all">Tất cả nhóm</option>
+          <option value="Chocolate">Chocolate (64)</option>
+          <option value="Nước hoa">Nước hoa (41)</option>
+          <option value="Nền & Che khuyết điểm">Nền & CKĐ (13)</option>
+          <option value="Phấn">Phấn (12)</option>
+          <option value="Son môi">Son môi (12)</option>
+          <option value="Dưỡng da">Dưỡng da (6)</option>
+        </select>
+      </div>
+      <div id="inventory-list" class="space-y-2.5">
+        <!-- Render danh sách tồn kho -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: THÊM / SỬA NGƯỜI NHẬN QUÀ -->
+  <div id="modal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-[#FEFCE8] w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-yellow-400 shadow-2xl max-h-[90vh] flex flex-col overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="bg-yellow-200 px-4 py-3 border-b-2 border-yellow-300 flex items-center justify-between">
+        <h3 id="modal-title" class="text-base font-bold text-yellow-950 flex items-center gap-1.5">
+          <span>🎁</span> Thêm người nhận quà
+        </h3>
+        <button onclick="closeModal()" class="text-yellow-800 hover:text-yellow-950 font-bold text-xl px-2">✕</button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-4 space-y-3.5 overflow-y-auto custom-scroll flex-1 text-sm">
+        
+        <!-- Tên người nhận -->
+        <div>
+          <label class="block font-bold text-yellow-950 mb-1 text-xs">👤 Tên người nhận:</label>
+          <input type="text" id="modal-person-name" placeholder="VD: Mẹ, Em Lan, Anh Tuấn..." class="w-full bg-white border-2 border-yellow-300 rounded-2xl px-3 py-2 text-sm focus:outline-none focus:border-yellow-500 font-bold text-yellow-950">
+        </div>
+
+        <!-- Ghi chú nhanh -->
+        <div>
+          <label class="block font-bold text-yellow-950 mb-1 text-xs">📝 Ghi chú (không bắt buộc):</label>
+          <input type="text" id="modal-person-note" placeholder="VD: Quà Tết, mang về quê, đồng nghiệp..." class="w-full bg-white border-2 border-yellow-200 rounded-2xl px-3 py-1.5 text-xs focus:outline-none focus:border-yellow-400 text-yellow-900">
+        </div>
+
+        <!-- Danh sách quà tặng -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="font-bold text-yellow-950 text-xs">🎁 Các món quà tặng:</label>
+            <button type="button" onclick="addGiftRow()" class="text-xs font-bold text-yellow-900 bg-yellow-200 hover:bg-yellow-300 px-2.5 py-1 rounded-xl border border-yellow-400 btn-bounce">
+              + Thêm món
+            </button>
+          </div>
+          
+          <div id="modal-gift-rows" class="space-y-2">
+            <!-- Các dòng chọn quà -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-yellow-100 p-3 border-t-2 border-yellow-200 flex gap-2">
+        <button onclick="closeModal()" class="flex-1 py-2 text-sm font-bold text-yellow-800 bg-white border-2 border-yellow-300 rounded-2xl btn-bounce">
+          Hủy
+        </button>
+        <button onclick="saveRecipient()" class="flex-1 py-2 text-sm font-bold text-yellow-950 bg-yellow-400 hover:bg-yellow-500 border-2 border-yellow-500 rounded-2xl shadow-sm btn-bounce">
+          💾 Lưu lại
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOATING BOTTOM ACTION BUTTON TRÊN MOBILE -->
+  <div class="fixed bottom-3 inset-x-0 max-w-md mx-auto px-4 z-20 pointer-events-none flex justify-center">
+    <button onclick="openAddModal()" class="pointer-events-auto bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-6 py-2.5 rounded-full shadow-lg border-2 border-yellow-500 flex items-center gap-2 btn-bounce text-sm">
+      <span class="text-lg">✨</span> Thêm người nhận quà
+    </button>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // DỮ LIỆU KHO QUÀ GỐC (49 loại, tổng 148 món) CÓ ĐƯỜNG DẪN ẢNH ICON SẢN PHẨM CHUẨN
+    const INITIAL_INVENTORY = [
+      // Chocolate (10 loại - 64 món)
+      { id: 1, name: "Socola đen Biedronka 50% (Czekolada deserowa)", category: "Chocolate", total: 28, unit: "thanh", image: "assets/item_1.jpg" },
+      { id: 2, name: "Socola Hershey's Cookies 'N' Creme Caramel", category: "Chocolate", total: 12, unit: "thanh", image: "assets/item_2.jpg" },
+      { id: 3, name: "Socola trắng dừa Meltie White Coconut", category: "Chocolate", total: 5, unit: "thanh", image: "assets/item_3.jpg" },
+      { id: 4, name: "Socola trắng giòn Meltie White Cocoa Crisps", category: "Chocolate", total: 5, unit: "thanh", image: "assets/item_4.jpg" },
+      { id: 5, name: "Socola KitKat Milk Chocolate (Thanh lớn)", category: "Chocolate", total: 3, unit: "thanh", image: "assets/item_5.jpg" },
+      { id: 6, name: "Socola KitKat Formula 1 (Hình xe F1)", category: "Chocolate", total: 3, unit: "gói", image: "assets/item_6.jpg" },
+      { id: 7, name: "Socola sữa Biedronka (Czekolada Mleczna)", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_7.jpg" },
+      { id: 8, name: "Socola trắng dừa Biedronka (Biała z kokosem)", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_8.jpg" },
+      { id: 9, name: "Socola Matcha mâm xôi Meltie Raspberry", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_9.jpg" },
+      { id: 10, name: "Socola khoai môn dừa Delica Dore Style Ube", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_10.jpg" },
+
+      // Nước hoa (25 loại - 41 món)
+      { id: 11, name: "Nước hoa Mexx Whenever Wherever For Him (30ml)", category: "Nước hoa", total: 4, unit: "chai", image: "assets/item_11.jpg" },
+      { id: 12, name: "Nước hoa Kruidvat XD Oud Wood & Pepper", category: "Nước hoa", total: 4, unit: "chai", image: "assets/item_12.jpg" },
+      { id: 13, name: "Nước hoa Adidas Vibes Smooth Pace (50ml)", category: "Nước hoa", total: 3, unit: "chai", image: "assets/item_13.jpg" },
+      { id: 14, name: "Nước hoa Fiorée Choose Joy EDP", category: "Nước hoa", total: 3, unit: "chai", image: "assets/item_14.jpg" },
+      { id: 15, name: "Nước hoa Sorvella Mountain Woodall EDP (50ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_15.jpg" },
+      { id: 16, name: "Nước hoa Elizabeth Arden Green Tea (30ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_16.jpg" },
+      { id: 17, name: "Nước hoa Adidas Champions League Goal (100ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_17.jpg" },
+      { id: 18, name: "Nước hoa La Rive Her Choice EDP (100ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_18.jpg" },
+      { id: 19, name: "Nước hoa NG Aqua Di NG EDT Pour Homme", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_19.jpg" },
+      { id: 20, name: "Nước hoa NG Dominatio For Men EDT", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_20.jpg" },
+      { id: 21, name: "Nước hoa Gucci Flora Gorgeous Jasmine EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_21.jpg" },
+      { id: 22, name: "Nước hoa Hugo Boss BOSS Bottled EDT (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_22.jpg" },
+      { id: 23, name: "Nước hoa Calvin Klein Obsession Night (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_23.jpg" },
+      { id: 24, name: "Nước hoa Tommy Hilfiger Tommy Girl NOW (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_24.jpg" },
+      { id: 25, name: "Nước hoa Guess Seductive Homme EDT (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_25.jpg" },
+      { id: 26, name: "Nước hoa Iceberg Eau de Iceberg EDT (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_26.jpg" },
+      { id: 27, name: "Nước hoa NOU Oliban EDT Pour Homme (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_27.jpg" },
+      { id: 28, name: "Nước hoa Adidas Vibes Wonder Force (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_28.jpg" },
+      { id: 29, name: "Nước hoa Icône L'adore Eau de Parfum (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_29.jpg" },
+      { id: 30, name: "Nước hoa La Rive 315 Prestige For Woman (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_30.jpg" },
+      { id: 31, name: "Nước hoa The Master Perfumer N°07 Vanilla (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_31.jpg" },
+      { id: 32, name: "Nước hoa The Master Perfumer N°21 Tangerine (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_32.jpg" },
+      { id: 33, name: "Nước hoa Kylie Minogue Darling EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_33.jpg" },
+      { id: 34, name: "Nước hoa Kylie Minogue Disco Darling EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_34.jpg" },
+      { id: 35, name: "Nước hoa Kruidvat CM Citrus & Bergamot", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_35.jpg" },
+
+      // Kem nền, lót & che khuyết điểm (3 loại - 13 món)
+      { id: 36, name: "Kem che khuyết điểm Paese Nanorevit Brightening", category: "Nền & Che khuyết điểm", total: 8, unit: "thỏi", image: "assets/item_36.jpg" },
+      { id: 37, name: "Kem nền kiêm che khuyết điểm L'Oréal Skin Ink", category: "Nền & Che khuyết điểm", total: 3, unit: "chai", image: "assets/item_37.jpg" },
+      { id: 38, name: "Kem lót bắt sáng Paese Illuminating Base", category: "Nền & Che khuyết điểm", total: 2, unit: "chai", image: "assets/item_38.jpg" },
+
+      // Phấn trang điểm (4 loại - 12 món)
+      { id: 39, name: "Phấn nén che phủ Paese Nanorevit Covering", category: "Phấn", total: 5, unit: "hộp", image: "assets/item_39.jpg" },
+      { id: 40, name: "Phấn bắt sáng đôi Paese Nanorevit Glow Duo", category: "Phấn", total: 3, unit: "hộp", image: "assets/item_40.jpg" },
+      { id: 41, name: "Phấn tạo khối đôi Paese Nanorevit Contour Duo", category: "Phấn", total: 2, unit: "hộp", image: "assets/item_41.jpg" },
+      { id: 42, name: "Phấn phủ bột bắt sáng Paese Powder Mist", category: "Phấn", total: 2, unit: "hộp", image: "assets/item_42.jpg" },
+
+      // Son môi & son dưỡng (3 loại - 12 món)
+      { id: 43, name: "Son kem lì Maybelline Superstay Teddy Tint", category: "Son môi", total: 9, unit: "thỏi", image: "assets/item_43.jpg" },
+      { id: 44, name: "Sáp dưỡng đa năng quân đội Försvarets Hudsalva", category: "Son môi", total: 2, unit: "tuýp", image: "assets/item_44.jpg" },
+      { id: 45, name: "Son dưỡng ẩm không mùi Apoliva Cerat", category: "Son môi", total: 1, unit: "thỏi", image: "assets/item_45.jpg" },
+
+      // Dưỡng da (4 loại - 6 món)
+      { id: 46, name: "Kem ngày chống lão hóa L'Oréal Ekspert Wieku 60+", category: "Dưỡng da", total: 2, unit: "hộp", image: "assets/item_46.jpg" },
+      { id: 47, name: "Mặt nạ ngủ phục hồi Solverx Age.Reset Ceramide", category: "Dưỡng da", total: 2, unit: "hộp", image: "assets/item_47.jpg" },
+      { id: 48, name: "Serum collagen đậm đặc mesoBOOST Collagen Forte", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_48.jpg" },
+      { id: 49, name: "Kem bơ làm dịu da Nacomi Rich & Comfy Avocado", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_49.jpg" }
+    ];
+
+    let storedInv = JSON.parse(localStorage.getItem('poland_gifts_inventory'));
+    let inventory = INITIAL_INVENTORY;
+    if (storedInv && Array.isArray(storedInv) && storedInv.length === INITIAL_INVENTORY.length) {
+      inventory = storedInv.map((item, idx) => ({
+        ...INITIAL_INVENTORY[idx],
+        total: item.total !== undefined ? item.total : INITIAL_INVENTORY[idx].total
+      }));
+    }
+
+    let recipients = JSON.parse(localStorage.getItem('poland_gifts_recipients')) || [];
+    let currentFilter = 'all';
+    let currentTab = 'recipients';
+    let editingRecipientId = null;
+
+    function saveData() {
+      localStorage.setItem('poland_gifts_inventory', JSON.stringify(inventory));
+      localStorage.setItem('poland_gifts_recipients', JSON.stringify(recipients));
+      updateStats();
+    }
+
+    function updateStats() {
+      let giftedCount = 0;
+      let preparingCount = 0;
+      let pendingCount = 0;
+
+      recipients.forEach(r => {
+        (r.items || []).forEach(it => {
+          const qty = parseInt(it.qty) || 0;
+          if (it.status === 'gifted') {
+            giftedCount += qty;
+          } else if (it.status === 'preparing') {
+            preparingCount += qty;
+          } else if (it.status === 'pending') {
+            pendingCount += qty;
+          }
+        });
+      });
+
+      const totalInventory = inventory.reduce((sum, item) => sum + item.total, 0); // 148
+      const totalNotGiftedYet = totalInventory - giftedCount;
+
+      document.getElementById('stat-gifted').innerText = giftedCount;
+      document.getElementById('stat-preparing').innerText = preparingCount;
+      document.getElementById('stat-remaining').innerText = totalNotGiftedYet;
+      document.getElementById('recipient-count').innerText = recipients.length;
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      const recTab = document.getElementById('tab-recipients');
+      const invTab = document.getElementById('tab-inventory');
+      const recBtn = document.getElementById('tab-recipients-btn');
+      const invBtn = document.getElementById('tab-inventory-btn');
+
+      if (tab === 'recipients') {
+        recTab.classList.remove('hidden');
+        invTab.classList.add('hidden');
+        recBtn.className = 'flex-1 py-1.5 text-sm font-bold rounded-xl transition bg-white text-yellow-950 shadow-sm';
+        invBtn.className = 'flex-1 py-1.5 text-sm font-bold rounded-xl transition text-yellow-800 hover:text-yellow-950';
+        renderRecipients();
+      } else {
+        recTab.classList.add('hidden');
+        invTab.classList.remove('hidden');
+        invBtn.className = 'flex-1 py-1.5 text-sm font-bold rounded-xl transition bg-white text-yellow-950 shadow-sm';
+        recBtn.className = 'flex-1 py-1.5 text-sm font-bold rounded-xl transition text-yellow-800 hover:text-yellow-950';
+        renderInventory();
+      }
+    }
+
+    function setFilter(status) {
+      currentFilter = status;
+      document.getElementById('status-filter').value = status;
+      if (currentTab !== 'recipients') switchTab('recipients');
+      renderRecipients();
+    }
+
+    function renderRecipients() {
+      const listEl = document.getElementById('recipients-list');
+      const emptyEl = document.getElementById('empty-recipients');
+      const searchKeyword = (document.getElementById('search-input').value || '').trim().toLowerCase();
+
+      let filtered = recipients.filter(r => {
+        const matchName = r.name.toLowerCase().includes(searchKeyword) || (r.note && r.note.toLowerCase().includes(searchKeyword));
+        if (!matchName) return false;
+
+        if (currentFilter === 'all') return true;
+        return (r.items || []).some(it => it.status === currentFilter);
+      });
+
+      if (filtered.length === 0) {
+        listEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      emptyEl.classList.add('hidden');
+      listEl.innerHTML = filtered.map(r => {
+        const totalItems = (r.items || []).reduce((sum, i) => sum + (parseInt(i.qty) || 0), 0);
+        
+        const itemsHtml = (r.items || []).map((it, idx) => {
+          let badgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
+          let statusLabel = '🎁 Chuẩn bị';
+          if (it.status === 'gifted') {
+            badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+            statusLabel = '✅ Đã tặng';
+          } else if (it.status === 'pending') {
+            badgeColor = 'bg-stone-100 text-stone-700 border-stone-300';
+            statusLabel = '⏳ Chưa tặng';
+          }
+
+          const giftObj = inventory.find(g => g.id === it.giftId);
+          const imgSrc = it.image || (giftObj ? giftObj.image : `assets/item_${it.giftId}.jpg`);
+
+          return `
+            <div class="flex items-center justify-between py-1.5 border-b border-yellow-100 last:border-0 text-xs gap-2">
+              <div class="flex items-center gap-2 flex-1 min-w-0">
+                <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-8 h-8 rounded-lg object-contain bg-yellow-50/80 border border-yellow-200 shrink-0 p-0.5 shadow-2xs">
+                <div class="truncate">
+                  <span class="font-bold text-yellow-950">${it.giftName}</span>
+                  <span class="text-yellow-700 ml-1 font-semibold">x${it.qty}</span>
+                </div>
+              </div>
+              <button onclick="cycleItemStatus('${r.id}', ${idx})" title="Chạm để đổi trạng thái" class="px-2 py-0.5 rounded-full border text-[11px] font-bold ${badgeColor} btn-bounce transition shadow-xs flex items-center gap-0.5 shrink-0">
+                ${statusLabel}
+              </button>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="bg-white border-2 border-yellow-300/80 rounded-2xl p-3 shadow-sm transition hover:shadow-md">
+            <div class="flex items-start justify-between pb-2 border-b border-yellow-200/80">
+              <div>
+                <h4 class="font-bold text-base text-yellow-950 flex items-center gap-1.5">
+                  <span>👤</span> ${r.name}
+                </h4>
+                ${r.note ? `<p class="text-[11px] text-yellow-800/70 font-medium">${r.note}</p>` : ''}
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="bg-yellow-200/70 text-yellow-900 text-xs px-2 py-0.5 rounded-xl font-bold">
+                  ${totalItems} món
+                </span>
+                <button onclick="editRecipient('${r.id}')" class="text-yellow-700 hover:text-yellow-950 p-1 text-xs">✏️</button>
+                <button onclick="deleteRecipient('${r.id}')" class="text-rose-500 hover:text-rose-700 p-1 text-xs">🗑️</button>
+              </div>
+            </div>
+
+            <div class="pt-2">
+              ${itemsHtml || '<p class="text-xs text-yellow-800/50 italic py-1">Chưa gán món quà nào</p>'}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function cycleItemStatus(recipientId, itemIndex) {
+      const rec = recipients.find(r => r.id === recipientId);
+      if (!rec || !rec.items[itemIndex]) return;
+
+      const order = ['preparing', 'gifted', 'pending'];
+      const curIdx = order.indexOf(rec.items[itemIndex].status || 'preparing');
+      const nextStatus = order[(curIdx + 1) % order.length];
+      rec.items[itemIndex].status = nextStatus;
+
+      saveData();
+      renderRecipients();
+    }
+
+    function renderInventory() {
+      const listEl = document.getElementById('inventory-list');
+      const category = document.getElementById('category-filter').value;
+
+      const assignedMap = {};
+      recipients.forEach(r => {
+        (r.items || []).forEach(it => {
+          assignedMap[it.giftId] = (assignedMap[it.giftId] || 0) + (parseInt(it.qty) || 0);
+        });
+      });
+
+      let items = inventory;
+      if (category !== 'all') {
+        items = inventory.filter(i => i.category === category);
+      }
+
+      listEl.innerHTML = items.map(item => {
+        const assigned = assignedMap[item.id] || 0;
+        const remain = Math.max(0, item.total - assigned);
+        const percent = Math.min(100, Math.round((assigned / item.total) * 100));
+
+        let remainBadge = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        if (remain === 0) remainBadge = 'bg-stone-200 text-stone-600 border-stone-300';
+        else if (remain <= 1) remainBadge = 'bg-amber-100 text-amber-800 border-amber-300';
+
+        return `
+          <div class="bg-white border-2 border-yellow-200 rounded-2xl p-2.5 shadow-xs flex items-center gap-3">
+            <!-- Icon hình ảnh sản phẩm chuẩn -->
+            <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-14 h-14 object-contain rounded-xl border border-yellow-200 p-0.5 bg-yellow-50/50 shrink-0 shadow-2xs">
+            
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-1 text-xs">
+                <div class="truncate">
+                  <span class="text-[10px] font-bold text-yellow-800/60 uppercase tracking-wider block">${item.category}</span>
+                  <h5 class="font-bold text-yellow-950 text-sm leading-tight truncate">${item.name}</h5>
+                </div>
+                <span class="px-2 py-0.5 rounded-full border text-[11px] font-bold ${remainBadge} shrink-0">
+                  Còn ${remain}/${item.total}
+                </span>
+              </div>
+              <div class="w-full bg-yellow-100 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
+              </div>
+              <div class="flex justify-between text-[10px] text-yellow-800/60 mt-1 font-medium">
+                <span>Đã chia: ${assigned} ${item.unit}</span>
+                <span>Tổng: ${item.total} ${item.unit}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openAddModal() {
+      editingRecipientId = null;
+      document.getElementById('modal-title').innerHTML = '<span>🎁</span> Thêm người nhận quà';
+      document.getElementById('modal-person-name').value = '';
+      document.getElementById('modal-person-note').value = '';
+      document.getElementById('modal-gift-rows').innerHTML = '';
+      addGiftRow();
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function editRecipient(id) {
+      const rec = recipients.find(r => r.id === id);
+      if (!rec) return;
+
+      editingRecipientId = id;
+      document.getElementById('modal-title').innerHTML = '<span>✏️</span> Sửa thông tin người nhận';
+      document.getElementById('modal-person-name').value = rec.name;
+      document.getElementById('modal-person-note').value = rec.note || '';
+
+      const rowsContainer = document.getElementById('modal-gift-rows');
+      rowsContainer.innerHTML = '';
+      (rec.items || []).forEach(it => {
+        addGiftRow(it.giftId, it.qty, it.status);
+      });
+      if ((rec.items || []).length === 0) addGiftRow();
+
+      document.getElementById('modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.add('hidden');
+    }
+
+    function addGiftRow(selectedGiftId = null, qty = 1, status = 'preparing') {
+      const container = document.getElementById('modal-gift-rows');
+      const rowId = 'gift-row-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
+
+      const defaultGiftId = selectedGiftId || inventory[0].id;
+      const initialGift = inventory.find(i => i.id === parseInt(defaultGiftId)) || inventory[0];
+
+      const options = inventory.map(item => {
+        const isSelected = parseInt(defaultGiftId) === item.id ? 'selected' : '';
+        return `<option value="${item.id}" data-img="${item.image}" ${isSelected}>${item.name} (${item.category})</option>`;
+      }).join('');
+
+      const div = document.createElement('div');
+      div.id = rowId;
+      div.className = 'bg-white p-2.5 rounded-2xl border border-yellow-200 space-y-2 relative';
+      div.innerHTML = `
+        <div class="flex items-center gap-2">
+          <!-- Icon xem trước quà -->
+          <img id="preview-${rowId}" src="${initialGift.image}" alt="${initialGift.name}" class="w-10 h-10 object-contain rounded-xl border border-yellow-200 bg-yellow-50 p-0.5 shrink-0 shadow-2xs">
+          
+          <select onchange="updateRowPreview('${rowId}', this)" class="gift-select flex-1 bg-yellow-50/50 border border-yellow-200 rounded-xl px-2 py-1.5 text-xs font-semibold text-yellow-950 focus:outline-none">
+            ${options}
+          </select>
+          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-rose-400 hover:text-rose-600 px-1 text-sm font-bold">✕</button>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1 text-xs">
+            <span class="text-yellow-800 font-bold">Số lượng:</span>
+            <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-14 bg-yellow-50/50 border border-yellow-200 rounded-xl px-2 py-1 text-xs font-bold text-center text-yellow-950">
+          </div>
+          <div class="flex items-center gap-1 text-xs flex-1 justify-end">
+            <span class="text-yellow-800 font-bold">Trạng thái:</span>
+            <select class="gift-status bg-yellow-50/50 border border-yellow-200 rounded-xl px-2 py-1 text-xs font-bold text-yellow-950">
+              <option value="preparing" ${status === 'preparing' ? 'selected' : ''}>🎁 Chuẩn bị</option>
+              <option value="gifted" ${status === 'gifted' ? 'selected' : ''}>✅ Đã tặng</option>
+              <option value="pending" ${status === 'pending' ? 'selected' : ''}>⏳ Chưa tặng</option>
+            </select>
+          </div>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    function updateRowPreview(rowId, selectEl) {
+      const selectedOption = selectEl.options[selectEl.selectedIndex];
+      const imgPath = selectedOption.getAttribute('data-img');
+      const imgEl = document.getElementById('preview-' + rowId);
+      if (imgEl && imgPath) {
+        imgEl.src = imgPath;
+      }
+    }
+
+    function saveRecipient() {
+      const name = document.getElementById('modal-person-name').value.trim();
+      const note = document.getElementById('modal-person-note').value.trim();
+
+      if (!name) {
+        alert('Đại ca vui lòng nhập tên người nhận nhé!');
+        return;
+      }
+
+      const rows = document.querySelectorAll('#modal-gift-rows > div');
+      const items = [];
+
+      rows.forEach(r => {
+        const giftId = parseInt(r.querySelector('.gift-select').value);
+        const qty = parseInt(r.querySelector('.gift-qty').value) || 1;
+        const status = r.querySelector('.gift-status').value;
+        const gift = inventory.find(i => i.id === giftId);
+
+        if (gift) {
+          items.push({
+            giftId: gift.id,
+            giftName: gift.name,
+            qty: qty,
+            status: status,
+            image: gift.image
+          });
+        }
+      });
+
+      if (editingRecipientId) {
+        const idx = recipients.findIndex(r => r.id === editingRecipientId);
+        if (idx !== -1) {
+          recipients[idx] = { id: editingRecipientId, name, note, items };
+        }
+      } else {
+        recipients.push({
+          id: 'rec-' + Date.now(),
+          name,
+          note,
+          items
+        });
+      }
+
+      saveData();
+      closeModal();
+      renderRecipients();
+    }
+
+    function deleteRecipient(id) {
+      if (confirm('Đại ca có chắc muốn xóa người nhận này khỏi danh sách không?')) {
+        recipients = recipients.filter(r => r.id !== id);
+        saveData();
+        renderRecipients();
+      }
+    }
+
+    updateStats();
+    renderRecipients();
+  </script>
+</body>
+</html>
