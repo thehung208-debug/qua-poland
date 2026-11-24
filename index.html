@@ -65,14 +65,13 @@
     .custom-scroll {
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
     .custom-scroll::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: #9CAF88;
-      border-radius: 4px;
+      display: none;
+      width: 0;
+      height: 0;
     }
     .btn-bounce:active {
       transform: scale(0.96);
@@ -233,69 +232,9 @@
       </div>
 
       <!-- Sheet Footer -->
-      <div class="bg-offwhite-dark px-3 py-2 border-t border-offwhite-border flex justify-between items-center text-xs">
-        <span class="text-[10px] text-sage-700 font-semibold flex items-center gap-1">
-          <svg class="w-3.5 h-3.5 text-sage-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-          </svg>
-          <span>Tap image to zoom in and inspect</span>
-        </span>
+      <div class="bg-offwhite-dark px-3 py-2 border-t border-offwhite-border flex justify-end items-center text-xs">
         <button onclick="closeCategoryModal()" class="px-3 py-1 bg-white border border-offwhite-border rounded-xl font-bold text-sage-900 text-xs btn-bounce">
           Close
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: PHÓNG TO HÌNH ẢNH (ZOOM LIGHTBOX ĐỂ SOI CHỮ SẢN PHẨM RÕ NÉT) -->
-  <div id="image-zoom-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-md hidden flex flex-col justify-between select-none">
-    <!-- Top Bar -->
-    <div class="px-4 py-2.5 bg-black/50 border-b border-white/10 flex items-center justify-between text-white shrink-0 z-10">
-      <div class="min-w-0 pr-2">
-        <h3 id="zoom-image-title" class="text-xs sm:text-sm font-bold truncate text-sage-300">Product Name</h3>
-        <p id="zoom-image-category" class="text-[10px] text-white/70">Pinch/scroll to zoom • Drag to inspect label</p>
-      </div>
-      <button onclick="closeImageZoom()" class="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-base btn-bounce shrink-0" aria-label="Close">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Viewport Area (Kéo, Zoom, Xoay) -->
-    <div id="zoom-viewport" class="flex-1 relative overflow-hidden flex items-center justify-center touch-none cursor-grab active:cursor-grabbing">
-      <img id="zoom-target-image" src="" alt="Zoom preview" class="max-h-[75vh] max-w-[90vw] object-contain transition-transform duration-100 ease-out drop-shadow-2xl">
-    </div>
-
-    <!-- Bottom Toolbar -->
-    <div class="px-3 py-2 bg-black/60 border-t border-white/10 flex items-center justify-between gap-1.5 shrink-0 z-10 text-white text-xs">
-      <div class="flex items-center gap-1">
-        <button onclick="changeZoom(-0.3)" class="bg-white/15 hover:bg-white/25 px-2.5 py-1.5 rounded-xl font-bold btn-bounce flex items-center gap-1.5 text-xs">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/>
-          </svg>
-          <span>Zoom Out</span>
-        </button>
-        <span id="zoom-level-text" class="px-2 py-1 bg-white/10 rounded-lg font-bold text-[11px] min-w-[44px] text-center">100%</span>
-        <button onclick="changeZoom(0.3)" class="bg-white/15 hover:bg-white/25 px-2.5 py-1.5 rounded-xl font-bold btn-bounce flex items-center gap-1.5 text-xs">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/>
-          </svg>
-          <span>Zoom In</span>
-        </button>
-      </div>
-
-      <div class="flex items-center gap-1">
-        <button onclick="rotateZoomImage()" class="bg-sage hover:bg-sage-600 text-white font-bold px-2.5 py-1.5 rounded-xl btn-bounce flex items-center gap-1.5 text-xs">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>
-          </svg>
-          <span>Rotate 90°</span>
-        </button>
-        <button onclick="resetZoom()" class="bg-white/15 hover:bg-white/25 px-2 py-1.5 rounded-xl font-bold btn-bounce text-xs flex items-center justify-center" title="Reset zoom">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>
-          </svg>
         </button>
       </div>
     </div>
@@ -420,38 +359,6 @@
 
       </div>
 
-    </div>
-  </div>
-
-  <!-- MODAL XÁC NHẬN CHỌN QUÀ (TRÁNH LỠ TAY ẤN NHẦM MẤT CÔNG CHỈNH) -->
-  <div id="confirm-gift-modal" class="fixed inset-0 z-60 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-xs rounded-3xl border-2 border-offwhite-border shadow-2xl p-5 text-center space-y-3.5 animate-fade-in">
-      <!-- Ảnh preview món quà -->
-      <div class="w-20 h-20 mx-auto rounded-2xl bg-offwhite border-2 border-offwhite-border p-1 flex items-center justify-center shadow-xs">
-        <img id="confirm-gift-img" src="" alt="Gift preview" class="max-h-full max-w-full object-contain">
-      </div>
-
-      <div>
-        <h4 id="confirm-gift-brand" class="text-base font-black text-sage-900 leading-tight">Brand</h4>
-        <div class="flex items-center justify-center gap-1.5 mt-1.5 text-xs font-bold text-sage-700">
-          <span id="confirm-gift-volume" class="bg-offwhite px-2 py-0.5 rounded-md border border-offwhite-border">Volume</span>
-          <span id="confirm-gift-price" class="bg-sage-100 text-sage-900 px-2 py-0.5 rounded-md border border-sage-300">Price</span>
-        </div>
-      </div>
-
-      <div class="pt-2 border-t border-offwhite-border">
-        <p class="text-sm font-black text-sage-900 leading-snug">Are you sure you want to give this gift?</p>
-        <p id="confirm-gift-sub" class="text-xs text-sage-700 font-semibold mt-1">Bạn có chắc chắn muốn tặng món quà này?</p>
-      </div>
-
-      <div class="flex gap-2.5 pt-1">
-        <button type="button" onclick="closeConfirmGiftModal()" class="flex-1 py-3 text-sm font-extrabold text-sage-800 bg-white border-2 border-offwhite-border rounded-xl btn-bounce active:scale-95">
-          Cancel
-        </button>
-        <button type="button" onclick="executeConfirmAddGift()" class="flex-1 py-3 text-sm font-extrabold text-white bg-tomato hover:bg-tomato-hover border-2 border-tomato-border rounded-xl shadow-xs btn-bounce active:scale-95">
-          Yes, Add
-        </button>
-      </div>
     </div>
   </div>
 
@@ -833,15 +740,10 @@
         ` : '';
 
         return `
-          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-2 shadow-xs flex items-center gap-2.5 transition hover:border-sage">
-            <!-- HÌNH ẢNH ICON SẢN PHẨM CHUẨN CẮT TỈA RÕ NÉT - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
-            <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Tap to zoom in">
-              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-14 h-14 object-contain rounded-xl border border-offwhite-border p-0.5 bg-offwhite shadow-2xs transition group-hover:scale-105">
-              <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none flex items-center justify-center">
-                <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                </svg>
-              </span>
+          <div onclick="selectGiftForAdd(${item.id})" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-2xl p-2 shadow-xs flex items-center gap-2.5 transition hover:border-sage active:scale-[0.99]">
+            <!-- HÌNH ẢNH ICON SẢN PHẨM -->
+            <div class="shrink-0">
+              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-14 h-14 object-contain rounded-xl border border-offwhite-border p-0.5 bg-offwhite shadow-2xs">
             </div>
             
             <!-- THÔNG TIN QUÀ: THƯƠNG HIỆU, QUỐC GIA, DUNG TÍCH, GIÁ VÀ TỒN KHO -->
@@ -852,12 +754,11 @@
                     <span class="font-black text-sm text-sage-900">${item.brand || 'Item'}</span>
                     <span class="text-xs text-sage-700 font-bold">${item.country ? `(${item.country})` : ''}</span>
                   </div>
-                  <div class="text-xs font-bold text-sage-800 truncate leading-snug mt-0.5">${item.variant || item.name}</div>
                 </div>
                 <div class="flex items-center gap-1 shrink-0">
-                  <span class="px-2 py-0.5 rounded-lg border border-offwhite-border text-xs font-bold bg-offwhite text-sage-800">${item.volume}</span>
-                  <span class="px-2 py-0.5 rounded-lg border border-sage-300 text-xs font-black bg-sage-100 text-sage-900">${item.priceText}</span>
-                  <span class="px-2 py-0.5 rounded-lg border text-xs font-bold ${remainBadge}">${remain}/${item.total} left</span>
+                  <span class="px-2 py-0.5 rounded-lg border border-offwhite-border text-xs font-bold bg-offwhite text-sage-800 whitespace-nowrap">${item.volume}</span>
+                  <span class="px-2 py-0.5 rounded-lg border border-sage-300 text-xs font-black bg-sage-100 text-sage-900 whitespace-nowrap">${item.priceText}</span>
+                  <span class="px-2 py-0.5 rounded-lg border text-xs font-bold whitespace-nowrap ${remainBadge}">${remain}/${item.total} left</span>
                 </div>
               </div>
 
@@ -868,20 +769,12 @@
 
               <div class="flex items-center justify-between text-xs text-sage-700 mt-1.5 font-semibold">
                 <span>Total ${item.total} ${item.unit}</span>
-                <div class="flex items-center gap-1.5">
-                  <button onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="text-sage-800 bg-offwhite-dark hover:bg-offwhite-border px-2.5 py-1.5 rounded-xl text-xs font-bold border border-offwhite-border btn-bounce inline-flex items-center gap-1 min-h-[36px] active:scale-95">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                    </svg>
-                    <span>Zoom</span>
-                  </button>
-                  <button onclick="selectGiftForAdd(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-extrabold px-3 py-1.5 rounded-xl border border-tomato-border shadow-2xs text-xs inline-flex items-center gap-1 min-h-[36px] active:scale-95">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14"/><path d="M12 5v14"/>
-                    </svg>
-                    <span>Select</span>
-                  </button>
-                </div>
+                <span class="btn-bounce bg-tomato text-white font-extrabold px-3 py-1.5 rounded-xl border border-tomato-border shadow-2xs text-xs inline-flex items-center gap-1 min-h-[36px] whitespace-nowrap">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/><path d="M12 5v14"/>
+                  </svg>
+                  <span>Select</span>
+                </span>
               </div>
 
               ${recText}
@@ -904,143 +797,6 @@
       closeCategoryModal();
       openAddModal(giftId);
     }
-
-    // ====== TÍNH NĂNG ZOOM HÌNH ẢNH & XOAY ĐỂ ĐỌC CHỮ SẢN PHẨM ======
-    let currentZoomScale = 1;
-    let currentRotation = 0;
-    let panX = 0;
-    let panY = 0;
-    let isPanning = false;
-    let startX = 0;
-    let startY = 0;
-    let initialPinchDistance = null;
-    let initialPinchScale = 1;
-
-    function openImageZoom(imgSrc, title = '', category = '') {
-      const modal = document.getElementById('image-zoom-modal');
-      const imgEl = document.getElementById('zoom-target-image');
-      document.getElementById('zoom-image-title').innerText = title || 'Product details';
-      document.getElementById('zoom-image-category').innerText = category ? `Nhóm: ${category} • Cuộn/Chạm để phóng to đọc chữ` : 'Cuộn/Chạm để phóng to đọc chữ';
-      imgEl.src = imgSrc;
-      currentZoomScale = 1;
-      currentRotation = 0;
-      panX = 0;
-      panY = 0;
-      applyImageTransform();
-      modal.classList.remove('hidden');
-    }
-
-    function closeImageZoom() {
-      document.getElementById('image-zoom-modal').classList.add('hidden');
-    }
-
-    function applyImageTransform() {
-      const imgEl = document.getElementById('zoom-target-image');
-      if (!imgEl) return;
-      imgEl.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoomScale}) rotate(${currentRotation}deg)`;
-      const levelText = document.getElementById('zoom-level-text');
-      if (levelText) levelText.innerText = Math.round(currentZoomScale * 100) + '%';
-    }
-
-    function changeZoom(delta) {
-      currentZoomScale = Math.max(0.7, Math.min(5, currentZoomScale + delta));
-      if (currentZoomScale <= 1) {
-        panX = 0;
-        panY = 0;
-      }
-      applyImageTransform();
-    }
-
-    function rotateZoomImage() {
-      currentRotation = (currentRotation + 90) % 360;
-      applyImageTransform();
-    }
-
-    function resetZoom() {
-      currentZoomScale = 1;
-      currentRotation = 0;
-      panX = 0;
-      panY = 0;
-      applyImageTransform();
-    }
-
-    // Khởi tạo các sự kiện kéo & zoom đa điểm trên viewport
-    window.addEventListener('DOMContentLoaded', () => {
-      const viewport = document.getElementById('zoom-viewport');
-      if (!viewport) return;
-
-      // Mouse drag pan
-      viewport.addEventListener('mousedown', (e) => {
-        isPanning = true;
-        startX = e.clientX - panX;
-        startY = e.clientY - panY;
-      });
-
-      window.addEventListener('mousemove', (e) => {
-        if (!isPanning) return;
-        panX = e.clientX - startX;
-        panY = e.clientY - startY;
-        applyImageTransform();
-      });
-
-      window.addEventListener('mouseup', () => {
-        isPanning = false;
-      });
-
-      // Mouse wheel zoom
-      viewport.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        const delta = e.deltaY < 0 ? 0.25 : -0.25;
-        changeZoom(delta);
-      }, { passive: false });
-
-      // Double-click to zoom
-      viewport.addEventListener('dblclick', () => {
-        if (currentZoomScale > 1.2) {
-          resetZoom();
-        } else {
-          currentZoomScale = 2.5;
-          applyImageTransform();
-        }
-      });
-
-      // Mobile Touch pan & pinch to zoom
-      viewport.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-          isPanning = true;
-          startX = e.touches[0].clientX - panX;
-          startY = e.touches[0].clientY - panY;
-        } else if (e.touches.length === 2) {
-          isPanning = false;
-          initialPinchDistance = Math.hypot(
-            e.touches[0].clientX - e.touches[1].clientX,
-            e.touches[0].clientY - e.touches[1].clientY
-          );
-          initialPinchScale = currentZoomScale;
-        }
-      }, { passive: true });
-
-      viewport.addEventListener('touchmove', (e) => {
-        if (e.touches.length === 1 && isPanning) {
-          panX = e.touches[0].clientX - startX;
-          panY = e.touches[0].clientY - startY;
-          applyImageTransform();
-        } else if (e.touches.length === 2 && initialPinchDistance) {
-          const currentDistance = Math.hypot(
-            e.touches[0].clientX - e.touches[1].clientX,
-            e.touches[0].clientY - e.touches[1].clientY
-          );
-          const scaleRatio = currentDistance / initialPinchDistance;
-          currentZoomScale = Math.max(0.7, Math.min(5, initialPinchScale * scaleRatio));
-          applyImageTransform();
-        }
-      }, { passive: true });
-
-      viewport.addEventListener('touchend', () => {
-        isPanning = false;
-        initialPinchDistance = null;
-      });
-    });
 
     // TÌM KIẾM NGƯỜI NHẬN CÓ DEBOUNCE (CHỐNG GIẬT LAG KHI GÕ NHANH)
     let searchDebounceTimer = null;
@@ -1089,7 +845,7 @@
           return `
             <div class="flex items-center justify-between py-2 border-b border-offwhite-border last:border-0 text-sm gap-2">
               <div class="flex items-center gap-2 flex-1 min-w-0">
-                <div onclick="openImageZoom('${imgSrc}', '${escapeHtml(it.giftName)}')" class="cursor-zoom-in shrink-0" title="Tap to zoom in">
+                <div class="shrink-0">
                   <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-10 h-10 rounded-xl object-contain bg-offwhite border border-offwhite-border p-0.5 shadow-2xs">
                 </div>
                 <div class="truncate">
@@ -1186,14 +942,9 @@
 
         return `
           <div class="bg-white border-2 border-offwhite-border rounded-2xl p-3 shadow-2xs flex items-center gap-3 transition hover:border-sage">
-            <!-- Icon hình ảnh sản phẩm chuẩn - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
-            <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Tap to zoom in">
+            <!-- Icon hình ảnh sản phẩm chuẩn -->
+            <div class="shrink-0">
               <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-14 h-14 object-contain rounded-xl border border-offwhite-border p-1 bg-offwhite shadow-2xs">
-              <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none flex items-center justify-center">
-                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                </svg>
-              </span>
             </div>
             
             <div class="flex-1 min-w-0">
@@ -1228,17 +979,44 @@
     let pendingPreselectedGiftId = null;
     let currentSelectedCategory = null;
 
+    // TÍNH TỔNG SỐ LƯỢNG ĐÃ PHÂN CHIA TRỰC TIẾP (BAO GỒM CÁC MÓN ĐANG CHỌN TRONG MODAL)
+    function getLiveAssignedMap() {
+      const assignedMap = {};
+      recipients.forEach(r => {
+        if (editingRecipientId && r.id === editingRecipientId) return;
+        (r.items || []).forEach(it => {
+          assignedMap[it.giftId] = (assignedMap[it.giftId] || 0) + (parseInt(it.qty) || 0);
+        });
+      });
+      document.querySelectorAll('#modal-gift-rows > div').forEach(row => {
+        const gId = parseInt(row.dataset.giftId);
+        const qty = parseInt(row.querySelector('.gift-qty')?.value) || 0;
+        if (gId && qty > 0) {
+          assignedMap[gId] = (assignedMap[gId] || 0) + qty;
+        }
+      });
+      return assignedMap;
+    }
+
+    // LẤY SỐ LƯỢNG ĐANG CHỌN CỦA NGƯỜI NHẬN HIỆN TẠI TRONG MODAL
+    function getCurrentModalSelectedMap() {
+      const selectedMap = {};
+      document.querySelectorAll('#modal-gift-rows > div').forEach(row => {
+        const gId = parseInt(row.dataset.giftId);
+        const qty = parseInt(row.querySelector('.gift-qty')?.value) || 0;
+        if (gId && qty > 0) {
+          selectedMap[gId] = (selectedMap[gId] || 0) + qty;
+        }
+      });
+      return selectedMap;
+    }
+
     // RENDER LƯỚI 6 CARD DANH MỤC TRONG MODAL SAU KHI ĐẶT TÊN
     function renderModalCategoryCards() {
       const grid = document.getElementById('modal-category-cards-grid');
       if (!grid) return;
 
-      const assignedMap = {};
-      recipients.forEach(r => {
-        (r.items || []).forEach(it => {
-          assignedMap[it.giftId] = (assignedMap[it.giftId] || 0) + (parseInt(it.qty) || 0);
-        });
-      });
+      const assignedMap = getLiveAssignedMap();
 
       grid.innerHTML = SORTED_CATEGORY_NAMES.map(catName => {
         const allItems = inventory.filter(i => i.category === catName).sort((a, b) => (b.priceValue || 0) - (a.priceValue || 0));
@@ -1253,15 +1031,15 @@
         return `
           <div onclick="selectCategoryForAdd('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border hover:border-sage rounded-2xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-center shadow-2xs btn-bounce transition select-none active:scale-95">
             <!-- Tên nhóm quà: Chữ to rõ -->
-            <h4 class="font-black text-sm sm:text-base text-sage-900 tracking-wide leading-tight mb-1">
+            <h4 class="font-black text-sm sm:text-base text-sage-900 tracking-wide leading-tight mb-1 whitespace-nowrap">
               ${catName}
             </h4>
             <!-- Số loại -->
-            <div class="text-xs font-extrabold text-[#507A38] leading-tight">
+            <div class="text-xs font-extrabold text-[#507A38] leading-tight whitespace-nowrap">
               ${allItems.length} types
             </div>
             <!-- Số sản phẩm -->
-            <div class="text-xs font-black text-tomato leading-tight mt-0.5">
+            <div class="text-xs font-black text-tomato leading-tight mt-0.5 whitespace-nowrap">
               ${stockText}
             </div>
           </div>
@@ -1278,15 +1056,16 @@
       if (catSec) catSec.classList.add('hidden');
       if (catGiftsContainer) catGiftsContainer.classList.remove('hidden');
 
-      renderCategoryGiftsInModal(catName);
-
       if (preselectedGiftId) {
         addGiftToRecipient(preselectedGiftId);
       }
+
+      renderCategoryGiftsInModal(catName);
     }
 
     // QUAY LẠI LƯỚI 6 CARD DANH MỤC
     function backToCategoryCards() {
+      currentSelectedCategory = null;
       const catSec = document.getElementById('modal-category-section');
       const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
       
@@ -1295,51 +1074,35 @@
       renderModalCategoryCards();
     }
 
-    // BIẾN LƯU MÓN QUÀ CHỜ XÁC NHẬN CHỌN
-    let pendingConfirmGiftId = null;
-
-    // MỞ MODAL XÁC NHẬN CHỌN QUÀ (TRÁNH LỠ TAY ẤN NHẦM MẤT CÔNG CHỈNH)
-    function promptAddGift(giftId) {
+    // CHẠM VÀO QUÀ LÀ CHỌN LUÔN (KHÔNG HIỆN POPUP HAY THÔNG TIN THỪA)
+    function quickSelectGift(giftId) {
       const gift = inventory.find(i => i.id === parseInt(giftId));
       if (!gift) return;
 
-      pendingConfirmGiftId = gift.id;
-      const recipientName = (document.getElementById('modal-person-name')?.value || '').trim() || 'this recipient';
+      const assignedMap = getLiveAssignedMap();
+      const remain = Math.max(0, gift.total - (assignedMap[gift.id] || 0));
+      if (remain <= 0) return;
 
-      document.getElementById('confirm-gift-img').src = gift.image;
-      document.getElementById('confirm-gift-brand').innerText = `${gift.brand || 'Gift'} ${gift.country ? `(${gift.country})` : ''}`;
-      document.getElementById('confirm-gift-volume').innerText = gift.volume || '';
-      document.getElementById('confirm-gift-price').innerText = gift.priceText || '';
-      document.getElementById('confirm-gift-sub').innerText = `Give this gift to "${recipientName}"?`;
+      addGiftToRecipient(gift.id);
 
-      document.getElementById('confirm-gift-modal').classList.remove('hidden');
-    }
-
-    // ĐÓNG MODAL XÁC NHẬN CHỌN QUÀ
-    function closeConfirmGiftModal() {
-      pendingConfirmGiftId = null;
-      document.getElementById('confirm-gift-modal').classList.add('hidden');
-    }
-
-    // XÁC NHẬN ĐỒNG Ý TẶNG MÓN QUÀ
-    function executeConfirmAddGift() {
-      if (!pendingConfirmGiftId) return;
-      const id = pendingConfirmGiftId;
-      closeConfirmGiftModal();
-
-      addGiftToRecipient(id);
-
-      // Cập nhật lại danh sách quà trong nhóm để cập nhật số tồn kho và đẩy món vừa hết hàng xuống dưới cùng
       if (currentSelectedCategory) {
         renderCategoryGiftsInModal(currentSelectedCategory);
       }
     }
 
+    function refreshModalGiftViews() {
+      const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
+      if (currentSelectedCategory && catGiftsContainer && !catGiftsContainer.classList.contains('hidden')) {
+        renderCategoryGiftsInModal(currentSelectedCategory);
+      } else {
+        renderModalCategoryCards();
+      }
+    }
+
     // HIỂN THỊ DANH SÁCH SẢN PHẨM TRONG NHÓM:
-    // 1. DẠNG CARD HÌNH VUÔNG GỌN GÀNG
-    // 2. SẢN PHẨM DÙNG RỒI / HẾT HÀNG CHO XUỐNG DƯỚI CÙNG
-    // 3. KHÔNG HIỆN TÊN CỤ THỂ DÀI DÒNG, CHỈ HIỆN THƯƠNG HIỆU/QUỐC GIA, DUNG TÍCH, GIÁ, SỐ LƯỢNG
-    // 4. BẤM SELECT CÓ BƯỚC XÁC NHẬN TRÁNH BẤM NHẦM
+    // 1. CHẠM BẤT KỲ ĐÂU TRÊN CARD QUÀ LÀ CHỌN NGAY LẬP TỨC
+    // 2. SẢN PHẨM HẾT HÀNG CHO XUỐNG DƯỚI CÙNG
+    // 3. GỌN GÀNG, KHÔNG HIỆN POPUP XEM THÊM THÔNG TIN
     function renderCategoryGiftsInModal(catName) {
       const container = document.getElementById('modal-cat-gifts-list');
       const titleEl = document.getElementById('modal-cat-gifts-title');
@@ -1349,31 +1112,28 @@
 
       const prevScroll = container.scrollTop;
 
-      // Map số lượng đã phân chia để tính tồn kho
-      const assignedMap = {};
-      recipients.forEach(r => {
-        (r.items || []).forEach(it => {
-          assignedMap[it.giftId] = (assignedMap[it.giftId] || 0) + (parseInt(it.qty) || 0);
-        });
-      });
+      const assignedMap = getLiveAssignedMap();
+      const selectedMap = getCurrentModalSelectedMap();
 
       // Lọc danh sách quà theo nhóm
       let items = inventory.filter(i => i.category === catName);
 
       // QUY TẮC SẮP XẾP:
-      // - Sản phẩm còn tồn kho (remain > 0) lên trước (xếp theo giá cao đến thấp)
-      // - Sản phẩm nào dùng rồi / hết hàng (remain === 0) CHO XUỐNG DƯỚI CÙNG
+      // - Sản phẩm còn tồn kho (remain > 0) hoặc đang chọn cho người này lên trước (xếp theo giá cao đến thấp)
+      // - Sản phẩm đã hết sạch bởi người khác xuống dưới cùng
       items.sort((a, b) => {
         const remainA = Math.max(0, a.total - (assignedMap[a.id] || 0));
         const remainB = Math.max(0, b.total - (assignedMap[b.id] || 0));
+        const selA = selectedMap[a.id] || 0;
+        const selB = selectedMap[b.id] || 0;
 
-        const hasStockA = remainA > 0 ? 1 : 0;
-        const hasStockB = remainB > 0 ? 1 : 0;
+        const activeA = (remainA > 0 || selA > 0) ? 1 : 0;
+        const activeB = (remainB > 0 || selB > 0) ? 1 : 0;
 
-        if (hasStockA !== hasStockB) {
-          return hasStockB - hasStockA; // Còn hàng (1) lên trước, dùng rồi (0) xuống dưới
+        if (activeA !== activeB) {
+          return activeB - activeA;
         }
-        return (b.priceValue || 0) - (a.priceValue || 0); // Cùng trạng thái thì giá cao lên trước
+        return (b.priceValue || 0) - (a.priceValue || 0);
       });
 
       if (titleEl) {
@@ -1383,55 +1143,75 @@
       container.innerHTML = items.map(item => {
         const assigned = assignedMap[item.id] || 0;
         const remain = Math.max(0, item.total - assigned);
+        const selectedQty = selectedMap[item.id] || 0;
         const isUsedUp = remain === 0;
 
         const brandDisplay = item.brand || 'Item';
         const countryDisplay = item.country ? `(${item.country})` : '';
 
-        // Card hình vuông: Sản phẩm dùng rồi thì làm mờ viền xám, nằm ở dưới cùng
-        const cardStyle = isUsedUp
-          ? 'bg-stone-50 border-2 border-stone-200 opacity-60'
-          : 'bg-white border-2 border-offwhite-border hover:border-sage shadow-xs';
+        let cardStyle = 'cursor-pointer bg-white border-2 border-offwhite-border hover:border-sage shadow-xs btn-bounce active:scale-95';
+        if (selectedQty > 0 && !isUsedUp) {
+          cardStyle = 'cursor-pointer bg-sage-50 border-2 border-sage-600 shadow-xs btn-bounce active:scale-95';
+        } else if (selectedQty > 0 && isUsedUp) {
+          cardStyle = 'bg-sage-50 border-2 border-sage-600 shadow-xs';
+        } else if (isUsedUp) {
+          cardStyle = 'bg-stone-50 border-2 border-stone-200 opacity-60 cursor-not-allowed';
+        }
 
         const stockBadge = isUsedUp
-          ? '<span class="text-xs font-bold text-stone-500 bg-stone-200/80 px-2 py-0.5 rounded-lg">Used up</span>'
-          : `<span class="text-xs font-black text-tomato">${remain}/${item.total} left</span>`;
+          ? '<span class="text-xs font-bold text-stone-500 bg-stone-200/80 px-2 py-0.5 rounded-lg whitespace-nowrap">Used up</span>'
+          : `<span class="text-xs font-black text-tomato whitespace-nowrap">${remain}/${item.total} left</span>`;
 
-        const actionBtn = isUsedUp
-          ? `<button type="button" disabled class="w-full py-2.5 rounded-xl text-xs font-bold bg-stone-200 text-stone-500 cursor-not-allowed">Used up</button>`
-          : `<button type="button" onclick="promptAddGift(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-black w-full py-2.5 rounded-xl text-sm border-2 border-tomato-border shadow-xs flex items-center justify-center gap-1 active:scale-95 min-h-[42px]">
+        let actionBtn = '';
+        if (selectedQty > 0 && isUsedUp) {
+          actionBtn = `<div class="w-full py-2.5 rounded-xl text-xs font-black bg-sage-600 text-white flex items-center justify-center gap-1 min-h-[42px] whitespace-nowrap">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Selected (x${selectedQty})</span>
+            </div>`;
+        } else if (selectedQty > 0) {
+          actionBtn = `<div class="bg-sage-700 text-white font-black w-full py-2.5 rounded-xl text-xs sm:text-sm border-2 border-sage-800 shadow-xs flex items-center justify-center gap-1 min-h-[42px] whitespace-nowrap">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Selected x${selectedQty} (+1)</span>
+            </div>`;
+        } else if (isUsedUp) {
+          actionBtn = `<div class="w-full py-2.5 rounded-xl text-xs font-bold bg-stone-200 text-stone-500 min-h-[42px] flex items-center justify-center whitespace-nowrap">Used up</div>`;
+        } else {
+          actionBtn = `<div class="bg-tomato hover:bg-tomato-hover text-white font-black w-full py-2.5 rounded-xl text-sm border-2 border-tomato-border shadow-xs flex items-center justify-center gap-1 min-h-[42px] whitespace-nowrap">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
               <span>Select</span>
-            </button>`;
+            </div>`;
+        }
+
+        const clickAttr = isUsedUp ? '' : `onclick="quickSelectGift(${item.id})"`;
 
         return `
-          <!-- CARD HÌNH VUÔNG GỌN GÀNG, KHÔNG CÓ TÊN CỤ THỂ DÀI DÒNG -->
-          <div class="${cardStyle} rounded-2xl p-3 flex flex-col justify-between items-center text-center transition select-none">
+          <!-- CHẠM VÀO CARD QUÀ LÀ CHỌN NGAY -->
+          <div ${clickAttr} class="${cardStyle} rounded-2xl p-3 flex flex-col justify-between items-center text-center transition select-none">
             
-            <!-- 1. HÌNH ẢNH VUÔNG RÕ NÉT (CHẠM ĐỂ ZOOM) -->
-            <div onclick="openImageZoom('${item.image}', '${escapeHtml(brandDisplay)} ${escapeHtml(countryDisplay)}', '${item.category}')" class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-offwhite border border-offwhite-border p-1 flex items-center justify-center cursor-zoom-in relative shrink-0">
+            <!-- 1. HÌNH ẢNH VUÔNG RÕ NÉT -->
+            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-offwhite border border-offwhite-border p-1 flex items-center justify-center relative shrink-0 pointer-events-none">
               <img src="${item.image}" alt="${brandDisplay}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="max-h-full max-w-full object-contain">
             </div>
 
-            <!-- 2. THƯƠNG HIỆU & QUỐC GIA (KHÔNG HIỆN TÊN DÀI) -->
-            <div class="mt-2 w-full">
+            <!-- 2. THƯƠNG HIỆU & QUỐC GIA -->
+            <div class="mt-2 w-full pointer-events-none">
               <h5 class="font-black text-sm sm:text-base text-sage-900 leading-tight truncate" title="${brandDisplay}">${brandDisplay}</h5>
               <p class="text-xs text-sage-700 font-bold truncate">${countryDisplay}</p>
             </div>
 
             <!-- 3. DUNG TÍCH & GIÁ TIỀN -->
-            <div class="flex items-center justify-center gap-1.5 mt-1.5 flex-wrap">
-              <span class="text-xs font-bold text-sage-800 bg-offwhite px-2 py-0.5 rounded-md border border-offwhite-border">${item.volume}</span>
-              <span class="text-xs sm:text-sm font-black text-sage-900 bg-sage-100 px-2 py-0.5 rounded-md border border-sage-300">${item.priceText}</span>
+            <div class="flex items-center justify-center gap-1.5 mt-1.5 flex-wrap pointer-events-none">
+              <span class="text-xs font-bold text-sage-800 bg-offwhite px-2 py-0.5 rounded-md border border-offwhite-border whitespace-nowrap">${item.volume}</span>
+              <span class="text-xs sm:text-sm font-black text-sage-900 bg-sage-100 px-2 py-0.5 rounded-md border border-sage-300 whitespace-nowrap">${item.priceText}</span>
             </div>
 
             <!-- 4. SỐ LƯỢNG CÒN LẠI -->
-            <div class="mt-1.5 mb-2">
+            <div class="mt-1.5 mb-2 pointer-events-none">
               ${stockBadge}
             </div>
 
-            <!-- 5. NÚT SELECT (CÓ BƯỚC XÁC NHẬN TRÁNH BẤM NHẦM) -->
-            <div class="w-full">
+            <!-- 5. TRẠNG THÁI CHỌN -->
+            <div class="w-full pointer-events-none">
               ${actionBtn}
             </div>
 
@@ -1443,15 +1223,34 @@
       container.scrollTop = prevScroll;
     }
 
+    // XÓA MÓN QUÀ KHỎI DANH SÁCH ĐÃ CHỌN TRONG MODAL
+    function removeSelectedGiftRow(rowId) {
+      const row = document.getElementById(rowId);
+      if (row) row.remove();
+      updateSelectedGiftsCount();
+      refreshModalGiftViews();
+    }
+
     // TĂNG / GIẢM SỐ LƯỢNG MÓN QUÀ DỄ DÀNG TRÊN ĐIỆN THOẠI
     function changeRowQty(rowId, delta) {
       const row = document.getElementById(rowId);
       if (!row) return;
       const input = row.querySelector('.gift-qty');
       if (!input) return;
-      let val = parseInt(input.value) || 1;
-      val = Math.max(1, Math.min(50, val + delta));
+
+      const gId = parseInt(row.dataset.giftId);
+      const gift = inventory.find(i => i.id === gId);
+      let curVal = parseInt(input.value) || 1;
+
+      if (delta > 0 && gift) {
+        const assignedMap = getLiveAssignedMap();
+        const remain = Math.max(0, gift.total - (assignedMap[gId] || 0));
+        if (remain <= 0) return;
+      }
+
+      let val = Math.max(1, Math.min(50, curVal + delta));
       input.value = val;
+      refreshModalGiftViews();
     }
 
     // CẬP NHẬT SỐ LƯỢNG MÓN QUÀ ĐÃ CHỌN
@@ -1469,7 +1268,7 @@
       }
     }
 
-    // THÊM MÓN QUÀ VÀO DANH SÁCH ĐÃ CHỌN CỦA NGƯỜI NHẬN (CÓ NÚT +/- TO RÕ)
+    // THÊM MÓN QUÀ VÀO DANH SÁCH ĐÃ CHỌN CỦA NGƯỜI NHẬN (GỌN GÀNG, CÓ NÚT +/- TO RÕ)
     function addGiftToRecipient(giftId, qty = 1, status = 'preparing') {
       const gift = inventory.find(i => i.id === parseInt(giftId));
       if (!gift) return;
@@ -1489,26 +1288,27 @@
       const div = document.createElement('div');
       div.id = rowId;
       div.dataset.giftId = gift.id;
-      div.className = 'bg-white p-3 rounded-2xl border-2 border-offwhite-border space-y-2.5 relative shadow-2xs animate-fade-in';
+      div.className = 'bg-white p-2.5 rounded-2xl border-2 border-offwhite-border space-y-2 relative shadow-2xs';
       div.innerHTML = `
-        <!-- Hàng 1: Ảnh + Nhóm + Tên + Giá + Nút Xóa -->
+        <!-- Hàng 1: Ảnh + Thương hiệu + Dung tích/Giá + Nút Xóa -->
         <div class="flex items-center gap-2.5">
-          <div onclick="openImageZoom('${gift.image}', '${escapeHtml(gift.name)}', '${gift.category}')" class="cursor-zoom-in shrink-0 relative" title="Tap to zoom in">
-            <img id="preview-${rowId}" src="${gift.image}" alt="${gift.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-12 h-12 object-contain rounded-xl border border-offwhite-border bg-offwhite p-1 shadow-2xs">
+          <div class="shrink-0">
+            <img id="preview-${rowId}" src="${gift.image}" alt="${gift.brand}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-11 h-11 object-contain rounded-xl border border-offwhite-border bg-offwhite p-1 shadow-2xs">
           </div>
           
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="font-black text-sm text-sage-900">${gift.brand || 'Item'}</span>
-              <span class="text-xs text-sage-700 font-bold">${gift.country ? `(${gift.country})` : ''}</span>
-              <span class="text-xs font-bold px-2 py-0.2 bg-sage-100 text-sage-900 rounded-md border border-sage-300">${gift.volume || gift.category}</span>
-              <span class="text-xs font-black text-sage-900">${gift.priceText}</span>
+            <div class="flex items-center gap-1.5 truncate">
+              <span class="font-black text-sm text-sage-900 truncate">${gift.brand || 'Item'}</span>
+              <span class="text-xs text-sage-700 font-bold shrink-0">${gift.country ? `(${gift.country})` : ''}</span>
             </div>
-            <h5 class="font-bold text-xs sm:text-sm text-sage-800 truncate mt-0.5" title="${gift.name}">${gift.variant || gift.name}</h5>
+            <div class="flex items-center gap-1.5 mt-0.5">
+              <span class="text-xs font-bold px-2 py-0.2 bg-offwhite text-sage-800 rounded-md border border-offwhite-border whitespace-nowrap">${gift.volume || gift.category}</span>
+              <span class="text-xs font-black text-sage-900 bg-sage-100 px-2 py-0.2 rounded-md border border-sage-300 whitespace-nowrap">${gift.priceText}</span>
+            </div>
             <input type="hidden" class="gift-select" value="${gift.id}">
           </div>
 
-          <button type="button" onclick="document.getElementById('${rowId}').remove(); updateSelectedGiftsCount();" class="text-tomato hover:text-tomato-hover p-2 rounded-xl bg-tomato-light hover:bg-tomato/20 border border-tomato/30 transition shrink-0 min-w-[38px] min-h-[38px] flex items-center justify-center active:scale-95" aria-label="Remove item">
+          <button type="button" onclick="removeSelectedGiftRow('${rowId}')" class="text-tomato hover:text-tomato-hover p-2 rounded-xl bg-tomato-light hover:bg-tomato/20 border border-tomato/30 transition shrink-0 min-w-[38px] min-h-[38px] flex items-center justify-center active:scale-95" aria-label="Remove item">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
             </svg>
@@ -1518,19 +1318,19 @@
         <!-- Hàng 2: Số lượng (Nút - / +) & Trạng thái -->
         <div class="flex items-center justify-between gap-2 pt-2 border-t border-offwhite-border text-xs">
           <div class="flex items-center gap-2">
-            <span class="text-sage-900 font-black text-xs sm:text-sm">Qty:</span>
+            <span class="text-sage-900 font-black text-xs sm:text-sm whitespace-nowrap">Qty:</span>
             <div class="inline-flex items-center border-2 border-offwhite-border rounded-xl bg-offwhite p-0.5">
               <button type="button" onclick="changeRowQty('${rowId}', -1)" class="w-8 h-8 flex items-center justify-center font-black text-lg text-sage-800 hover:bg-white rounded-lg active:scale-90 transition">
                 -
               </button>
-              <input type="number" min="1" max="50" inputmode="numeric" pattern="[0-9]*" value="${qty}" class="gift-qty w-10 text-center text-sm font-black text-sage-900 bg-transparent focus:outline-none">
+              <input type="number" min="1" max="50" inputmode="numeric" pattern="[0-9]*" value="${qty}" onchange="refreshModalGiftViews()" class="gift-qty w-10 text-center text-sm font-black text-sage-900 bg-transparent focus:outline-none">
               <button type="button" onclick="changeRowQty('${rowId}', 1)" class="w-8 h-8 flex items-center justify-center font-black text-lg text-sage-800 hover:bg-white rounded-lg active:scale-90 transition">
                 +
               </button>
             </div>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-sage-900 font-black text-xs sm:text-sm">Status:</span>
+            <span class="text-sage-900 font-black text-xs sm:text-sm whitespace-nowrap">Status:</span>
             <select class="gift-status bg-offwhite border-2 border-offwhite-border rounded-xl px-2.5 py-1.5 text-xs sm:text-sm font-bold text-sage-900 focus:outline-none focus:border-sage min-h-[38px]">
               <option value="preparing" ${status === 'preparing' ? 'selected' : ''}>Preparing</option>
               <option value="gifted" ${status === 'gifted' ? 'selected' : ''}>Gifted</option>
