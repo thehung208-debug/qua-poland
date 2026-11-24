@@ -180,21 +180,6 @@
       <div id="recipients-list" class="flex-1 overflow-y-auto custom-scroll space-y-2 pr-0.5">
         <!-- Render bằng JavaScript -->
       </div>
-
-      <!-- Trạng thái trống -->
-      <div id="empty-recipients" class="hidden text-center py-6 px-3 bg-white/80 border-2 border-dashed border-sage-300 rounded-2xl shrink-0">
-        <svg class="w-10 h-10 mx-auto mb-1.5 text-sage-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-        </svg>
-        <h3 class="text-xs font-bold text-sage-900">No recipients yet</h3>
-        <p class="text-[10px] text-sage-700 mt-0.5 mb-2.5">Tap below to assign gifts to friends & family!</p>
-        <button onclick="openAddModal()" class="bg-tomato hover:bg-tomato-hover text-white font-bold px-3 py-1.5 rounded-xl border border-tomato-border shadow-xs text-xs btn-bounce inline-flex items-center gap-1 transition duration-150">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/><path d="M12 5v14"/>
-          </svg>
-          <span>Add Recipient</span>
-        </button>
-      </div>
     </section>
 
     <!-- TAB 2: CÁC NHÓM QUÀ TẶNG (6 CARD NHỎ GỌN) -->
@@ -995,7 +980,6 @@
     // RENDER DANH SÁCH NGƯỜI NHẬN
     function renderRecipients() {
       const listEl = document.getElementById('recipients-list');
-      const emptyEl = document.getElementById('empty-recipients');
       const searchKeyword = (document.getElementById('search-input')?.value || '').trim().toLowerCase();
 
       let filtered = recipients.filter(r => {
@@ -1008,11 +992,9 @@
 
       if (filtered.length === 0) {
         listEl.innerHTML = '';
-        emptyEl.classList.remove('hidden');
         return;
       }
 
-      emptyEl.classList.add('hidden');
       listEl.innerHTML = filtered.map(r => {
         const totalItems = (r.items || []).reduce((sum, i) => sum + (parseInt(i.qty) || 0), 0);
         
