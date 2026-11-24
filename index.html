@@ -631,18 +631,18 @@
         return `
           <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:border-sage select-none">
             
-            <!-- TÊN GỌI LOẠI QUÀ TO RÕ RÀNG -->
+            <!-- TÊN GỌI LOẠI QUÀ: MÀU DARK SLATE TO ĐẬM -->
             <h3 class="font-black text-base sm:text-lg text-sage-900 tracking-wide leading-tight mb-1">
               ${catName}
             </h3>
 
-            <!-- SỐ LOẠI SẢN PHẨM TO DỄ ĐỌC -->
-            <div class="text-xs sm:text-sm font-bold text-sage-700 leading-tight">
+            <!-- SỐ LOẠI SẢN PHẨM: MÀU XANH SAGE RÕ NÉT -->
+            <div class="text-xs sm:text-sm font-bold text-[#507A38] leading-tight">
               ${allItems.length} loại
             </div>
 
-            <!-- TỔNG SỐ LƯỢNG / CÒN LẠI TO RÕ -->
-            <div class="text-xs sm:text-sm font-black text-sage-900 leading-tight mt-1">
+            <!-- TỔNG SỐ LƯỢNG / CÒN LẠI: MÀU ĐỎ TOMATO NỔI BẬT -->
+            <div class="text-xs sm:text-sm font-black text-tomato leading-tight mt-1">
               ${stockText}
             </div>
 
