@@ -79,16 +79,16 @@
   <header class="shrink-0 bg-[#F7F5EF]/95 backdrop-blur-md border-b-2 border-offwhite-border px-3.5 py-2 shadow-xs">
     <div class="max-w-md mx-auto flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-tomato" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg class="w-6 h-6 text-tomato" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="8" width="18" height="4" rx="1"/>
           <path d="M12 8v13"/>
           <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
           <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
         </svg>
-        <h1 class="text-base font-bold tracking-tight text-sage-900 leading-tight">Poland Gifts Tracker</h1>
+        <h1 class="text-base sm:text-lg font-black tracking-tight text-sage-900 leading-tight">Poland Gifts Tracker</h1>
       </div>
-      <button onclick="openAddModal()" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-bold px-3 py-1.5 rounded-xl shadow-xs text-xs flex items-center gap-1.5 border-2 border-tomato-border transition duration-150">
-        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <button onclick="openAddModal()" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-extrabold px-3.5 py-2 rounded-xl shadow-xs text-sm flex items-center gap-1.5 border-2 border-tomato-border transition duration-150 active:scale-95 min-h-[40px]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14"/><path d="M12 5v14"/>
         </svg>
         <span>Give Gift</span>
@@ -97,61 +97,61 @@
   </header>
 
   <!-- MAIN CONTAINER (VỪA KHÍT MÀN HÌNH ĐIỆN THOẠI, KHÔNG PHẢI TRƯỢT LÊN XUỐNG) -->
-  <main class="max-w-md mx-auto w-full px-3 py-2 flex-1 flex flex-col justify-between overflow-hidden space-y-2">
+  <main class="max-w-md mx-auto w-full px-3 py-2 flex-1 flex flex-col justify-between overflow-hidden space-y-2.5">
 
     <!-- DASHBOARD THỐNG KÊ (THANH COMPACT TIẾT KIỆM KHÔNG GIAN, KHÔNG CHÚ THÍCH) -->
-    <div class="grid grid-cols-3 gap-1.5 shrink-0">
+    <div class="grid grid-cols-3 gap-2 shrink-0">
       <!-- Đã tặng -->
-      <div onclick="setFilter('gifted')" class="cursor-pointer bg-white border-2 border-sage rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-sage-50">
-        <div class="text-[10px] font-bold text-sage-700 flex items-center justify-center gap-1">
-          <svg class="w-3 h-3 text-sage-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <div onclick="setFilter('gifted')" class="cursor-pointer bg-white border-2 border-sage rounded-2xl p-2 text-center shadow-xs btn-bounce transition hover:bg-sage-50 min-h-[64px] flex flex-col justify-center">
+        <div class="text-xs font-bold text-sage-700 flex items-center justify-center gap-1">
+          <svg class="w-3.5 h-3.5 text-sage-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
           <span>Gifted</span>
         </div>
-        <div id="stat-gifted" class="text-xl font-black text-sage-900 leading-tight mt-0.5">0</div>
+        <div id="stat-gifted" class="text-2xl font-black text-sage-900 leading-tight mt-0.5">0</div>
       </div>
 
       <!-- Chuẩn bị tặng -->
-      <div onclick="setFilter('preparing')" class="cursor-pointer bg-white border-2 border-tomato/40 rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-tomato-light">
-        <div class="text-[10px] font-bold text-tomato flex items-center justify-center gap-1">
-          <svg class="w-3 h-3 text-tomato" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div onclick="setFilter('preparing')" class="cursor-pointer bg-white border-2 border-tomato/40 rounded-2xl p-2 text-center shadow-xs btn-bounce transition hover:bg-tomato-light min-h-[64px] flex flex-col justify-center">
+        <div class="text-xs font-bold text-tomato flex items-center justify-center gap-1">
+          <svg class="w-3.5 h-3.5 text-tomato" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
           <span>Preparing</span>
         </div>
-        <div id="stat-preparing" class="text-xl font-black text-tomato leading-tight mt-0.5">0</div>
+        <div id="stat-preparing" class="text-2xl font-black text-tomato leading-tight mt-0.5">0</div>
       </div>
 
       <!-- Chưa tặng / Còn tồn kho -->
-      <div onclick="switchTab('categories')" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-offwhite-warm">
-        <div class="text-[10px] font-bold text-sage-800 flex items-center justify-center gap-1">
-          <svg class="w-3 h-3 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div onclick="switchTab('categories')" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-2xl p-2 text-center shadow-xs btn-bounce transition hover:bg-offwhite-warm min-h-[64px] flex flex-col justify-center">
+        <div class="text-xs font-bold text-sage-800 flex items-center justify-center gap-1">
+          <svg class="w-3.5 h-3.5 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
             <path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
           </svg>
           <span>In Stock</span>
         </div>
-        <div id="stat-remaining" class="text-xl font-black text-sage-900 leading-tight mt-0.5">148</div>
+        <div id="stat-remaining" class="text-2xl font-black text-sage-900 leading-tight mt-0.5">148</div>
       </div>
     </div>
 
     <!-- TABS ĐIỀU HƯỚNG GỌN (Người nhận -> Nhóm quà -> Kho tổng) -->
-    <div class="flex bg-offwhite-dark p-0.5 rounded-xl border border-offwhite-border gap-1 text-center shrink-0">
-      <button id="tab-recipients-btn" onclick="switchTab('recipients')" class="flex-1 py-1.5 text-xs font-bold rounded-lg transition bg-white text-sage-900 shadow-xs flex items-center justify-center gap-1">
-        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <div class="flex bg-offwhite-dark p-1 rounded-2xl border border-offwhite-border gap-1.5 text-center shrink-0">
+      <button id="tab-recipients-btn" onclick="switchTab('recipients')" class="flex-1 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl transition bg-white text-sage-900 shadow-xs flex items-center justify-center gap-1 min-h-[42px]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
         <span>Recipients (<span id="recipient-count">0</span>)</span>
       </button>
-      <button id="tab-categories-btn" onclick="switchTab('categories')" class="flex-1 py-1.5 text-xs font-bold rounded-lg transition text-sage-700 hover:text-sage-900 flex items-center justify-center gap-1">
-        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button id="tab-categories-btn" onclick="switchTab('categories')" class="flex-1 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl transition text-sage-700 hover:text-sage-900 flex items-center justify-center gap-1 min-h-[42px]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
         </svg>
         <span>Categories (6)</span>
       </button>
-      <button id="tab-inventory-btn" onclick="switchTab('inventory')" class="flex-1 py-1.5 text-xs font-bold rounded-lg transition text-sage-700 hover:text-sage-900 flex items-center justify-center gap-1">
-        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button id="tab-inventory-btn" onclick="switchTab('inventory')" class="flex-1 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl transition text-sage-700 hover:text-sage-900 flex items-center justify-center gap-1 min-h-[42px]">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>
         </svg>
         <span>Inventory (49)</span>
@@ -161,14 +161,14 @@
     <!-- TAB 1: DANH SÁCH NGƯỜI NHẬN (HIỂN THỊ ĐẦU TIÊN) -->
     <section id="tab-recipients" class="flex-1 flex flex-col overflow-hidden space-y-2">
       <!-- Tìm kiếm & Lọc trạng thái -->
-      <div class="flex items-center gap-1.5 shrink-0">
+      <div class="flex items-center gap-2 shrink-0">
         <div class="relative flex-1">
-          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Search recipient..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-2.5 py-1.5 pl-8 text-xs focus:outline-none focus:border-sage placeholder-sage-700/50 text-sage-900 font-bold">
-          <svg class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Search recipient..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-3 py-2 pl-9 text-sm focus:outline-none focus:border-sage placeholder-sage-700/50 text-sage-900 font-bold min-h-[40px]">
+          <svg class="w-4 h-4 absolute left-3 top-3 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
           </svg>
         </div>
-        <select id="status-filter" onchange="setFilter(this.value)" class="bg-white border-2 border-offwhite-border rounded-xl px-2 py-1.5 text-[11px] font-bold text-sage-900 focus:outline-none focus:border-sage">
+        <select id="status-filter" onchange="setFilter(this.value)" class="bg-white border-2 border-offwhite-border rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-sage-900 focus:outline-none focus:border-sage min-h-[40px]">
           <option value="all">All</option>
           <option value="preparing">Preparing</option>
           <option value="gifted">Gifted</option>
@@ -319,68 +319,68 @@
     <div class="bg-offwhite w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-sage shadow-2xl max-h-[88vh] flex flex-col overflow-hidden">
       
       <!-- Modal Header -->
-      <div class="bg-white px-3.5 py-2.5 border-b-2 border-offwhite-border flex items-center justify-between">
-        <h3 id="modal-title" class="text-sm font-bold text-sage-900">
+      <div class="bg-white px-4 py-3 border-b-2 border-offwhite-border flex items-center justify-between">
+        <h3 id="modal-title" class="text-base sm:text-lg font-black text-sage-900">
           Add Recipient
         </h3>
-        <button onclick="closeModal()" class="text-sage-700 hover:text-sage-900 p-1 btn-bounce" aria-label="Close">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button onclick="closeModal()" class="text-sage-700 hover:text-sage-900 p-2 rounded-xl min-w-[40px] min-h-[40px] flex items-center justify-center btn-bounce active:scale-95" aria-label="Close">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
           </svg>
         </button>
       </div>
 
       <!-- Modal Body (Scrollable) -->
-      <div class="p-3.5 space-y-3 overflow-y-auto custom-scroll flex-1 text-xs">
+      <div class="p-4 space-y-3.5 overflow-y-auto custom-scroll flex-1 text-sm">
         
-        <!-- Recipient Name (Hiện đầu tiên) -->
+        <!-- Recipient Name (Hiện đầu tiên, cỡ chữ 16px to rõ không bị phóng đại trên mobile) -->
         <div>
-          <label class="block font-bold text-sage-900 mb-1 text-xs">
+          <label class="block font-black text-sage-900 mb-1.5 text-sm">
             Recipient Name
           </label>
-          <input type="text" id="modal-person-name" oninput="handlePersonNameInput()" class="w-full bg-white border-2 border-offwhite-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-sage font-bold text-sage-900">
+          <input type="text" id="modal-person-name" oninput="handlePersonNameInput()" placeholder="Enter name (e.g. Lan, Mom...)" class="w-full bg-white border-2 border-offwhite-border rounded-2xl px-3.5 py-3 text-base focus:outline-none focus:border-sage font-bold text-sage-900 min-h-[48px]">
         </div>
 
         <!-- Các nhóm quà: Hiện ra sau khi nhập tên để chọn (Lưới 6 Card danh mục) -->
         <div id="modal-category-section" class="hidden space-y-2 pt-2 border-t border-offwhite-border">
           <div class="flex items-center justify-between">
-            <label class="block font-bold text-sage-900 text-xs">
+            <label class="block font-black text-sage-900 text-sm">
               Choose a gift category:
             </label>
-            <span class="text-[10px] text-sage-700 font-semibold">Tap a card to select</span>
+            <span class="text-xs text-sage-700 font-semibold">Tap a card to select</span>
           </div>
           <!-- Lưới 6 Card đúng chuẩn hình ảnh -->
-          <div id="modal-category-cards-grid" class="grid grid-cols-2 gap-2">
+          <div id="modal-category-cards-grid" class="grid grid-cols-2 gap-2.5">
             <!-- Render động bằng JavaScript -->
           </div>
         </div>
 
         <!-- Danh sách sản phẩm của nhóm quà đang chọn để người dùng bấm chọn -->
         <div id="modal-cat-gifts-container" class="hidden space-y-2 pt-2 border-t border-offwhite-border">
-          <div class="flex items-center justify-between">
-            <button type="button" onclick="backToCategoryCards()" class="btn-bounce inline-flex items-center gap-1 text-xs font-bold text-sage-700 hover:text-sage-900 bg-white border border-offwhite-border px-2 py-1 rounded-lg">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <div class="flex items-center justify-between gap-2">
+            <button type="button" onclick="backToCategoryCards()" class="btn-bounce inline-flex items-center gap-1.5 text-sm font-extrabold text-sage-900 bg-white border-2 border-offwhite-border hover:border-sage px-3.5 py-2 rounded-xl min-h-[40px] shadow-2xs active:scale-95">
+              <svg class="w-4 h-4 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
               <span>Back to categories</span>
             </button>
-            <span id="modal-cat-gifts-title" class="font-bold text-sage-900 text-xs truncate max-w-[170px] text-right">
+            <span id="modal-cat-gifts-title" class="font-black text-sage-900 text-sm truncate max-w-[170px] text-right">
               Gifts
             </span>
           </div>
-          <div id="modal-cat-gifts-list" class="max-h-60 overflow-y-auto space-y-2 pr-0.5 custom-scroll">
+          <div id="modal-cat-gifts-list" class="max-h-64 overflow-y-auto space-y-2.5 pr-0.5 custom-scroll">
             <!-- Render danh sách quà thuộc nhóm đang chọn -->
           </div>
         </div>
 
         <!-- Danh sách quà tặng đã chọn -->
-        <div id="modal-gifts-section" class="hidden space-y-2 pt-2 border-t border-offwhite-border">
+        <div id="modal-gifts-section" class="hidden space-y-2.5 pt-2 border-t border-offwhite-border">
           <div class="flex items-center justify-between">
-            <label class="font-bold text-sage-900 text-xs">
+            <label class="font-black text-sage-900 text-sm">
               Selected gifts
             </label>
-            <span id="modal-selected-count" class="text-[10px] font-bold text-sage-800 bg-sage-100 px-2 py-0.5 rounded-full border border-sage-300">0 items</span>
+            <span id="modal-selected-count" class="text-xs font-black text-sage-900 bg-sage-100 px-2.5 py-0.5 rounded-full border border-sage-300">0 items</span>
           </div>
           
-          <div id="modal-gift-rows" class="space-y-2">
+          <div id="modal-gift-rows" class="space-y-2.5">
             <!-- Các món đã chọn -->
           </div>
         </div>
@@ -388,11 +388,11 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="bg-offwhite-dark p-2.5 border-t-2 border-offwhite-border flex gap-2">
-        <button onclick="closeModal()" class="flex-1 py-2 text-xs font-bold text-sage-700 bg-white border-2 border-offwhite-border rounded-xl btn-bounce">
+      <div class="bg-offwhite-dark p-3 border-t-2 border-offwhite-border flex gap-2.5">
+        <button onclick="closeModal()" class="flex-1 py-3 text-sm sm:text-base font-extrabold text-sage-800 bg-white border-2 border-offwhite-border rounded-2xl min-h-[48px] btn-bounce active:scale-95">
           Cancel
         </button>
-        <button id="modal-save-btn" onclick="saveRecipient()" class="hidden flex-1 py-2 text-xs font-bold text-white bg-tomato hover:bg-tomato-hover border-2 border-tomato-border rounded-xl shadow-xs btn-bounce">
+        <button id="modal-save-btn" onclick="saveRecipient()" class="hidden flex-1 py-3 text-sm sm:text-base font-extrabold text-white bg-tomato hover:bg-tomato-hover border-2 border-tomato-border rounded-2xl shadow-sm min-h-[48px] btn-bounce active:scale-95">
           Save
         </button>
       </div>
@@ -686,20 +686,20 @@
           : `${totalRemainCount}/${totalItemsCount} left`;
 
         return `
-          <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:border-sage select-none">
+          <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:border-sage select-none active:scale-95 min-h-[114px]">
             
-            <!-- TÊN GỌI LOẠI QUÀ: MÀU DARK SLATE TO ĐẬM -->
-            <h3 class="font-black text-base sm:text-lg text-sage-900 tracking-wide leading-tight mb-1">
+            <!-- TÊN GỌI LOẠI QUÀ: MÀU DARK SLATE TO ĐẬM RÕ -->
+            <h3 class="font-black text-lg sm:text-xl text-sage-900 tracking-wide leading-tight mb-1.5">
               ${catName}
             </h3>
 
             <!-- SỐ LOẠI SẢN PHẨM: MÀU XANH SAGE RÕ NÉT -->
-            <div class="text-xs sm:text-sm font-bold text-[#507A38] leading-tight">
+            <div class="text-sm font-extrabold text-[#507A38] leading-tight">
               ${allItems.length} types
             </div>
 
             <!-- TỔNG SỐ LƯỢNG / CÒN LẠI: MÀU ĐỎ TOMATO NỔI BẬT -->
-            <div class="text-xs sm:text-sm font-black text-tomato leading-tight mt-1">
+            <div class="text-sm font-black text-tomato leading-tight mt-1">
               ${stockText}
             </div>
 
@@ -781,37 +781,37 @@
             
             <!-- THÔNG TIN QUÀ: THƯƠNG HIỆU, QUỐC GIA, DUNG TÍCH, GIÁ VÀ TỒN KHO -->
             <div class="flex-1 min-w-0">
-              <div class="flex items-start justify-between gap-1">
+              <div class="flex items-start justify-between gap-1.5">
                 <div class="min-w-0 flex-1">
-                  <div class="flex items-baseline gap-1 truncate">
-                    <span class="font-black text-xs text-sage-900">${item.brand || 'Item'}</span>
-                    <span class="text-[10px] text-sage-700 font-semibold">${item.country ? `(${item.country})` : ''}</span>
+                  <div class="flex items-baseline gap-1.5 truncate">
+                    <span class="font-black text-sm text-sage-900">${item.brand || 'Item'}</span>
+                    <span class="text-xs text-sage-700 font-bold">${item.country ? `(${item.country})` : ''}</span>
                   </div>
-                  <div class="text-[11px] font-bold text-sage-800 truncate leading-tight">${item.variant || item.name}</div>
+                  <div class="text-xs font-bold text-sage-800 truncate leading-snug mt-0.5">${item.variant || item.name}</div>
                 </div>
                 <div class="flex items-center gap-1 shrink-0">
-                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-offwhite text-sage-800 border-offwhite-border">${item.volume}</span>
-                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-black bg-sage-100 text-sage-900 border-sage-300">${item.priceText}</span>
-                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold ${remainBadge}">${remain}/${item.total} left</span>
+                  <span class="px-2 py-0.5 rounded-lg border border-offwhite-border text-xs font-bold bg-offwhite text-sage-800">${item.volume}</span>
+                  <span class="px-2 py-0.5 rounded-lg border border-sage-300 text-xs font-black bg-sage-100 text-sage-900">${item.priceText}</span>
+                  <span class="px-2 py-0.5 rounded-lg border text-xs font-bold ${remainBadge}">${remain}/${item.total} left</span>
                 </div>
               </div>
 
               <!-- Thanh tiến độ phân chia -->
-              <div class="w-full bg-offwhite-dark h-1.5 rounded-full mt-1 overflow-hidden">
+              <div class="w-full bg-offwhite-dark h-1.5 rounded-full mt-1.5 overflow-hidden">
                 <div class="bg-sage h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
               </div>
 
-              <div class="flex items-center justify-between text-[10px] text-sage-700 mt-1 font-medium">
+              <div class="flex items-center justify-between text-xs text-sage-700 mt-1.5 font-semibold">
                 <span>Total ${item.total} ${item.unit}</span>
-                <div class="flex items-center gap-1">
-                  <button onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="text-sage-800 bg-offwhite-dark hover:bg-offwhite-border px-1.5 py-0.5 rounded-lg text-[10px] font-bold border border-offwhite-border btn-bounce inline-flex items-center gap-0.5">
-                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <div class="flex items-center gap-1.5">
+                  <button onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="text-sage-800 bg-offwhite-dark hover:bg-offwhite-border px-2.5 py-1.5 rounded-xl text-xs font-bold border border-offwhite-border btn-bounce inline-flex items-center gap-1 min-h-[36px] active:scale-95">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
                     </svg>
                     <span>Zoom</span>
                   </button>
-                  <button onclick="selectGiftForAdd(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-bold px-2 py-0.5 rounded-lg border border-tomato-border shadow-2xs text-[10px] inline-flex items-center gap-0.5">
-                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <button onclick="selectGiftForAdd(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-extrabold px-3 py-1.5 rounded-xl border border-tomato-border shadow-2xs text-xs inline-flex items-center gap-1 min-h-[36px] active:scale-95">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M5 12h14"/><path d="M12 5v14"/>
                     </svg>
                     <span>Select</span>
@@ -1010,17 +1010,17 @@
           const imgSrc = it.image || (giftObj ? giftObj.image : `assets/item_${it.giftId}.jpg`);
 
           return `
-            <div class="flex items-center justify-between py-1.5 border-b border-offwhite-border last:border-0 text-xs gap-1.5">
-              <div class="flex items-center gap-1.5 flex-1 min-w-0">
+            <div class="flex items-center justify-between py-2 border-b border-offwhite-border last:border-0 text-sm gap-2">
+              <div class="flex items-center gap-2 flex-1 min-w-0">
                 <div onclick="openImageZoom('${imgSrc}', '${escapeHtml(it.giftName)}')" class="cursor-zoom-in shrink-0" title="Tap to zoom in">
-                  <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-8 h-8 rounded-lg object-contain bg-offwhite border border-offwhite-border p-0.5 shadow-2xs">
+                  <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-10 h-10 rounded-xl object-contain bg-offwhite border border-offwhite-border p-0.5 shadow-2xs">
                 </div>
                 <div class="truncate">
-                  <span class="font-bold text-sage-900">${it.giftName}</span>
-                  <span class="text-sage-700 ml-1 font-semibold">x${it.qty}</span>
+                  <span class="font-bold text-sage-900 text-sm">${it.giftName}</span>
+                  <span class="text-sage-800 ml-1.5 font-extrabold text-xs bg-offwhite px-1.5 py-0.5 rounded border border-offwhite-border">x${it.qty}</span>
                 </div>
               </div>
-              <button onclick="cycleItemStatus('${r.id}', ${idx})" title="Tap to change status" class="px-2 py-0.5 rounded-full border text-[10px] font-bold ${badgeColor} btn-bounce transition shadow-2xs flex items-center gap-0.5 shrink-0">
+              <button onclick="cycleItemStatus('${r.id}', ${idx})" title="Tap to change status" class="px-3 py-1.5 rounded-full border text-xs font-extrabold ${badgeColor} btn-bounce transition shadow-2xs flex items-center gap-1 shrink-0 min-h-[32px] active:scale-95">
                 ${statusLabel}
               </button>
             </div>
@@ -1028,28 +1028,28 @@
         }).join('');
 
         return `
-          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-2.5 shadow-xs transition hover:border-sage">
-            <div class="flex items-start justify-between pb-1.5 border-b border-offwhite-border">
+          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-3 shadow-xs transition hover:border-sage">
+            <div class="flex items-center justify-between pb-2 border-b border-offwhite-border">
               <div>
-                <h4 class="font-bold text-sm text-sage-900 flex items-center gap-1.5">
-                  <svg class="w-3.5 h-3.5 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <h4 class="font-black text-base text-sage-900 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                   </svg>
                   <span>${r.name}</span>
                 </h4>
-                ${r.note ? `<p class="text-[10px] text-sage-700 font-medium">${r.note}</p>` : ''}
+                ${r.note ? `<p class="text-xs text-sage-700 font-medium mt-0.5">${r.note}</p>` : ''}
               </div>
-              <div class="flex items-center gap-1">
-                <span class="bg-sage-100 text-sage-900 text-[10px] px-1.5 py-0.2 rounded-lg font-bold border border-sage-200">
+              <div class="flex items-center gap-1.5">
+                <span class="bg-sage-100 text-sage-900 text-xs px-2.5 py-1 rounded-xl font-extrabold border border-sage-300">
                   ${totalItems} items
                 </span>
-                <button onclick="editRecipient('${r.id}')" class="text-sage-700 hover:text-sage-900 p-1 rounded-md hover:bg-offwhite-dark transition" aria-label="Edit">
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button onclick="editRecipient('${r.id}')" class="text-sage-700 hover:text-sage-900 p-2 rounded-xl hover:bg-offwhite-dark transition min-w-[38px] min-h-[38px] flex items-center justify-center active:scale-95" aria-label="Edit">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>
                   </svg>
                 </button>
-                <button onclick="deleteRecipient('${r.id}')" class="text-tomato hover:text-tomato-hover p-1 rounded-md hover:bg-tomato-light transition" aria-label="Delete">
-                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <button onclick="deleteRecipient('${r.id}')" class="text-tomato hover:text-tomato-hover p-2 rounded-xl hover:bg-tomato-light transition min-w-[38px] min-h-[38px] flex items-center justify-center active:scale-95" aria-label="Delete">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
                   </svg>
                 </button>
@@ -1057,7 +1057,7 @@
             </div>
 
             <div class="pt-1.5">
-              ${itemsHtml || '<p class="text-xs text-sage-700/60 italic py-0.5">No gifts assigned yet</p>'}
+              ${itemsHtml || '<p class="text-xs text-sage-700/60 italic py-1">No gifts assigned yet</p>'}
             </div>
           </div>
         `;
@@ -1108,34 +1108,37 @@
         else if (remain <= 1) remainBadge = 'bg-tomato-light text-tomato border-tomato/30';
 
         return `
-          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-2 shadow-2xs flex items-center gap-2.5 transition hover:border-sage">
+          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-3 shadow-2xs flex items-center gap-3 transition hover:border-sage">
             <!-- Icon hình ảnh sản phẩm chuẩn - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
             <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Tap to zoom in">
-              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-12 h-12 object-contain rounded-xl border border-offwhite-border p-0.5 bg-offwhite shadow-2xs">
+              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-14 h-14 object-contain rounded-xl border border-offwhite-border p-1 bg-offwhite shadow-2xs">
               <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none flex items-center justify-center">
-                <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
                 </svg>
               </span>
             </div>
             
             <div class="flex-1 min-w-0">
-              <div class="flex items-start justify-between gap-1 text-xs">
-                <div class="truncate">
-                  <span class="text-[9px] font-bold text-sage-700 uppercase tracking-wider block">${item.category}</span>
-                  <h5 class="font-bold text-sage-900 text-xs leading-tight truncate">${item.name}</h5>
+              <div class="flex items-start justify-between gap-1.5 text-xs">
+                <div class="truncate flex-1 min-w-0">
+                  <div class="flex items-baseline gap-1">
+                    <span class="font-black text-sm text-sage-900">${item.brand || item.name}</span>
+                    <span class="text-xs text-sage-700 font-bold">${item.country ? `(${item.country})` : ''}</span>
+                  </div>
+                  <h5 class="font-bold text-sage-800 text-xs leading-snug truncate mt-0.5">${item.variant || item.name}</h5>
                 </div>
                 <div class="flex items-center gap-1 shrink-0">
-                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-offwhite text-sage-800 border-offwhite-border">${item.priceText}</span>
-                  <span class="px-1.5 py-0.2 rounded-full border text-[10px] font-bold ${remainBadge}">
+                  <span class="px-2 py-0.5 rounded-lg border border-offwhite-border text-xs font-bold bg-offwhite text-sage-800">${item.priceText}</span>
+                  <span class="px-2 py-0.5 rounded-lg border text-xs font-extrabold ${remainBadge}">
                     ${remain}/${item.total} left
                   </span>
                 </div>
               </div>
-              <div class="w-full bg-offwhite-dark h-1.5 rounded-full mt-1.5 overflow-hidden">
+              <div class="w-full bg-offwhite-dark h-2 rounded-full mt-2 overflow-hidden">
                 <div class="bg-sage h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
               </div>
-              <div class="flex justify-between text-[9px] text-sage-700 mt-1 font-medium">
+              <div class="flex justify-between text-xs text-sage-700 mt-1.5 font-semibold">
                 <span>Assigned: ${assigned} ${item.unit}</span>
                 <span>Total: ${item.total} ${item.unit}</span>
               </div>
@@ -1171,17 +1174,17 @@
           : `${totalRemainCount}/${totalItemsCount} left`;
 
         return `
-          <div onclick="selectCategoryForAdd('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border hover:border-sage rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition select-none">
-            <!-- Tên nhóm quà -->
-            <h4 class="font-black text-sm sm:text-base text-sage-900 tracking-wide leading-tight mb-1">
+          <div onclick="selectCategoryForAdd('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border hover:border-sage rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition select-none active:scale-95 min-h-[114px]">
+            <!-- Tên nhóm quà: Chữ to rõ -->
+            <h4 class="font-black text-base sm:text-lg text-sage-900 tracking-wide leading-tight mb-1.5">
               ${catName}
             </h4>
             <!-- Số loại -->
-            <div class="text-xs font-bold text-[#507A38] leading-tight">
+            <div class="text-sm font-extrabold text-[#507A38] leading-tight">
               ${allItems.length} types
             </div>
             <!-- Số sản phẩm -->
-            <div class="text-xs font-black text-tomato leading-tight mt-0.5">
+            <div class="text-sm font-black text-tomato leading-tight mt-1">
               ${stockText}
             </div>
           </div>
@@ -1215,7 +1218,7 @@
       renderModalCategoryCards();
     }
 
-    // HIỂN THỊ DANH SÁCH SẢN PHẨM TRONG NHÓM: CHỈ HIỂN THỊ HÌNH ẢNH, THƯƠNG HIỆU/QUỐC GIA, DUNG TÍCH, GIÁ TIỀN, SỐ LƯỢNG
+    // HIỂN THỊ DANH SÁCH SẢN PHẨM TRONG NHÓM: CHỮ TO RÕ, NÚT SELECT TO DỄ BẤM TRÊN ĐIỆN THOẠI
     function renderCategoryGiftsInModal(catName) {
       const container = document.getElementById('modal-cat-gifts-list');
       const titleEl = document.getElementById('modal-cat-gifts-title');
@@ -1243,48 +1246,59 @@
         const assigned = assignedMap[item.id] || 0;
         const remain = Math.max(0, item.total - assigned);
         const stockBadge = remain === 0
-          ? '<span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-stone-200 text-stone-600 border border-stone-300">Out of stock</span>'
-          : `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold text-tomato">${remain}/${item.total} left</span>`;
+          ? '<span class="px-2 py-0.5 rounded-lg text-xs font-bold bg-stone-200 text-stone-600 border border-stone-300">Out of stock</span>'
+          : `<span class="px-2 py-0.5 rounded-lg text-xs font-black text-tomato bg-tomato-light/60 border border-tomato/30">${remain}/${item.total} left</span>`;
 
         const brandDisplay = item.brand || 'Item';
         const countryDisplay = item.country ? `(${item.country})` : '';
-        const volumeDisplay = item.volume ? `<span class="text-[10px] font-bold text-sage-800 bg-offwhite px-1.5 py-0.5 rounded border border-offwhite-border">${item.volume}</span>` : '';
-        const priceDisplay = `<span class="text-[10px] font-black text-sage-900 bg-sage-100 px-1.5 py-0.5 rounded border border-sage-300">${item.priceText}</span>`;
+        const volumeDisplay = item.volume ? `<span class="text-xs font-bold text-sage-800 bg-offwhite px-2 py-0.5 rounded-lg border border-offwhite-border">${item.volume}</span>` : '';
+        const priceDisplay = `<span class="text-xs sm:text-sm font-black text-sage-900 bg-sage-100 px-2 py-0.5 rounded-lg border border-sage-300">${item.priceText}</span>`;
 
         return `
-          <div class="bg-white border-2 border-offwhite-border rounded-xl p-2.5 flex items-center justify-between gap-2.5 shadow-2xs hover:border-sage transition">
-            <!-- 1. HÌNH ẢNH -->
+          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-3 flex items-center justify-between gap-3 shadow-2xs hover:border-sage transition min-h-[76px]">
+            <!-- 1. HÌNH ẢNH TO RÕ (CHẠM ĐỂ ZOOM) -->
             <div onclick="openImageZoom('${item.image}', '${escapeHtml(brandDisplay)} ${escapeHtml(countryDisplay)} - ${escapeHtml(item.variant || item.name)}', '${item.category}')" class="cursor-zoom-in shrink-0 relative group" title="Tap to zoom">
-              <img src="${item.image}" alt="${brandDisplay}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-12 h-12 object-contain rounded-lg border border-offwhite-border bg-offwhite p-0.5 shadow-2xs transition group-hover:scale-105">
+              <img src="${item.image}" alt="${brandDisplay}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-14 h-14 object-contain rounded-xl border border-offwhite-border bg-offwhite p-1 shadow-2xs transition group-hover:scale-105">
             </div>
 
-            <!-- 2. THƯƠNG HIỆU/QUỐC GIA, DUNG TÍCH, GIÁ TIỀN, SỐ LƯỢNG -->
+            <!-- 2. THƯƠNG HIỆU/QUỐC GIA, DUNG TÍCH, GIÁ TIỀN, SỐ LƯỢNG (CHỮ TO RÕ NÉT) -->
             <div class="min-w-0 flex-1">
               <!-- Thương hiệu & Quốc gia -->
-              <div class="flex items-baseline gap-1 truncate">
-                <span class="font-black text-xs text-sage-900">${brandDisplay}</span>
-                <span class="text-[10px] text-sage-700 font-semibold">${countryDisplay}</span>
+              <div class="flex items-baseline gap-1.5 truncate">
+                <span class="font-black text-sm sm:text-base text-sage-900">${brandDisplay}</span>
+                <span class="text-xs text-sage-700 font-bold">${countryDisplay}</span>
               </div>
 
               <!-- Tên loại sản phẩm -->
-              <div class="text-[11px] font-bold text-sage-800 truncate leading-tight">${item.variant || item.name}</div>
+              <div class="text-xs sm:text-sm font-bold text-sage-800 truncate leading-snug mt-0.5">${item.variant || item.name}</div>
 
               <!-- Dung tích, Giá tiền, Số lượng tồn -->
-              <div class="flex items-center gap-1.5 mt-1 flex-wrap">
+              <div class="flex items-center gap-1.5 mt-1.5 flex-wrap">
                 ${volumeDisplay}
                 ${priceDisplay}
                 ${stockBadge}
               </div>
             </div>
 
-            <!-- 5. CHỌN SỐ LƯỢNG / THÊM MÓN -->
-            <button type="button" onclick="addGiftToRecipient(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-bold px-2.5 py-1.5 rounded-lg text-xs border border-tomato-border shadow-2xs inline-flex items-center gap-1 shrink-0">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            <!-- 5. NÚT SELECT TO RÕ, DỄ BẤM TRÊN ĐIỆN THOẠI KHÔNG BỊ TRƯỢT -->
+            <button type="button" onclick="addGiftToRecipient(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-black px-4 py-2.5 rounded-xl text-sm border-2 border-tomato-border shadow-xs inline-flex items-center justify-center gap-1.5 shrink-0 min-h-[44px] min-w-[84px] active:scale-95">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
               <span>Select</span>
             </button>
           </div>
         `;
       }).join('');
+    }
+
+    // TĂNG / GIẢM SỐ LƯỢNG MÓN QUÀ DỄ DÀNG TRÊN ĐIỆN THOẠI
+    function changeRowQty(rowId, delta) {
+      const row = document.getElementById(rowId);
+      if (!row) return;
+      const input = row.querySelector('.gift-qty');
+      if (!input) return;
+      let val = parseInt(input.value) || 1;
+      val = Math.max(1, Math.min(50, val + delta));
+      input.value = val;
     }
 
     // CẬP NHẬT SỐ LƯỢNG MÓN QUÀ ĐÃ CHỌN
@@ -1302,7 +1316,7 @@
       }
     }
 
-    // THÊM MÓN QUÀ VÀO DANH SÁCH ĐÃ CHỌN CỦA NGƯỜI NHẬN
+    // THÊM MÓN QUÀ VÀO DANH SÁCH ĐÃ CHỌN CỦA NGƯỜI NHẬN (CÓ NÚT +/- TO RÕ)
     function addGiftToRecipient(giftId, qty = 1, status = 'preparing') {
       const gift = inventory.find(i => i.id === parseInt(giftId));
       if (!gift) return;
@@ -1322,41 +1336,49 @@
       const div = document.createElement('div');
       div.id = rowId;
       div.dataset.giftId = gift.id;
-      div.className = 'bg-white p-2.5 rounded-2xl border-2 border-offwhite-border space-y-2 relative shadow-2xs animate-fade-in';
+      div.className = 'bg-white p-3 rounded-2xl border-2 border-offwhite-border space-y-2.5 relative shadow-2xs animate-fade-in';
       div.innerHTML = `
         <!-- Hàng 1: Ảnh + Nhóm + Tên + Giá + Nút Xóa -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2.5">
           <div onclick="openImageZoom('${gift.image}', '${escapeHtml(gift.name)}', '${gift.category}')" class="cursor-zoom-in shrink-0 relative" title="Tap to zoom in">
-            <img id="preview-${rowId}" src="${gift.image}" alt="${gift.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-11 h-11 object-contain rounded-xl border border-offwhite-border bg-offwhite p-0.5 shadow-2xs">
+            <img id="preview-${rowId}" src="${gift.image}" alt="${gift.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-12 h-12 object-contain rounded-xl border border-offwhite-border bg-offwhite p-1 shadow-2xs">
           </div>
           
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-1.5 flex-wrap">
-              <span class="font-black text-xs text-sage-900">${gift.brand || 'Item'}</span>
-              <span class="text-[10px] text-sage-700 font-semibold">${gift.country ? `(${gift.country})` : ''}</span>
-              <span class="text-[9px] font-bold px-1.5 py-0.2 bg-sage-100 text-sage-900 rounded border border-sage-300">${gift.volume || gift.category}</span>
-              <span class="text-[10px] font-black text-sage-900">${gift.priceText}</span>
+              <span class="font-black text-sm text-sage-900">${gift.brand || 'Item'}</span>
+              <span class="text-xs text-sage-700 font-bold">${gift.country ? `(${gift.country})` : ''}</span>
+              <span class="text-xs font-bold px-2 py-0.2 bg-sage-100 text-sage-900 rounded-md border border-sage-300">${gift.volume || gift.category}</span>
+              <span class="text-xs font-black text-sage-900">${gift.priceText}</span>
             </div>
-            <h5 class="font-bold text-xs text-sage-800 truncate mt-0.5" title="${gift.name}">${gift.variant || gift.name}</h5>
+            <h5 class="font-bold text-xs sm:text-sm text-sage-800 truncate mt-0.5" title="${gift.name}">${gift.variant || gift.name}</h5>
             <input type="hidden" class="gift-select" value="${gift.id}">
           </div>
 
-          <button type="button" onclick="document.getElementById('${rowId}').remove(); updateSelectedGiftsCount();" class="text-tomato hover:text-tomato-hover p-1.5 rounded-lg hover:bg-tomato/10 transition shrink-0" aria-label="Remove item">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <button type="button" onclick="document.getElementById('${rowId}').remove(); updateSelectedGiftsCount();" class="text-tomato hover:text-tomato-hover p-2 rounded-xl bg-tomato-light hover:bg-tomato/20 border border-tomato/30 transition shrink-0 min-w-[38px] min-h-[38px] flex items-center justify-center active:scale-95" aria-label="Remove item">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
             </svg>
           </button>
         </div>
 
-        <!-- Hàng 2: Số lượng & Trạng thái -->
-        <div class="flex items-center justify-between gap-2 pt-1 border-t border-offwhite-border text-[11px]">
-          <div class="flex items-center gap-1.5">
-            <span class="text-sage-800 font-bold">Qty:</span>
-            <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-12 bg-offwhite border border-offwhite-border rounded-lg px-1.5 py-0.5 text-xs font-bold text-center text-sage-900 focus:outline-none focus:border-sage">
+        <!-- Hàng 2: Số lượng (Nút - / +) & Trạng thái -->
+        <div class="flex items-center justify-between gap-2 pt-2 border-t border-offwhite-border text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-sage-900 font-black text-xs sm:text-sm">Qty:</span>
+            <div class="inline-flex items-center border-2 border-offwhite-border rounded-xl bg-offwhite p-0.5">
+              <button type="button" onclick="changeRowQty('${rowId}', -1)" class="w-8 h-8 flex items-center justify-center font-black text-lg text-sage-800 hover:bg-white rounded-lg active:scale-90 transition">
+                -
+              </button>
+              <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-10 text-center text-sm font-black text-sage-900 bg-transparent focus:outline-none">
+              <button type="button" onclick="changeRowQty('${rowId}', 1)" class="w-8 h-8 flex items-center justify-center font-black text-lg text-sage-800 hover:bg-white rounded-lg active:scale-90 transition">
+                +
+              </button>
+            </div>
           </div>
-          <div class="flex items-center gap-1.5">
-            <span class="text-sage-800 font-bold">Status:</span>
-            <select class="gift-status bg-offwhite border border-offwhite-border rounded-lg px-2 py-0.5 text-xs font-bold text-sage-900 focus:outline-none focus:border-sage">
+          <div class="flex items-center gap-2">
+            <span class="text-sage-900 font-black text-xs sm:text-sm">Status:</span>
+            <select class="gift-status bg-offwhite border-2 border-offwhite-border rounded-xl px-2.5 py-1.5 text-xs sm:text-sm font-bold text-sage-900 focus:outline-none focus:border-sage min-h-[38px]">
               <option value="preparing" ${status === 'preparing' ? 'selected' : ''}>Preparing</option>
               <option value="gifted" ${status === 'gifted' ? 'selected' : ''}>Gifted</option>
               <option value="pending" ${status === 'pending' ? 'selected' : ''}>Pending</option>
