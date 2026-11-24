@@ -341,42 +341,32 @@
           <input type="text" id="modal-person-name" oninput="handlePersonNameInput()" class="w-full bg-white border-2 border-offwhite-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-sage font-bold text-sage-900">
         </div>
 
-        <!-- Các nhóm quà: Hiện ra sau khi nhập tên để chọn -->
-        <div id="modal-category-section" class="hidden space-y-1.5 pt-2 border-t border-offwhite-border">
-          <label class="block font-bold text-sage-900 text-xs">
-            Choose category:
-          </label>
-          <div id="category-pills" class="grid grid-cols-3 gap-1.5">
-            <button type="button" onclick="selectCategoryForAdd('Perfume')" data-cat="Perfume" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Perfume
-            </button>
-            <button type="button" onclick="selectCategoryForAdd('Skincare')" data-cat="Skincare" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Skincare
-            </button>
-            <button type="button" onclick="selectCategoryForAdd('Powder')" data-cat="Powder" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Powder
-            </button>
-            <button type="button" onclick="selectCategoryForAdd('Foundation & Concealer')" data-cat="Foundation & Concealer" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Foundation
-            </button>
-            <button type="button" onclick="selectCategoryForAdd('Lipstick')" data-cat="Lipstick" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Lipstick
-            </button>
-            <button type="button" onclick="selectCategoryForAdd('Chocolate')" data-cat="Chocolate" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Chocolate
-            </button>
+        <!-- Các nhóm quà: Hiện ra sau khi nhập tên để chọn (Lưới 6 Card danh mục) -->
+        <div id="modal-category-section" class="hidden space-y-2 pt-2 border-t border-offwhite-border">
+          <div class="flex items-center justify-between">
+            <label class="block font-bold text-sage-900 text-xs">
+              Choose a gift category:
+            </label>
+            <span class="text-[10px] text-sage-700 font-semibold">Tap a card to select</span>
+          </div>
+          <!-- Lưới 6 Card đúng chuẩn hình ảnh -->
+          <div id="modal-category-cards-grid" class="grid grid-cols-2 gap-2">
+            <!-- Render động bằng JavaScript -->
           </div>
         </div>
 
         <!-- Danh sách sản phẩm của nhóm quà đang chọn để người dùng bấm chọn -->
-        <div id="modal-cat-gifts-container" class="hidden space-y-1.5 pt-2 border-t border-offwhite-border">
+        <div id="modal-cat-gifts-container" class="hidden space-y-2 pt-2 border-t border-offwhite-border">
           <div class="flex items-center justify-between">
-            <label id="modal-cat-gifts-title" class="font-bold text-sage-900 text-xs">
-              Choose gifts to add:
-            </label>
-            <span class="text-[10px] text-sage-700 font-medium">Tap [+ Select] to add</span>
+            <button type="button" onclick="backToCategoryCards()" class="btn-bounce inline-flex items-center gap-1 text-xs font-bold text-sage-700 hover:text-sage-900 bg-white border border-offwhite-border px-2 py-1 rounded-lg">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <span>Back to categories</span>
+            </button>
+            <span id="modal-cat-gifts-title" class="font-bold text-sage-900 text-xs truncate max-w-[170px] text-right">
+              Gifts
+            </span>
           </div>
-          <div id="modal-cat-gifts-list" class="max-h-52 overflow-y-auto space-y-1.5 pr-1 custom-scroll">
+          <div id="modal-cat-gifts-list" class="max-h-60 overflow-y-auto space-y-2 pr-0.5 custom-scroll">
             <!-- Render danh sách quà thuộc nhóm đang chọn -->
           </div>
         </div>
@@ -412,68 +402,68 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // DỮ LIỆU KHO QUÀ GỐC (49 loại, tổng 148 items) CÓ ĐƯỜNG DẪN ẢNH ICON SẢN PHẨM CHUẨN ĐÃ XOAY THẲNG ĐỨNG
+    // DỮ LIỆU KHO QUÀ GỐC (49 loại, tổng 148 items) ĐẦY ĐỦ THƯƠNG HIỆU, QUỐC GIA, DUNG TÍCH, GIÁ VÀ HÌNH ẢNH
     const INITIAL_INVENTORY = [
       // Chocolate (10 loại - 64 items)
-      { id: 1, priceValue: 48000, priceText: "~48k", name: "Biedronka 50% Dark Chocolate (Czekolada deserowa)", category: "Chocolate", total: 28, unit: "bars", image: "assets/item_1.jpg" },
-      { id: 2, priceValue: 110000, priceText: "~110k", name: "Hershey's Cookies 'N' Creme Caramel Chocolate", category: "Chocolate", total: 12, unit: "bars", image: "assets/item_2.jpg" },
-      { id: 3, priceValue: 65000, priceText: "~65k", name: "Meltie White Coconut Chocolate", category: "Chocolate", total: 5, unit: "bars", image: "assets/item_3.jpg" },
-      { id: 4, priceValue: 65000, priceText: "~65k", name: "Meltie White Cocoa Crisps Chocolate", category: "Chocolate", total: 5, unit: "bars", image: "assets/item_4.jpg" },
-      { id: 5, priceValue: 95000, priceText: "~95k", name: "KitKat Milk Chocolate (Large Bar)", category: "Chocolate", total: 3, unit: "bars", image: "assets/item_5.jpg" },
-      { id: 6, priceValue: 90000, priceText: "~90k", name: "KitKat Formula 1 Limited Edition (F1 Car)", category: "Chocolate", total: 3, unit: "packs", image: "assets/item_6.jpg" },
-      { id: 7, priceValue: 50000, priceText: "~50k", name: "Biedronka Milk Chocolate (Czekolada Mleczna)", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_7.jpg" },
-      { id: 8, priceValue: 55000, priceText: "~55k", name: "Biedronka White Coconut Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_8.jpg" },
-      { id: 9, priceValue: 75000, priceText: "~75k", name: "Meltie Raspberry Matcha Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_9.jpg" },
-      { id: 10, priceValue: 75000, priceText: "~75k", name: "Delica Dore Style Ube Coconut Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_10.jpg" },
+      { id: 1, priceValue: 48000, priceText: "~48k", brand: "Biedronka", country: "Poland", volume: "100g", variant: "50% Dark Chocolate", name: "Biedronka 50% Dark Chocolate (Czekolada deserowa)", category: "Chocolate", total: 28, unit: "bars", image: "assets/item_1.jpg" },
+      { id: 2, priceValue: 110000, priceText: "~110k", brand: "Hershey's", country: "USA", volume: "90g", variant: "Cookies 'N' Creme Caramel", name: "Hershey's Cookies 'N' Creme Caramel Chocolate", category: "Chocolate", total: 12, unit: "bars", image: "assets/item_2.jpg" },
+      { id: 3, priceValue: 65000, priceText: "~65k", brand: "Meltie", country: "Poland", volume: "100g", variant: "White Coconut Chocolate", name: "Meltie White Coconut Chocolate", category: "Chocolate", total: 5, unit: "bars", image: "assets/item_3.jpg" },
+      { id: 4, priceValue: 65000, priceText: "~65k", brand: "Meltie", country: "Poland", volume: "100g", variant: "White Cocoa Crisps Chocolate", name: "Meltie White Cocoa Crisps Chocolate", category: "Chocolate", total: 5, unit: "bars", image: "assets/item_4.jpg" },
+      { id: 5, priceValue: 95000, priceText: "~95k", brand: "KitKat", country: "Poland / UK", volume: "120g", variant: "Milk Chocolate (Large Bar)", name: "KitKat Milk Chocolate (Large Bar)", category: "Chocolate", total: 3, unit: "bars", image: "assets/item_5.jpg" },
+      { id: 6, priceValue: 90000, priceText: "~90k", brand: "KitKat", country: "Poland / UK", volume: "29g", variant: "Formula 1 Car Edition", name: "KitKat Formula 1 Limited Edition (F1 Car)", category: "Chocolate", total: 3, unit: "packs", image: "assets/item_6.jpg" },
+      { id: 7, priceValue: 50000, priceText: "~50k", brand: "Biedronka", country: "Poland", volume: "100g", variant: "Milk Chocolate (Mleczna)", name: "Biedronka Milk Chocolate (Czekolada Mleczna)", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_7.jpg" },
+      { id: 8, priceValue: 55000, priceText: "~55k", brand: "Biedronka", country: "Poland", volume: "100g", variant: "White Coconut Chocolate", name: "Biedronka White Coconut Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_8.jpg" },
+      { id: 9, priceValue: 75000, priceText: "~75k", brand: "Meltie", country: "Poland", volume: "100g", variant: "Raspberry Matcha Chocolate", name: "Meltie Raspberry Matcha Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_9.jpg" },
+      { id: 10, priceValue: 75000, priceText: "~75k", brand: "Delica Dore", country: "Poland", volume: "100g", variant: "Ube Coconut Chocolate", name: "Delica Dore Style Ube Coconut Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_10.jpg" },
 
       // Nước hoa (25 loại - 41 items)
-      { id: 11, priceValue: 380000, priceText: "~380k", name: "Mexx Whenever Wherever For Him EDT (30ml)", category: "Perfume", total: 4, unit: "bottles", image: "assets/item_11.jpg" },
-      { id: 12, priceValue: 250000, priceText: "~250k", name: "Kruidvat XD Oud Wood & Pepper EDT (50ml)", category: "Perfume", total: 4, unit: "bottles", image: "assets/item_12.jpg" },
-      { id: 13, priceValue: 350000, priceText: "~350k", name: "Adidas Vibes Smooth Pace EDT (50ml)", category: "Perfume", total: 3, unit: "bottles", image: "assets/item_13.jpg" },
-      { id: 14, priceValue: 320000, priceText: "~320k", name: "Fiorée Choose Joy EDP (50ml)", category: "Perfume", total: 3, unit: "bottles", image: "assets/item_14.jpg" },
-      { id: 15, priceValue: 600000, priceText: "~600k", name: "Sorvella Mountain Woodall EDP (50ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_15.jpg" },
-      { id: 16, priceValue: 550000, priceText: "~550k", name: "Elizabeth Arden Green Tea Scent Spray (30ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_16.jpg" },
-      { id: 17, priceValue: 500000, priceText: "~500k", name: "Adidas Champions League Goal EDT (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_17.jpg" },
-      { id: 18, priceValue: 450000, priceText: "~450k", name: "La Rive Her Choice EDP (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_18.jpg" },
-      { id: 19, priceValue: 300000, priceText: "~300k", name: "NG Aqua Di NG EDT Pour Homme (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_19.jpg" },
-      { id: 20, priceValue: 300000, priceText: "~300k", name: "NG Dominatio For Men EDT (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_20.jpg" },
-      { id: 21, priceValue: 2000000, priceText: "~2M", name: "Gucci Flora Gorgeous Jasmine EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_21.jpg" },
-      { id: 22, priceValue: 1400000, priceText: "~1.4M", name: "Hugo Boss BOSS Bottled EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_22.jpg" },
-      { id: 23, priceValue: 1100000, priceText: "~1.1M", name: "Calvin Klein Obsession Night For Men EDT (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_23.jpg" },
-      { id: 24, priceValue: 900000, priceText: "~900k", name: "Tommy Hilfiger Tommy Girl NOW EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_24.jpg" },
-      { id: 25, priceValue: 750000, priceText: "~750k", name: "Guess Seductive Homme EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_25.jpg" },
-      { id: 26, priceValue: 850000, priceText: "~850k", name: "Iceberg Eau de Iceberg Pour Homme EDT (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_26.jpg" },
-      { id: 27, priceValue: 700000, priceText: "~700k", name: "NOU Oliban EDT Pour Homme (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_27.jpg" },
-      { id: 28, priceValue: 350000, priceText: "~350k", name: "Adidas Vibes Wonder Force EDT (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_28.jpg" },
-      { id: 29, priceValue: 480000, priceText: "~480k", name: "Icône L'adore Eau de Parfum (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_29.jpg" },
-      { id: 30, priceValue: 450000, priceText: "~450k", name: "La Rive 315 Prestige For Woman EDP (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_30.jpg" },
-      { id: 31, priceValue: 420000, priceText: "~420k", name: "The Master Perfumer N°07 Absolute Vanilla (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_31.jpg" },
-      { id: 32, priceValue: 420000, priceText: "~420k", name: "The Master Perfumer N°21 Vibrant Tangerine (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_32.jpg" },
-      { id: 33, priceValue: 650000, priceText: "~650k", name: "Kylie Minogue Darling EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_33.jpg" },
-      { id: 34, priceValue: 650000, priceText: "~650k", name: "Kylie Minogue Disco Darling EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_34.jpg" },
-      { id: 35, priceValue: 250000, priceText: "~250k", name: "Kruidvat CM Citrus & Bergamot EDT (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_35.jpg" },
+      { id: 11, priceValue: 380000, priceText: "~380k", brand: "Mexx", country: "Netherlands", volume: "30ml", variant: "Whenever Wherever For Him EDT", name: "Mexx Whenever Wherever For Him EDT (30ml)", category: "Perfume", total: 4, unit: "bottles", image: "assets/item_11.jpg" },
+      { id: 12, priceValue: 250000, priceText: "~250k", brand: "Kruidvat", country: "Netherlands", volume: "50ml", variant: "XD Oud Wood & Pepper EDT", name: "Kruidvat XD Oud Wood & Pepper EDT (50ml)", category: "Perfume", total: 4, unit: "bottles", image: "assets/item_12.jpg" },
+      { id: 13, priceValue: 350000, priceText: "~350k", brand: "Adidas", country: "Germany", volume: "50ml", variant: "Vibes Smooth Pace EDT", name: "Adidas Vibes Smooth Pace EDT (50ml)", category: "Perfume", total: 3, unit: "bottles", image: "assets/item_13.jpg" },
+      { id: 14, priceValue: 320000, priceText: "~320k", brand: "Fiorée", country: "France", volume: "50ml", variant: "Choose Joy EDP", name: "Fiorée Choose Joy EDP (50ml)", category: "Perfume", total: 3, unit: "bottles", image: "assets/item_14.jpg" },
+      { id: 15, priceValue: 600000, priceText: "~600k", brand: "Sorvella", country: "Poland", volume: "50ml", variant: "Mountain Woodall EDP", name: "Sorvella Mountain Woodall EDP (50ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_15.jpg" },
+      { id: 16, priceValue: 550000, priceText: "~550k", brand: "Elizabeth Arden", country: "USA", volume: "30ml", variant: "Green Tea Scent Spray", name: "Elizabeth Arden Green Tea Scent Spray (30ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_16.jpg" },
+      { id: 17, priceValue: 500000, priceText: "~500k", brand: "Adidas", country: "Germany", volume: "100ml", variant: "Champions League Goal EDT", name: "Adidas Champions League Goal EDT (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_17.jpg" },
+      { id: 18, priceValue: 450000, priceText: "~450k", brand: "La Rive", country: "Poland", volume: "100ml", variant: "Her Choice EDP", name: "La Rive Her Choice EDP (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_18.jpg" },
+      { id: 19, priceValue: 300000, priceText: "~300k", brand: "NG Perfumes", country: "Netherlands", volume: "100ml", variant: "Aqua Di NG EDT Pour Homme", name: "NG Aqua Di NG EDT Pour Homme (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_19.jpg" },
+      { id: 20, priceValue: 300000, priceText: "~300k", brand: "NG Perfumes", country: "Netherlands", volume: "100ml", variant: "Dominatio For Men EDT", name: "NG Dominatio For Men EDT (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_20.jpg" },
+      { id: 21, priceValue: 2000000, priceText: "~2M", brand: "Gucci", country: "Italy", volume: "30ml", variant: "Flora Gorgeous Jasmine EDP", name: "Gucci Flora Gorgeous Jasmine EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_21.jpg" },
+      { id: 22, priceValue: 1400000, priceText: "~1.4M", brand: "Hugo Boss", country: "Germany", volume: "30ml", variant: "BOSS Bottled EDT", name: "Hugo Boss BOSS Bottled EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_22.jpg" },
+      { id: 23, priceValue: 1100000, priceText: "~1.1M", brand: "Calvin Klein", country: "USA", volume: "100ml", variant: "Obsession Night For Men EDT", name: "Calvin Klein Obsession Night For Men EDT (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_23.jpg" },
+      { id: 24, priceValue: 900000, priceText: "~900k", brand: "Tommy Hilfiger", country: "USA", volume: "30ml", variant: "Tommy Girl NOW EDT", name: "Tommy Hilfiger Tommy Girl NOW EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_24.jpg" },
+      { id: 25, priceValue: 750000, priceText: "~750k", brand: "Guess", country: "USA", volume: "30ml", variant: "Seductive Homme EDT", name: "Guess Seductive Homme EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_25.jpg" },
+      { id: 26, priceValue: 850000, priceText: "~850k", brand: "Iceberg", country: "Italy", volume: "100ml", variant: "Eau de Iceberg Pour Homme EDT", name: "Iceberg Eau de Iceberg Pour Homme EDT (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_26.jpg" },
+      { id: 27, priceValue: 700000, priceText: "~700k", brand: "NOU", country: "Poland", volume: "50ml", variant: "Oliban EDT Pour Homme", name: "NOU Oliban EDT Pour Homme (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_27.jpg" },
+      { id: 28, priceValue: 350000, priceText: "~350k", brand: "Adidas", country: "Germany", volume: "50ml", variant: "Vibes Wonder Force EDT", name: "Adidas Vibes Wonder Force EDT (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_28.jpg" },
+      { id: 29, priceValue: 480000, priceText: "~480k", brand: "Icône", country: "France", volume: "100ml", variant: "L'adore Eau de Parfum", name: "Icône L'adore Eau de Parfum (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_29.jpg" },
+      { id: 30, priceValue: 450000, priceText: "~450k", brand: "La Rive", country: "Poland", volume: "100ml", variant: "315 Prestige For Woman EDP", name: "La Rive 315 Prestige For Woman EDP (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_30.jpg" },
+      { id: 31, priceValue: 420000, priceText: "~420k", brand: "The Master Perfumer", country: "Netherlands", volume: "50ml", variant: "N°07 Absolute Vanilla EDT", name: "The Master Perfumer N°07 Absolute Vanilla (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_31.jpg" },
+      { id: 32, priceValue: 420000, priceText: "~420k", brand: "The Master Perfumer", country: "Netherlands", volume: "50ml", variant: "N°21 Vibrant Tangerine EDT", name: "The Master Perfumer N°21 Vibrant Tangerine (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_32.jpg" },
+      { id: 33, priceValue: 650000, priceText: "~650k", brand: "Kylie Minogue", country: "Australia", volume: "30ml", variant: "Darling EDP", name: "Kylie Minogue Darling EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_33.jpg" },
+      { id: 34, priceValue: 650000, priceText: "~650k", brand: "Kylie Minogue", country: "Australia", volume: "30ml", variant: "Disco Darling EDP", name: "Kylie Minogue Disco Darling EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_34.jpg" },
+      { id: 35, priceValue: 250000, priceText: "~250k", brand: "Kruidvat", country: "Netherlands", volume: "50ml", variant: "CM Citrus & Bergamot EDT", name: "Kruidvat CM Citrus & Bergamot EDT (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_35.jpg" },
 
       // Kem nền, lót & che khuyết điểm (3 loại - 13 items)
-      { id: 36, priceValue: 220000, priceText: "~220k", name: "Paese Nanorevit Brightening Concealer Stick", category: "Foundation & Concealer", total: 8, unit: "sticks", image: "assets/item_36.jpg" },
-      { id: 37, priceValue: 380000, priceText: "~380k", name: "L'Oréal Skin Ink Foundation & Concealer", category: "Foundation & Concealer", total: 3, unit: "bottles", image: "assets/item_37.jpg" },
-      { id: 38, priceValue: 290000, priceText: "~290k", name: "Paese Illuminating Makeup Base Primer", category: "Foundation & Concealer", total: 2, unit: "bottles", image: "assets/item_38.jpg" },
+      { id: 36, priceValue: 220000, priceText: "~220k", brand: "Paese", country: "Poland", volume: "4g", variant: "Nanorevit Concealer Stick", name: "Paese Nanorevit Brightening Concealer Stick", category: "Foundation & Concealer", total: 8, unit: "sticks", image: "assets/item_36.jpg" },
+      { id: 37, priceValue: 380000, priceText: "~380k", brand: "L'Oréal", country: "France", volume: "30ml", variant: "Skin Ink Foundation & Concealer", name: "L'Oréal Skin Ink Foundation & Concealer", category: "Foundation & Concealer", total: 3, unit: "bottles", image: "assets/item_37.jpg" },
+      { id: 38, priceValue: 290000, priceText: "~290k", brand: "Paese", country: "Poland", volume: "30ml", variant: "Illuminating Makeup Base Primer", name: "Paese Illuminating Makeup Base Primer", category: "Foundation & Concealer", total: 2, unit: "bottles", image: "assets/item_38.jpg" },
 
       // Phấn trang điểm (4 loại - 12 items)
-      { id: 39, priceValue: 280000, priceText: "~280k", name: "Paese Nanorevit Covering Compact Powder", category: "Powder", total: 5, unit: "boxes", image: "assets/item_39.jpg" },
-      { id: 40, priceValue: 360000, priceText: "~360k", name: "Paese Nanorevit Glow Duo Highlighter", category: "Powder", total: 3, unit: "boxes", image: "assets/item_40.jpg" },
-      { id: 41, priceValue: 360000, priceText: "~360k", name: "Paese Nanorevit Contour Duo Powder", category: "Powder", total: 2, unit: "boxes", image: "assets/item_41.jpg" },
-      { id: 42, priceValue: 420000, priceText: "~420k", name: "Paese Powder Mist Illuminating Loose Powder", category: "Powder", total: 2, unit: "boxes", image: "assets/item_42.jpg" },
+      { id: 39, priceValue: 280000, priceText: "~280k", brand: "Paese", country: "Poland", volume: "9g", variant: "Nanorevit Covering Compact Powder", name: "Paese Nanorevit Covering Compact Powder", category: "Powder", total: 5, unit: "boxes", image: "assets/item_39.jpg" },
+      { id: 40, priceValue: 360000, priceText: "~360k", brand: "Paese", country: "Poland", volume: "8g", variant: "Nanorevit Glow Duo Highlighter", name: "Paese Nanorevit Glow Duo Highlighter", category: "Powder", total: 3, unit: "boxes", image: "assets/item_40.jpg" },
+      { id: 41, priceValue: 360000, priceText: "~360k", brand: "Paese", country: "Poland", volume: "8g", variant: "Nanorevit Contour Duo Powder", name: "Paese Nanorevit Contour Duo Powder", category: "Powder", total: 2, unit: "boxes", image: "assets/item_41.jpg" },
+      { id: 42, priceValue: 420000, priceText: "~420k", brand: "Paese", country: "Poland", volume: "10g", variant: "Powder Mist Illuminating Powder", name: "Paese Powder Mist Illuminating Loose Powder", category: "Powder", total: 2, unit: "boxes", image: "assets/item_42.jpg" },
 
       // Son môi & son dưỡng (3 loại - 12 items)
-      { id: 43, priceValue: 260000, priceText: "~260k", name: "Maybelline Superstay Teddy Tint Liquid Lipstick", category: "Lipstick", total: 9, unit: "sticks", image: "assets/item_43.jpg" },
-      { id: 44, priceValue: 170000, priceText: "~170k", name: "Försvarets Hudsalva Swedish Military Salve", category: "Lipstick", total: 2, unit: "tubes", image: "assets/item_44.jpg" },
-      { id: 45, priceValue: 110000, priceText: "~110k", name: "Apoliva Cerat Unscented Moisturizing Lip Balm", category: "Lipstick", total: 1, unit: "sticks", image: "assets/item_45.jpg" },
+      { id: 43, priceValue: 260000, priceText: "~260k", brand: "Maybelline", country: "USA", volume: "5ml", variant: "Superstay Teddy Tint Lipstick", name: "Maybelline Superstay Teddy Tint Liquid Lipstick", category: "Lipstick", total: 9, unit: "sticks", image: "assets/item_43.jpg" },
+      { id: 44, priceValue: 170000, priceText: "~170k", brand: "Försvarets", country: "Sweden", volume: "23ml / 9g", variant: "Hudsalva Military Lip Salve", name: "Försvarets Hudsalva Swedish Military Salve", category: "Lipstick", total: 2, unit: "tubes", image: "assets/item_44.jpg" },
+      { id: 45, priceValue: 110000, priceText: "~110k", brand: "Apoliva", country: "Sweden", volume: "4.5g", variant: "Cerat Unscented Lip Balm", name: "Apoliva Cerat Unscented Moisturizing Lip Balm", category: "Lipstick", total: 1, unit: "sticks", image: "assets/item_45.jpg" },
 
       // Dưỡng da (4 loại - 6 items)
-      { id: 46, priceValue: 350000, priceText: "~350k", name: "L'Oréal Age Expert 60+ Anti-Aging Day Cream", category: "Skincare", total: 2, unit: "boxes", image: "assets/item_46.jpg" },
-      { id: 47, priceValue: 280000, priceText: "~280k", name: "Solverx Age.Reset Ceramide Sleeping Mask", category: "Skincare", total: 2, unit: "boxes", image: "assets/item_47.jpg" },
-      { id: 48, priceValue: 650000, priceText: "~650k", name: "mesoBOOST Collagen Forte Concentrated Serum", category: "Skincare", total: 1, unit: "boxes", image: "assets/item_48.jpg" },
-      { id: 49, priceValue: 220000, priceText: "~220k", name: "Nacomi Rich & Comfy Avocado Calming Cream", category: "Skincare", total: 1, unit: "boxes", image: "assets/item_49.jpg" }
+      { id: 46, priceValue: 350000, priceText: "~350k", brand: "L'Oréal", country: "France", volume: "50ml", variant: "Age Expert 60+ Anti-Aging Cream", name: "L'Oréal Age Expert 60+ Anti-Aging Day Cream", category: "Skincare", total: 2, unit: "boxes", image: "assets/item_46.jpg" },
+      { id: 47, priceValue: 280000, priceText: "~280k", brand: "Solverx", country: "Poland", volume: "50ml", variant: "Age.Reset Ceramide Sleeping Mask", name: "Solverx Age.Reset Ceramide Sleeping Mask", category: "Skincare", total: 2, unit: "boxes", image: "assets/item_47.jpg" },
+      { id: 48, priceValue: 650000, priceText: "~650k", brand: "mesoBOOST", country: "Poland", volume: "30ml", variant: "Collagen Forte Serum", name: "mesoBOOST Collagen Forte Concentrated Serum", category: "Skincare", total: 1, unit: "boxes", image: "assets/item_48.jpg" },
+      { id: 49, priceValue: 220000, priceText: "~220k", brand: "Nacomi", country: "Poland", volume: "50ml", variant: "Avocado Calming Cream", name: "Nacomi Rich & Comfy Avocado Calming Cream", category: "Skincare", total: 1, unit: "boxes", image: "assets/item_49.jpg" }
     ];
 
     // CẤU HÌNH CÁC NHÓM QUÀ ĐÃ ĐƯỢC XẾP THEO GIÁ TIỀN TỪ CAO XUỐNG THẤP
@@ -789,12 +779,19 @@
               </span>
             </div>
             
-            <!-- THÔNG TIN QUÀ -->
+            <!-- THÔNG TIN QUÀ: THƯƠNG HIỆU, QUỐC GIA, DUNG TÍCH, GIÁ VÀ TỒN KHO -->
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-1">
-                <h5 class="font-bold text-sage-900 text-xs leading-snug truncate" title="${item.name}">${item.name}</h5>
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-baseline gap-1 truncate">
+                    <span class="font-black text-xs text-sage-900">${item.brand || 'Item'}</span>
+                    <span class="text-[10px] text-sage-700 font-semibold">${item.country ? `(${item.country})` : ''}</span>
+                  </div>
+                  <div class="text-[11px] font-bold text-sage-800 truncate leading-tight">${item.variant || item.name}</div>
+                </div>
                 <div class="flex items-center gap-1 shrink-0">
-                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-offwhite text-sage-800 border-offwhite-border">${item.priceText}</span>
+                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-offwhite text-sage-800 border-offwhite-border">${item.volume}</span>
+                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-black bg-sage-100 text-sage-900 border-sage-300">${item.priceText}</span>
                   <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold ${remainBadge}">${remain}/${item.total} left</span>
                 </div>
               </div>
@@ -1151,20 +1148,56 @@
     let pendingPreselectedGiftId = null;
     let currentSelectedCategory = null;
 
-    function highlightCategoryPill(catName) {
-      currentSelectedCategory = catName;
-      const pills = document.querySelectorAll('#category-pills .cat-pill');
-      pills.forEach(p => {
-        if (p.getAttribute('data-cat') === catName) {
-          p.className = 'cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-sage-600 bg-sage text-white shadow-xs transition btn-bounce';
-        } else {
-          p.className = 'cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce';
-        }
+    // RENDER LƯỚI 6 CARD DANH MỤC TRONG MODAL SAU KHI ĐẶT TÊN
+    function renderModalCategoryCards() {
+      const grid = document.getElementById('modal-category-cards-grid');
+      if (!grid) return;
+
+      const assignedMap = {};
+      recipients.forEach(r => {
+        (r.items || []).forEach(it => {
+          assignedMap[it.giftId] = (assignedMap[it.giftId] || 0) + (parseInt(it.qty) || 0);
+        });
       });
+
+      grid.innerHTML = SORTED_CATEGORY_NAMES.map(catName => {
+        const allItems = inventory.filter(i => i.category === catName).sort((a, b) => (b.priceValue || 0) - (a.priceValue || 0));
+        const totalItemsCount = allItems.reduce((sum, i) => sum + i.total, 0);
+        const totalAssignedCount = allItems.reduce((sum, i) => sum + (assignedMap[i.id] || 0), 0);
+        const totalRemainCount = Math.max(0, totalItemsCount - totalAssignedCount);
+
+        const stockText = totalRemainCount === totalItemsCount 
+          ? `${totalItemsCount} products`
+          : `${totalRemainCount}/${totalItemsCount} left`;
+
+        return `
+          <div onclick="selectCategoryForAdd('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border hover:border-sage rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition select-none">
+            <!-- Tên nhóm quà -->
+            <h4 class="font-black text-sm sm:text-base text-sage-900 tracking-wide leading-tight mb-1">
+              ${catName}
+            </h4>
+            <!-- Số loại -->
+            <div class="text-xs font-bold text-[#507A38] leading-tight">
+              ${allItems.length} types
+            </div>
+            <!-- Số sản phẩm -->
+            <div class="text-xs font-black text-tomato leading-tight mt-0.5">
+              ${stockText}
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
+    // KHI NHẤN VÀO CARD DANH MỤC: HIỆN DANH SÁCH SẢN PHẨM CỦA DANH MỤC ĐÓ
     function selectCategoryForAdd(catName, preselectedGiftId = null) {
-      highlightCategoryPill(catName);
+      currentSelectedCategory = catName;
+      const catSec = document.getElementById('modal-category-section');
+      const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
+      
+      if (catSec) catSec.classList.add('hidden');
+      if (catGiftsContainer) catGiftsContainer.classList.remove('hidden');
+
       renderCategoryGiftsInModal(catName);
 
       if (preselectedGiftId) {
@@ -1172,9 +1205,18 @@
       }
     }
 
-    // HIỂN THỊ DANH SÁCH SẢN PHẨM TRONG NHÓM ĐỂ NGƯỜI DÙNG BẤM CHỌN
+    // QUAY LẠI LƯỚI 6 CARD DANH MỤC
+    function backToCategoryCards() {
+      const catSec = document.getElementById('modal-category-section');
+      const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
+      
+      if (catGiftsContainer) catGiftsContainer.classList.add('hidden');
+      if (catSec) catSec.classList.remove('hidden');
+      renderModalCategoryCards();
+    }
+
+    // HIỂN THỊ DANH SÁCH SẢN PHẨM TRONG NHÓM: CHỈ HIỂN THỊ HÌNH ẢNH, THƯƠNG HIỆU/QUỐC GIA, DUNG TÍCH, GIÁ TIỀN, SỐ LƯỢNG
     function renderCategoryGiftsInModal(catName) {
-      highlightCategoryPill(catName);
       const container = document.getElementById('modal-cat-gifts-list');
       const titleEl = document.getElementById('modal-cat-gifts-title');
       const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
@@ -1186,7 +1228,7 @@
         .sort((a, b) => (b.priceValue || 0) - (a.priceValue || 0));
 
       if (titleEl) {
-        titleEl.innerText = `Available gifts in ${catName} (${items.length}):`;
+        titleEl.innerText = `${catName} (${items.length})`;
       }
 
       // Map số lượng đã phân chia để tính tồn kho
@@ -1201,27 +1243,42 @@
         const assigned = assignedMap[item.id] || 0;
         const remain = Math.max(0, item.total - assigned);
         const stockBadge = remain === 0
-          ? '<span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-stone-200 text-stone-600 border-stone-300">Out of stock</span>'
-          : `<span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-sage-100 text-sage-800 border-sage-300">${remain}/${item.total} left</span>`;
+          ? '<span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-stone-200 text-stone-600 border border-stone-300">Out of stock</span>'
+          : `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold text-tomato">${remain}/${item.total} left</span>`;
+
+        const brandDisplay = item.brand || 'Item';
+        const countryDisplay = item.country ? `(${item.country})` : '';
+        const volumeDisplay = item.volume ? `<span class="text-[10px] font-bold text-sage-800 bg-offwhite px-1.5 py-0.5 rounded border border-offwhite-border">${item.volume}</span>` : '';
+        const priceDisplay = `<span class="text-[10px] font-black text-sage-900 bg-sage-100 px-1.5 py-0.5 rounded border border-sage-300">${item.priceText}</span>`;
 
         return `
-          <div class="bg-white border-2 border-offwhite-border rounded-xl p-2 flex items-center justify-between gap-2 shadow-2xs hover:border-sage transition">
-            <!-- Ảnh thumbnail + Tên + Giá + Tồn kho -->
-            <div class="flex items-center gap-2 min-w-0 flex-1">
-              <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="cursor-zoom-in shrink-0 relative group" title="Tap to zoom in">
-                <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-10 h-10 object-contain rounded-lg border border-offwhite-border bg-offwhite p-0.5 shadow-2xs transition group-hover:scale-105">
+          <div class="bg-white border-2 border-offwhite-border rounded-xl p-2.5 flex items-center justify-between gap-2.5 shadow-2xs hover:border-sage transition">
+            <!-- 1. HÌNH ẢNH -->
+            <div onclick="openImageZoom('${item.image}', '${escapeHtml(brandDisplay)} ${escapeHtml(countryDisplay)} - ${escapeHtml(item.variant || item.name)}', '${item.category}')" class="cursor-zoom-in shrink-0 relative group" title="Tap to zoom">
+              <img src="${item.image}" alt="${brandDisplay}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-12 h-12 object-contain rounded-lg border border-offwhite-border bg-offwhite p-0.5 shadow-2xs transition group-hover:scale-105">
+            </div>
+
+            <!-- 2. THƯƠNG HIỆU/QUỐC GIA, DUNG TÍCH, GIÁ TIỀN, SỐ LƯỢNG -->
+            <div class="min-w-0 flex-1">
+              <!-- Thương hiệu & Quốc gia -->
+              <div class="flex items-baseline gap-1 truncate">
+                <span class="font-black text-xs text-sage-900">${brandDisplay}</span>
+                <span class="text-[10px] text-sage-700 font-semibold">${countryDisplay}</span>
               </div>
-              <div class="min-w-0 flex-1">
-                <h5 class="font-bold text-xs text-sage-900 truncate leading-tight" title="${item.name}">${item.name}</h5>
-                <div class="flex items-center gap-1.5 mt-0.5">
-                  <span class="text-[10px] font-extrabold text-sage-900 bg-offwhite px-1.5 py-0.2 rounded border border-offwhite-border">${item.priceText}</span>
-                  ${stockBadge}
-                </div>
+
+              <!-- Tên loại sản phẩm -->
+              <div class="text-[11px] font-bold text-sage-800 truncate leading-tight">${item.variant || item.name}</div>
+
+              <!-- Dung tích, Giá tiền, Số lượng tồn -->
+              <div class="flex items-center gap-1.5 mt-1 flex-wrap">
+                ${volumeDisplay}
+                ${priceDisplay}
+                ${stockBadge}
               </div>
             </div>
 
-            <!-- Nút + Select -->
-            <button type="button" onclick="addGiftToRecipient(${item.id})" class="btn-bounce bg-sage hover:bg-sage-600 text-white font-bold px-2.5 py-1 rounded-lg text-xs border border-sage-600 shadow-2xs inline-flex items-center gap-1 shrink-0">
+            <!-- 5. CHỌN SỐ LƯỢNG / THÊM MÓN -->
+            <button type="button" onclick="addGiftToRecipient(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-bold px-2.5 py-1.5 rounded-lg text-xs border border-tomato-border shadow-2xs inline-flex items-center gap-1 shrink-0">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
               <span>Select</span>
             </button>
@@ -1274,11 +1331,13 @@
           </div>
           
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-1.5">
-              <span class="text-[9px] font-bold px-1.5 py-0.2 bg-sage-100 text-sage-900 rounded-md border border-sage-300">${gift.category}</span>
-              <span class="text-[10px] font-extrabold text-sage-900">${gift.priceText}</span>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="font-black text-xs text-sage-900">${gift.brand || 'Item'}</span>
+              <span class="text-[10px] text-sage-700 font-semibold">${gift.country ? `(${gift.country})` : ''}</span>
+              <span class="text-[9px] font-bold px-1.5 py-0.2 bg-sage-100 text-sage-900 rounded border border-sage-300">${gift.volume || gift.category}</span>
+              <span class="text-[10px] font-black text-sage-900">${gift.priceText}</span>
             </div>
-            <h5 class="font-bold text-xs text-sage-900 truncate mt-0.5" title="${gift.name}">${gift.name}</h5>
+            <h5 class="font-bold text-xs text-sage-800 truncate mt-0.5" title="${gift.name}">${gift.variant || gift.name}</h5>
             <input type="hidden" class="gift-select" value="${gift.id}">
           </div>
 
@@ -1321,7 +1380,7 @@
       addGiftToRecipient(gId, qty, status);
     }
 
-    // XỬ LÝ KHI NHẬP TÊN: HIỆN CÁC NHÓM QUÀ VÀ DANH SÁCH QUÀ ĐỂ CHỌN
+    // XỬ LÝ KHI NHẬP TÊN: HIỆN LƯỚI 6 CARD DANH MỤC NHƯ ẢNH
     function handlePersonNameInput() {
       const name = document.getElementById('modal-person-name').value.trim();
       const catSec = document.getElementById('modal-category-section');
@@ -1329,17 +1388,19 @@
       const saveBtn = document.getElementById('modal-save-btn');
 
       if (name.length > 0) {
-        catSec.classList.remove('hidden');
-        if (catGiftsContainer) catGiftsContainer.classList.remove('hidden');
-
         if (pendingPreselectedGiftId) {
           const g = inventory.find(i => i.id === pendingPreselectedGiftId);
           if (g) {
             selectCategoryForAdd(g.category, pendingPreselectedGiftId);
           }
           pendingPreselectedGiftId = null;
+        } else if (catGiftsContainer && !catGiftsContainer.classList.contains('hidden')) {
+          // Người dùng đang duyệt sản phẩm của nhóm quà đó, giữ nguyên
         } else {
-          selectCategoryForAdd(currentSelectedCategory || 'Perfume');
+          // Hiện lưới 6 Card danh mục như ảnh người dùng gửi
+          catSec.classList.remove('hidden');
+          renderModalCategoryCards();
+          if (catGiftsContainer) catGiftsContainer.classList.add('hidden');
         }
 
         saveBtn.classList.remove('hidden');
@@ -1367,11 +1428,6 @@
       document.getElementById('modal-save-btn').classList.add('hidden');
       updateSelectedGiftsCount();
 
-      const pills = document.querySelectorAll('#category-pills .cat-pill');
-      pills.forEach(p => {
-        p.className = 'cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce';
-      });
-
       document.getElementById('modal').classList.remove('hidden');
       setTimeout(() => nameInput.focus(), 50);
     }
@@ -1392,12 +1448,11 @@
         addGiftToRecipient(it.giftId, it.qty, it.status);
       });
 
+      // Mở sẵn lưới 6 card
       document.getElementById('modal-category-section').classList.remove('hidden');
+      renderModalCategoryCards();
       const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
-      if (catGiftsContainer) catGiftsContainer.classList.remove('hidden');
-
-      const firstCat = (rec.items && rec.items[0]) ? (inventory.find(i => i.id === rec.items[0].giftId)?.category || 'Perfume') : 'Perfume';
-      selectCategoryForAdd(firstCat);
+      if (catGiftsContainer) catGiftsContainer.classList.add('hidden');
 
       if ((rec.items || []).length > 0) {
         document.getElementById('modal-gifts-section').classList.remove('hidden');
