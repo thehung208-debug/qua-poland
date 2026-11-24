@@ -366,8 +366,8 @@
               Gifts
             </span>
           </div>
-          <div id="modal-cat-gifts-list" class="max-h-64 overflow-y-auto space-y-2.5 pr-0.5 custom-scroll">
-            <!-- Render danh sách quà thuộc nhóm đang chọn -->
+          <div id="modal-cat-gifts-list" class="max-h-80 overflow-y-auto grid grid-cols-2 gap-2.5 pr-0.5 custom-scroll">
+            <!-- Render các card sản phẩm hình vuông gọn gàng bằng JavaScript -->
           </div>
         </div>
 
@@ -397,6 +397,38 @@
         </button>
       </div>
 
+    </div>
+  </div>
+
+  <!-- MODAL XÁC NHẬN CHỌN QUÀ (TRÁNH LỠ TAY ẤN NHẦM MẤT CÔNG CHỈNH) -->
+  <div id="confirm-gift-modal" class="fixed inset-0 z-60 bg-black/60 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-xs rounded-3xl border-2 border-offwhite-border shadow-2xl p-5 text-center space-y-3.5 animate-fade-in">
+      <!-- Ảnh preview món quà -->
+      <div class="w-20 h-20 mx-auto rounded-2xl bg-offwhite border-2 border-offwhite-border p-1 flex items-center justify-center shadow-xs">
+        <img id="confirm-gift-img" src="" alt="Gift preview" class="max-h-full max-w-full object-contain">
+      </div>
+
+      <div>
+        <h4 id="confirm-gift-brand" class="text-base font-black text-sage-900 leading-tight">Brand</h4>
+        <div class="flex items-center justify-center gap-1.5 mt-1.5 text-xs font-bold text-sage-700">
+          <span id="confirm-gift-volume" class="bg-offwhite px-2 py-0.5 rounded-md border border-offwhite-border">Volume</span>
+          <span id="confirm-gift-price" class="bg-sage-100 text-sage-900 px-2 py-0.5 rounded-md border border-sage-300">Price</span>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-offwhite-border">
+        <p class="text-sm font-black text-sage-900 leading-snug">Are you sure you want to give this gift?</p>
+        <p id="confirm-gift-sub" class="text-xs text-sage-700 font-semibold mt-1">Bạn có chắc chắn muốn tặng món quà này?</p>
+      </div>
+
+      <div class="flex gap-2.5 pt-1">
+        <button type="button" onclick="closeConfirmGiftModal()" class="flex-1 py-3 text-sm font-extrabold text-sage-800 bg-white border-2 border-offwhite-border rounded-xl btn-bounce active:scale-95">
+          Cancel
+        </button>
+        <button type="button" onclick="executeConfirmAddGift()" class="flex-1 py-3 text-sm font-extrabold text-white bg-tomato hover:bg-tomato-hover border-2 border-tomato-border rounded-xl shadow-xs btn-bounce active:scale-95">
+          Yes, Add
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1218,21 +1250,57 @@
       renderModalCategoryCards();
     }
 
-    // HIỂN THỊ DANH SÁCH SẢN PHẨM TRONG NHÓM: CHỮ TO RÕ, NÚT SELECT TO DỄ BẤM TRÊN ĐIỆN THOẠI
+    // BIẾN LƯU MÓN QUÀ CHỜ XÁC NHẬN CHỌN
+    let pendingConfirmGiftId = null;
+
+    // MỞ MODAL XÁC NHẬN CHỌN QUÀ (TRÁNH LỠ TAY ẤN NHẦM MẤT CÔNG CHỈNH)
+    function promptAddGift(giftId) {
+      const gift = inventory.find(i => i.id === parseInt(giftId));
+      if (!gift) return;
+
+      pendingConfirmGiftId = gift.id;
+      const recipientName = (document.getElementById('modal-person-name')?.value || '').trim() || 'this recipient';
+
+      document.getElementById('confirm-gift-img').src = gift.image;
+      document.getElementById('confirm-gift-brand').innerText = `${gift.brand || 'Gift'} ${gift.country ? `(${gift.country})` : ''}`;
+      document.getElementById('confirm-gift-volume').innerText = gift.volume || '';
+      document.getElementById('confirm-gift-price').innerText = gift.priceText || '';
+      document.getElementById('confirm-gift-sub').innerText = `Give this gift to "${recipientName}"?`;
+
+      document.getElementById('confirm-gift-modal').classList.remove('hidden');
+    }
+
+    // ĐÓNG MODAL XÁC NHẬN CHỌN QUÀ
+    function closeConfirmGiftModal() {
+      pendingConfirmGiftId = null;
+      document.getElementById('confirm-gift-modal').classList.add('hidden');
+    }
+
+    // XÁC NHẬN ĐỒNG Ý TẶNG MÓN QUÀ
+    function executeConfirmAddGift() {
+      if (!pendingConfirmGiftId) return;
+      const id = pendingConfirmGiftId;
+      closeConfirmGiftModal();
+
+      addGiftToRecipient(id);
+
+      // Cập nhật lại danh sách quà trong nhóm để cập nhật số tồn kho và đẩy món vừa hết hàng xuống dưới cùng
+      if (currentSelectedCategory) {
+        renderCategoryGiftsInModal(currentSelectedCategory);
+      }
+    }
+
+    // HIỂN THỊ DANH SÁCH SẢN PHẨM TRONG NHÓM:
+    // 1. DẠNG CARD HÌNH VUÔNG GỌN GÀNG
+    // 2. SẢN PHẨM DÙNG RỒI / HẾT HÀNG CHO XUỐNG DƯỚI CÙNG
+    // 3. KHÔNG HIỆN TÊN CỤ THỂ DÀI DÒNG, CHỈ HIỆN THƯƠNG HIỆU/QUỐC GIA, DUNG TÍCH, GIÁ, SỐ LƯỢNG
+    // 4. BẤM SELECT CÓ BƯỚC XÁC NHẬN TRÁNH BẤM NHẦM
     function renderCategoryGiftsInModal(catName) {
       const container = document.getElementById('modal-cat-gifts-list');
       const titleEl = document.getElementById('modal-cat-gifts-title');
       const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
       if (catGiftsContainer) catGiftsContainer.classList.remove('hidden');
       if (!container) return;
-
-      const items = inventory
-        .filter(i => i.category === catName)
-        .sort((a, b) => (b.priceValue || 0) - (a.priceValue || 0));
-
-      if (titleEl) {
-        titleEl.innerText = `${catName} (${items.length})`;
-      }
 
       // Map số lượng đã phân chia để tính tồn kho
       const assignedMap = {};
@@ -1242,49 +1310,84 @@
         });
       });
 
+      // Lọc danh sách quà theo nhóm
+      let items = inventory.filter(i => i.category === catName);
+
+      // QUY TẮC SẮP XẾP:
+      // - Sản phẩm còn tồn kho (remain > 0) lên trước (xếp theo giá cao đến thấp)
+      // - Sản phẩm nào dùng rồi / hết hàng (remain === 0) CHO XUỐNG DƯỚI CÙNG
+      items.sort((a, b) => {
+        const remainA = Math.max(0, a.total - (assignedMap[a.id] || 0));
+        const remainB = Math.max(0, b.total - (assignedMap[b.id] || 0));
+
+        const hasStockA = remainA > 0 ? 1 : 0;
+        const hasStockB = remainB > 0 ? 1 : 0;
+
+        if (hasStockA !== hasStockB) {
+          return hasStockB - hasStockA; // Còn hàng (1) lên trước, dùng rồi (0) xuống dưới
+        }
+        return (b.priceValue || 0) - (a.priceValue || 0); // Cùng trạng thái thì giá cao lên trước
+      });
+
+      if (titleEl) {
+        titleEl.innerText = `${catName} (${items.length})`;
+      }
+
       container.innerHTML = items.map(item => {
         const assigned = assignedMap[item.id] || 0;
         const remain = Math.max(0, item.total - assigned);
-        const stockBadge = remain === 0
-          ? '<span class="px-2 py-0.5 rounded-lg text-xs font-bold bg-stone-200 text-stone-600 border border-stone-300">Out of stock</span>'
-          : `<span class="px-2 py-0.5 rounded-lg text-xs font-black text-tomato bg-tomato-light/60 border border-tomato/30">${remain}/${item.total} left</span>`;
+        const isUsedUp = remain === 0;
 
         const brandDisplay = item.brand || 'Item';
         const countryDisplay = item.country ? `(${item.country})` : '';
-        const volumeDisplay = item.volume ? `<span class="text-xs font-bold text-sage-800 bg-offwhite px-2 py-0.5 rounded-lg border border-offwhite-border">${item.volume}</span>` : '';
-        const priceDisplay = `<span class="text-xs sm:text-sm font-black text-sage-900 bg-sage-100 px-2 py-0.5 rounded-lg border border-sage-300">${item.priceText}</span>`;
 
-        return `
-          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-3 flex items-center justify-between gap-3 shadow-2xs hover:border-sage transition min-h-[76px]">
-            <!-- 1. HÌNH ẢNH TO RÕ (CHẠM ĐỂ ZOOM) -->
-            <div onclick="openImageZoom('${item.image}', '${escapeHtml(brandDisplay)} ${escapeHtml(countryDisplay)} - ${escapeHtml(item.variant || item.name)}', '${item.category}')" class="cursor-zoom-in shrink-0 relative group" title="Tap to zoom">
-              <img src="${item.image}" alt="${brandDisplay}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-14 h-14 object-contain rounded-xl border border-offwhite-border bg-offwhite p-1 shadow-2xs transition group-hover:scale-105">
-            </div>
+        // Card hình vuông: Sản phẩm dùng rồi thì làm mờ viền xám, nằm ở dưới cùng
+        const cardStyle = isUsedUp
+          ? 'bg-stone-50 border-2 border-stone-200 opacity-60'
+          : 'bg-white border-2 border-offwhite-border hover:border-sage shadow-xs';
 
-            <!-- 2. THƯƠNG HIỆU/QUỐC GIA, DUNG TÍCH, GIÁ TIỀN, SỐ LƯỢNG (CHỮ TO RÕ NÉT) -->
-            <div class="min-w-0 flex-1">
-              <!-- Thương hiệu & Quốc gia -->
-              <div class="flex items-baseline gap-1.5 truncate">
-                <span class="font-black text-sm sm:text-base text-sage-900">${brandDisplay}</span>
-                <span class="text-xs text-sage-700 font-bold">${countryDisplay}</span>
-              </div>
+        const stockBadge = isUsedUp
+          ? '<span class="text-xs font-bold text-stone-500 bg-stone-200/80 px-2 py-0.5 rounded-lg">Used up</span>'
+          : `<span class="text-xs font-black text-tomato">${remain}/${item.total} left</span>`;
 
-              <!-- Tên loại sản phẩm -->
-              <div class="text-xs sm:text-sm font-bold text-sage-800 truncate leading-snug mt-0.5">${item.variant || item.name}</div>
-
-              <!-- Dung tích, Giá tiền, Số lượng tồn -->
-              <div class="flex items-center gap-1.5 mt-1.5 flex-wrap">
-                ${volumeDisplay}
-                ${priceDisplay}
-                ${stockBadge}
-              </div>
-            </div>
-
-            <!-- 5. NÚT SELECT TO RÕ, DỄ BẤM TRÊN ĐIỆN THOẠI KHÔNG BỊ TRƯỢT -->
-            <button type="button" onclick="addGiftToRecipient(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-black px-4 py-2.5 rounded-xl text-sm border-2 border-tomato-border shadow-xs inline-flex items-center justify-center gap-1.5 shrink-0 min-h-[44px] min-w-[84px] active:scale-95">
+        const actionBtn = isUsedUp
+          ? `<button type="button" disabled class="w-full py-2.5 rounded-xl text-xs font-bold bg-stone-200 text-stone-500 cursor-not-allowed">Used up</button>`
+          : `<button type="button" onclick="promptAddGift(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-black w-full py-2.5 rounded-xl text-sm border-2 border-tomato-border shadow-xs flex items-center justify-center gap-1 active:scale-95 min-h-[42px]">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
               <span>Select</span>
-            </button>
+            </button>`;
+
+        return `
+          <!-- CARD HÌNH VUÔNG GỌN GÀNG, KHÔNG CÓ TÊN CỤ THỂ DÀI DÒNG -->
+          <div class="${cardStyle} rounded-2xl p-3 flex flex-col justify-between items-center text-center transition select-none">
+            
+            <!-- 1. HÌNH ẢNH VUÔNG RÕ NÉT (CHẠM ĐỂ ZOOM) -->
+            <div onclick="openImageZoom('${item.image}', '${escapeHtml(brandDisplay)} ${escapeHtml(countryDisplay)}', '${item.category}')" class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl bg-offwhite border border-offwhite-border p-1 flex items-center justify-center cursor-zoom-in relative shrink-0">
+              <img src="${item.image}" alt="${brandDisplay}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="max-h-full max-w-full object-contain">
+            </div>
+
+            <!-- 2. THƯƠNG HIỆU & QUỐC GIA (KHÔNG HIỆN TÊN DÀI) -->
+            <div class="mt-2 w-full">
+              <h5 class="font-black text-sm sm:text-base text-sage-900 leading-tight truncate" title="${brandDisplay}">${brandDisplay}</h5>
+              <p class="text-xs text-sage-700 font-bold truncate">${countryDisplay}</p>
+            </div>
+
+            <!-- 3. DUNG TÍCH & GIÁ TIỀN -->
+            <div class="flex items-center justify-center gap-1.5 mt-1.5 flex-wrap">
+              <span class="text-xs font-bold text-sage-800 bg-offwhite px-2 py-0.5 rounded-md border border-offwhite-border">${item.volume}</span>
+              <span class="text-xs sm:text-sm font-black text-sage-900 bg-sage-100 px-2 py-0.5 rounded-md border border-sage-300">${item.priceText}</span>
+            </div>
+
+            <!-- 4. SỐ LƯỢNG CÒN LẠI -->
+            <div class="mt-1.5 mb-2">
+              ${stockBadge}
+            </div>
+
+            <!-- 5. NÚT SELECT (CÓ BƯỚC XÁC NHẬN TRÁNH BẤM NHẦM) -->
+            <div class="w-full">
+              ${actionBtn}
+            </div>
+
           </div>
         `;
       }).join('');
