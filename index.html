@@ -18,14 +18,31 @@
             comic: ['"Comic Neue"', '"Comic Sans MS"', 'cursive', 'sans-serif'],
           },
           colors: {
-            butter: {
-              50: '#FEFCE8',
-              100: '#FEF9C3',
-              200: '#FEF08A',
-              300: '#FDE047',
-              400: '#FACC15',
-              500: '#EAB308',
-              600: '#CA8A04',
+            sage: {
+              DEFAULT: '#9CAF88',
+              50: '#F4F7F2',
+              100: '#E7EDE3',
+              200: '#D2DEC9',
+              300: '#B8CBAC',
+              400: '#9CAF88',
+              500: '#7E936A',
+              600: '#637553',
+              700: '#4A573E',
+              800: '#343E2C',
+              900: '#20261B',
+              950: '#141811',
+            },
+            offwhite: {
+              DEFAULT: '#F7F5EF',
+              warm: '#FAF9F5',
+              dark: '#EBE7DF',
+              border: '#DDD8CE',
+            },
+            tomato: {
+              DEFAULT: '#E8412C',
+              hover: '#D43420',
+              light: '#FCECE9',
+              border: '#C9311E',
             }
           }
         }
@@ -35,8 +52,8 @@
   <style>
     body {
       font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif;
-      background-color: #FEFCE8;
-      color: #451a03;
+      background-color: #F7F5EF;
+      color: #20261B;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
@@ -45,7 +62,7 @@
       height: 4px;
     }
     .custom-scroll::-webkit-scrollbar-thumb {
-      background: #FDE047;
+      background: #9CAF88;
       border-radius: 4px;
     }
     .btn-bounce:active {
@@ -56,16 +73,16 @@
     }
   </style>
 </head>
-<body class="h-full flex flex-col justify-between overflow-hidden selection:bg-yellow-200">
+<body class="h-full flex flex-col justify-between overflow-hidden selection:bg-sage/30">
 
   <!-- HEADER GỌN GÀNG -->
-  <header class="shrink-0 bg-[#FEF9C3]/95 backdrop-blur-md border-b-2 border-yellow-200 px-3.5 py-2 shadow-xs">
+  <header class="shrink-0 bg-[#F7F5EF]/95 backdrop-blur-md border-b-2 border-offwhite-border px-3.5 py-2 shadow-xs">
     <div class="max-w-md mx-auto flex items-center justify-between">
       <div class="flex items-center gap-2">
         <span class="text-xl">🎁</span>
-        <h1 class="text-base font-bold tracking-wide text-yellow-950 leading-tight">Sổ Quà Ba Lan</h1>
+        <h1 class="text-base font-bold tracking-wide text-sage-900 leading-tight">Sổ Quà Ba Lan</h1>
       </div>
-      <button onclick="openAddModal()" class="btn-bounce bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-2.5 py-1 rounded-xl shadow-xs text-xs flex items-center gap-1 border-2 border-yellow-500">
+      <button onclick="openAddModal()" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-bold px-2.5 py-1 rounded-xl shadow-xs text-xs flex items-center gap-1 border-2 border-tomato-border">
         <span>+ Tặng quà</span>
       </button>
     </div>
@@ -77,39 +94,39 @@
     <!-- DASHBOARD THỐNG KÊ (THANH COMPACT TIẾT KIỆM KHÔNG GIAN, KHÔNG CHÚ THÍCH) -->
     <div class="grid grid-cols-3 gap-1.5 shrink-0">
       <!-- Đã tặng -->
-      <div onclick="setFilter('gifted')" class="cursor-pointer bg-emerald-50 border-2 border-emerald-300 rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-emerald-100">
-        <div class="text-[10px] font-bold text-emerald-800 flex items-center justify-center gap-0.5">
+      <div onclick="setFilter('gifted')" class="cursor-pointer bg-white border-2 border-sage rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-sage-50">
+        <div class="text-[10px] font-bold text-sage-700 flex items-center justify-center gap-0.5">
           <span>✅ Đã tặng</span>
         </div>
-        <div id="stat-gifted" class="text-xl font-black text-emerald-700 leading-tight mt-0.5">0</div>
+        <div id="stat-gifted" class="text-xl font-black text-sage-900 leading-tight mt-0.5">0</div>
       </div>
 
       <!-- Chuẩn bị tặng -->
-      <div onclick="setFilter('preparing')" class="cursor-pointer bg-amber-50 border-2 border-amber-300 rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-amber-100">
-        <div class="text-[10px] font-bold text-amber-800 flex items-center justify-center gap-0.5">
+      <div onclick="setFilter('preparing')" class="cursor-pointer bg-white border-2 border-tomato/40 rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-tomato-light">
+        <div class="text-[10px] font-bold text-tomato flex items-center justify-center gap-0.5">
           <span>🎁 Chuẩn bị</span>
         </div>
-        <div id="stat-preparing" class="text-xl font-black text-amber-700 leading-tight mt-0.5">0</div>
+        <div id="stat-preparing" class="text-xl font-black text-tomato leading-tight mt-0.5">0</div>
       </div>
 
       <!-- Chưa tặng / Còn tồn kho -->
-      <div onclick="switchTab('categories')" class="cursor-pointer bg-yellow-100/90 border-2 border-yellow-300 rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-yellow-200">
-        <div class="text-[10px] font-bold text-yellow-900 flex items-center justify-center gap-0.5">
+      <div onclick="switchTab('categories')" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-offwhite-warm">
+        <div class="text-[10px] font-bold text-sage-800 flex items-center justify-center gap-0.5">
           <span>📦 Chưa tặng</span>
         </div>
-        <div id="stat-remaining" class="text-xl font-black text-yellow-800 leading-tight mt-0.5">148</div>
+        <div id="stat-remaining" class="text-xl font-black text-sage-900 leading-tight mt-0.5">148</div>
       </div>
     </div>
 
     <!-- TABS ĐIỀU HƯỚNG GỌN (Người nhận -> Nhóm quà -> Kho tổng) -->
-    <div class="flex bg-yellow-200/70 p-0.5 rounded-xl border border-yellow-300 gap-1 text-center shrink-0">
-      <button id="tab-recipients-btn" onclick="switchTab('recipients')" class="flex-1 py-1 text-xs font-bold rounded-lg transition bg-white text-yellow-950 shadow-xs">
+    <div class="flex bg-offwhite-dark p-0.5 rounded-xl border border-offwhite-border gap-1 text-center shrink-0">
+      <button id="tab-recipients-btn" onclick="switchTab('recipients')" class="flex-1 py-1 text-xs font-bold rounded-lg transition bg-white text-sage-900 shadow-xs">
         👥 Người nhận (<span id="recipient-count">0</span>)
       </button>
-      <button id="tab-categories-btn" onclick="switchTab('categories')" class="flex-1 py-1 text-xs font-bold rounded-lg transition text-yellow-800 hover:text-yellow-950">
+      <button id="tab-categories-btn" onclick="switchTab('categories')" class="flex-1 py-1 text-xs font-bold rounded-lg transition text-sage-700 hover:text-sage-900">
         🎁 Nhóm quà (6)
       </button>
-      <button id="tab-inventory-btn" onclick="switchTab('inventory')" class="flex-1 py-1 text-xs font-bold rounded-lg transition text-yellow-800 hover:text-yellow-950">
+      <button id="tab-inventory-btn" onclick="switchTab('inventory')" class="flex-1 py-1 text-xs font-bold rounded-lg transition text-sage-700 hover:text-sage-900">
         📋 Kho tổng (49)
       </button>
     </div>
@@ -119,10 +136,10 @@
       <!-- Tìm kiếm & Lọc trạng thái -->
       <div class="flex items-center gap-1.5 shrink-0">
         <div class="relative flex-1">
-          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Tìm tên người nhận..." class="w-full bg-white border-2 border-yellow-200 rounded-xl px-2.5 py-1 pl-7 text-xs focus:outline-none focus:border-yellow-400 placeholder-yellow-800/40 text-yellow-950 font-bold">
-          <span class="absolute left-2 top-1.5 text-xs text-yellow-700">🔍</span>
+          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Tìm tên người nhận..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-2.5 py-1 pl-7 text-xs focus:outline-none focus:border-sage placeholder-sage-700/50 text-sage-900 font-bold">
+          <span class="absolute left-2 top-1.5 text-xs text-sage-700">🔍</span>
         </div>
-        <select id="status-filter" onchange="setFilter(this.value)" class="bg-white border-2 border-yellow-200 rounded-xl px-2 py-1 text-[11px] font-bold text-yellow-900 focus:outline-none">
+        <select id="status-filter" onchange="setFilter(this.value)" class="bg-white border-2 border-offwhite-border rounded-xl px-2 py-1 text-[11px] font-bold text-sage-900 focus:outline-none focus:border-sage">
           <option value="all">Tất cả</option>
           <option value="preparing">Chuẩn bị</option>
           <option value="gifted">Đã tặng</option>
@@ -136,11 +153,11 @@
       </div>
 
       <!-- Trạng thái trống -->
-      <div id="empty-recipients" class="hidden text-center py-6 px-3 bg-white/70 border-2 border-dashed border-yellow-300 rounded-2xl shrink-0">
+      <div id="empty-recipients" class="hidden text-center py-6 px-3 bg-white/80 border-2 border-dashed border-sage-300 rounded-2xl shrink-0">
         <div class="text-3xl mb-1">💌</div>
-        <h3 class="text-xs font-bold text-yellow-950">Chưa có người nhận nào</h3>
-        <p class="text-[10px] text-yellow-800/70 mt-0.5 mb-2">Bấm nút bên dưới để chọn quà tặng cho người quen nhé!</p>
-        <button onclick="openAddModal()" class="bg-yellow-400 text-yellow-950 font-bold px-3 py-1 rounded-xl border border-yellow-500 shadow-xs text-xs btn-bounce">
+        <h3 class="text-xs font-bold text-sage-900">Chưa có người nhận nào</h3>
+        <p class="text-[10px] text-sage-700 mt-0.5 mb-2">Bấm nút bên dưới để chọn quà tặng cho người quen nhé!</p>
+        <button onclick="openAddModal()" class="bg-tomato hover:bg-tomato-hover text-white font-bold px-3 py-1 rounded-xl border border-tomato-border shadow-xs text-xs btn-bounce">
           + Thêm người nhận
         </button>
       </div>
@@ -157,8 +174,8 @@
     <!-- TAB 3: KHO QUÀ TỔNG HỢP (49 LOẠI) -->
     <section id="tab-inventory" class="hidden flex-1 flex flex-col overflow-hidden space-y-2">
       <div class="flex items-center justify-between shrink-0">
-        <span class="text-[11px] font-bold text-yellow-900">Chi tiết 49 loại quà trong kho:</span>
-        <select id="category-filter" onchange="renderInventory()" class="bg-white border-2 border-yellow-200 rounded-xl px-2 py-0.5 text-[11px] font-bold text-yellow-900 focus:outline-none">
+        <span class="text-[11px] font-bold text-sage-900">Chi tiết 49 loại quà trong kho:</span>
+        <select id="category-filter" onchange="renderInventory()" class="bg-white border-2 border-offwhite-border rounded-xl px-2 py-0.5 text-[11px] font-bold text-sage-900 focus:outline-none focus:border-sage">
           <option value="all">Tất cả nhóm</option>
           <option value="Nước hoa">Nước hoa (41)</option>
           <option value="Dưỡng da">Dưỡng da (6)</option>
@@ -177,20 +194,20 @@
 
   <!-- MODAL BOTTOM-SHEET: CHI TIẾT QUÀ KHI CLICK VÀO TỪNG CARD NHÓM QUÀ -->
   <div id="category-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="bg-[#FEFCE8] w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-yellow-400 shadow-2xl max-h-[85vh] flex flex-col overflow-hidden">
+    <div class="bg-offwhite w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-sage shadow-2xl max-h-[85vh] flex flex-col overflow-hidden">
       <!-- Sheet Header -->
-      <div id="category-modal-header" class="px-3.5 py-2.5 border-b-2 border-yellow-300 flex items-center justify-between">
+      <div id="category-modal-header" class="px-3.5 py-2.5 border-b-2 border-offwhite-border bg-white flex items-center justify-between">
         <div class="flex items-center gap-2 min-w-0">
           <span id="cat-modal-emoji" class="text-2xl">🎁</span>
           <div class="truncate">
             <div class="flex items-center gap-1.5">
-              <h3 id="cat-modal-title" class="text-sm font-bold text-yellow-950 leading-tight">Chi tiết nhóm quà</h3>
+              <h3 id="cat-modal-title" class="text-sm font-bold text-sage-900 leading-tight">Chi tiết nhóm quà</h3>
               <span id="cat-modal-badge" class="px-1.5 py-0.2 rounded-full text-[10px] font-black border"></span>
             </div>
-            <p id="cat-modal-subtitle" class="text-[10px] text-yellow-800/80 font-semibold"></p>
+            <p id="cat-modal-subtitle" class="text-[10px] text-sage-700 font-semibold"></p>
           </div>
         </div>
-        <button onclick="closeCategoryModal()" class="text-yellow-800 hover:text-yellow-950 font-bold text-lg p-1 btn-bounce">✕</button>
+        <button onclick="closeCategoryModal()" class="text-sage-700 hover:text-sage-900 font-bold text-lg p-1 btn-bounce">✕</button>
       </div>
 
       <!-- Sheet Items List (Scrollable) -->
@@ -199,9 +216,9 @@
       </div>
 
       <!-- Sheet Footer -->
-      <div class="bg-yellow-100/90 px-3 py-2 border-t border-yellow-200 flex justify-between items-center text-xs">
-        <span class="text-[10px] text-yellow-800 font-semibold">Chạm ảnh để <strong>🔍 Phóng to soi chữ</strong></span>
-        <button onclick="closeCategoryModal()" class="px-3 py-1 bg-white border border-yellow-300 rounded-xl font-bold text-yellow-900 text-xs btn-bounce">
+      <div class="bg-offwhite-dark px-3 py-2 border-t border-offwhite-border flex justify-between items-center text-xs">
+        <span class="text-[10px] text-sage-700 font-semibold">Chạm ảnh để <strong>🔍 Phóng to soi chữ</strong></span>
+        <button onclick="closeCategoryModal()" class="px-3 py-1 bg-white border border-offwhite-border rounded-xl font-bold text-sage-900 text-xs btn-bounce">
           Đóng
         </button>
       </div>
@@ -213,7 +230,7 @@
     <!-- Top Bar -->
     <div class="px-4 py-2.5 bg-black/50 border-b border-white/10 flex items-center justify-between text-white shrink-0 z-10">
       <div class="min-w-0 pr-2">
-        <h3 id="zoom-image-title" class="text-xs sm:text-sm font-bold truncate text-yellow-300">Tên sản phẩm</h3>
+        <h3 id="zoom-image-title" class="text-xs sm:text-sm font-bold truncate text-sage-300">Tên sản phẩm</h3>
         <p id="zoom-image-category" class="text-[10px] text-white/70">🔍 Chạm/cuộn phóng to • Kéo để soi nhãn chữ</p>
       </div>
       <button onclick="closeImageZoom()" class="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-base btn-bounce shrink-0">
@@ -239,7 +256,7 @@
       </div>
 
       <div class="flex items-center gap-1">
-        <button onclick="rotateZoomImage()" class="bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-2.5 py-1.5 rounded-xl btn-bounce flex items-center gap-1 text-xs">
+        <button onclick="rotateZoomImage()" class="bg-sage hover:bg-sage-600 text-white font-bold px-2.5 py-1.5 rounded-xl btn-bounce flex items-center gap-1 text-xs">
           <span>⟳</span> Xoay 90°
         </button>
         <button onclick="resetZoom()" class="bg-white/15 hover:bg-white/25 px-2 py-1.5 rounded-xl font-bold btn-bounce text-xs" title="Khôi phục">
@@ -251,14 +268,14 @@
 
   <!-- MODAL: THÊM / SỬA NGƯỜI NHẬN QUÀ -->
   <div id="modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="bg-[#FEFCE8] w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-yellow-400 shadow-2xl max-h-[88vh] flex flex-col overflow-hidden">
+    <div class="bg-offwhite w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-sage shadow-2xl max-h-[88vh] flex flex-col overflow-hidden">
       
       <!-- Modal Header -->
-      <div class="bg-yellow-200 px-3.5 py-2.5 border-b-2 border-yellow-300 flex items-center justify-between">
-        <h3 id="modal-title" class="text-sm font-bold text-yellow-950 flex items-center gap-1">
+      <div class="bg-white px-3.5 py-2.5 border-b-2 border-offwhite-border flex items-center justify-between">
+        <h3 id="modal-title" class="text-sm font-bold text-sage-900 flex items-center gap-1">
           <span>🎁</span> Thêm người nhận quà
         </h3>
-        <button onclick="closeModal()" class="text-yellow-800 hover:text-yellow-950 font-bold text-lg p-1 btn-bounce">✕</button>
+        <button onclick="closeModal()" class="text-sage-700 hover:text-sage-900 font-bold text-lg p-1 btn-bounce">✕</button>
       </div>
 
       <!-- Modal Body (Scrollable) -->
@@ -266,21 +283,21 @@
         
         <!-- Tên người nhận -->
         <div>
-          <label class="block font-bold text-yellow-950 mb-1 text-[11px]">👤 Tên người nhận:</label>
-          <input type="text" id="modal-person-name" placeholder="VD: Mẹ, Em Lan, Anh Tuấn..." class="w-full bg-white border-2 border-yellow-300 rounded-xl px-2.5 py-1.5 text-xs focus:outline-none focus:border-yellow-500 font-bold text-yellow-950">
+          <label class="block font-bold text-sage-900 mb-1 text-[11px]">👤 Tên người nhận:</label>
+          <input type="text" id="modal-person-name" placeholder="VD: Mẹ, Em Lan, Anh Tuấn..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-2.5 py-1.5 text-xs focus:outline-none focus:border-sage font-bold text-sage-900">
         </div>
 
         <!-- Ghi chú nhanh -->
         <div>
-          <label class="block font-bold text-yellow-950 mb-1 text-[11px]">📝 Ghi chú (không bắt buộc):</label>
-          <input type="text" id="modal-person-note" placeholder="VD: Quà Tết, mang về quê, đồng nghiệp..." class="w-full bg-white border-2 border-yellow-200 rounded-xl px-2.5 py-1 text-xs focus:outline-none focus:border-yellow-400 text-yellow-900">
+          <label class="block font-bold text-sage-900 mb-1 text-[11px]">📝 Ghi chú (không bắt buộc):</label>
+          <input type="text" id="modal-person-note" placeholder="VD: Quà Tết, mang về quê, đồng nghiệp..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-2.5 py-1 text-xs focus:outline-none focus:border-sage text-sage-900">
         </div>
 
         <!-- Danh sách quà tặng -->
         <div>
           <div class="flex items-center justify-between mb-1">
-            <label class="font-bold text-yellow-950 text-[11px]">🎁 Các món quà tặng:</label>
-            <button type="button" onclick="addGiftRow()" class="text-[11px] font-bold text-yellow-900 bg-yellow-200 hover:bg-yellow-300 px-2 py-0.5 rounded-lg border border-yellow-400 btn-bounce">
+            <label class="font-bold text-sage-900 text-[11px]">🎁 Các món quà tặng:</label>
+            <button type="button" onclick="addGiftRow()" class="text-[11px] font-bold text-white bg-sage hover:bg-sage-600 px-2 py-0.5 rounded-lg border border-sage-600 btn-bounce">
               + Thêm món
             </button>
           </div>
@@ -293,11 +310,11 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="bg-yellow-100 p-2.5 border-t-2 border-yellow-200 flex gap-2">
-        <button onclick="closeModal()" class="flex-1 py-1.5 text-xs font-bold text-yellow-800 bg-white border-2 border-yellow-300 rounded-xl btn-bounce">
+      <div class="bg-offwhite-dark p-2.5 border-t-2 border-offwhite-border flex gap-2">
+        <button onclick="closeModal()" class="flex-1 py-1.5 text-xs font-bold text-sage-700 bg-white border-2 border-offwhite-border rounded-xl btn-bounce">
           Hủy
         </button>
-        <button onclick="saveRecipient()" class="flex-1 py-1.5 text-xs font-bold text-yellow-950 bg-yellow-400 hover:bg-yellow-500 border-2 border-yellow-500 rounded-xl shadow-xs btn-bounce">
+        <button onclick="saveRecipient()" class="flex-1 py-1.5 text-xs font-bold text-white bg-tomato hover:bg-tomato-hover border-2 border-tomato-border rounded-xl shadow-xs btn-bounce">
           💾 Lưu lại
         </button>
       </div>
@@ -446,7 +463,7 @@
         priceLabel: "Socola Ba Lan thơm ngon",
         themeBorder: "border-amber-300",
         headerBg: "bg-amber-100",
-        cardGradient: "from-amber-50/90 to-yellow-50/60",
+        cardGradient: "",
         badgeBg: "bg-amber-200 text-amber-900 border-amber-300",
         accent: "text-amber-950",
         previewIds: [1, 2, 6]
@@ -531,8 +548,8 @@
       recTab.classList.add('hidden');
       invTab.classList.add('hidden');
 
-      const inactiveClass = 'flex-1 py-1 text-xs font-bold rounded-lg transition text-yellow-800 hover:text-yellow-950';
-      const activeClass = 'flex-1 py-1 text-xs font-bold rounded-lg transition bg-white text-yellow-950 shadow-xs';
+      const inactiveClass = 'flex-1 py-1 text-xs font-bold rounded-lg transition text-sage-700 hover:text-sage-900';
+      const activeClass = 'flex-1 py-1 text-xs font-bold rounded-lg transition bg-white text-sage-900 shadow-xs';
 
       catBtn.className = inactiveClass;
       recBtn.className = inactiveClass;
@@ -583,20 +600,20 @@
           : `Còn ${totalRemainCount}/${totalItemsCount} sp`;
 
         return `
-          <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 border-yellow-200 rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:border-yellow-400 select-none">
+          <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:border-sage select-none">
             
             <!-- TÊN GỌI LOẠI QUÀ TO RÕ RÀNG -->
-            <h3 class="font-black text-base sm:text-lg text-yellow-950 tracking-wide leading-tight mb-1">
+            <h3 class="font-black text-base sm:text-lg text-sage-900 tracking-wide leading-tight mb-1">
               ${catName}
             </h3>
 
             <!-- SỐ LOẠI SẢN PHẨM TO DỄ ĐỌC -->
-            <div class="text-xs sm:text-sm font-bold text-yellow-900/80 leading-tight">
+            <div class="text-xs sm:text-sm font-bold text-sage-700 leading-tight">
               ${allItems.length} loại
             </div>
 
             <!-- TỔNG SỐ LƯỢNG / CÒN LẠI TO RÕ -->
-            <div class="text-xs sm:text-sm font-black text-yellow-950 leading-tight mt-1">
+            <div class="text-xs sm:text-sm font-black text-sage-900 leading-tight mt-1">
               ${stockText}
             </div>
 
@@ -632,11 +649,11 @@
       document.getElementById('cat-modal-emoji').innerText = meta.emoji;
       document.getElementById('cat-modal-title').innerText = catName;
       document.getElementById('cat-modal-badge').innerText = meta.rankBadge;
-      document.getElementById('cat-modal-badge').className = 'px-1.5 py-0.2 rounded-full text-[10px] font-black bg-yellow-100 text-yellow-900 border border-yellow-300';
+      document.getElementById('cat-modal-badge').className = 'px-1.5 py-0.2 rounded-full text-[10px] font-black bg-sage-100 text-sage-900 border border-sage-300';
       document.getElementById('cat-modal-subtitle').innerText = `${allItems.length} loại - ${totalItemsCount} sản phẩm (Còn ${totalRemainCount} món)`;
 
       const headerEl = document.getElementById('category-modal-header');
-      headerEl.className = 'px-3.5 py-2.5 border-b-2 border-yellow-200 bg-yellow-50 flex items-center justify-between';
+      headerEl.className = 'px-3.5 py-2.5 border-b-2 border-offwhite-border bg-white flex items-center justify-between';
 
       // Render danh sách các món cụ thể với hình ảnh icon chuẩn
       const itemsContainer = document.getElementById('category-modal-items');
@@ -645,47 +662,47 @@
         const remain = Math.max(0, item.total - assigned);
         const percent = Math.min(100, Math.round((assigned / item.total) * 100));
 
-        let remainBadge = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        let remainBadge = 'bg-sage-100 text-sage-800 border-sage-300';
         if (remain === 0) remainBadge = 'bg-stone-200 text-stone-600 border-stone-300';
-        else if (remain <= 1) remainBadge = 'bg-amber-100 text-amber-800 border-amber-300';
+        else if (remain <= 1) remainBadge = 'bg-tomato-light text-tomato border-tomato/30';
 
         const recList = assignedRecipientsMap[item.id] || [];
         const recText = recList.length > 0 ? `
-          <div class="text-[9px] text-yellow-800/80 mt-1 flex items-center gap-1 flex-wrap">
-            <span class="font-bold text-yellow-950">👤 Đã gán:</span>
+          <div class="text-[9px] text-sage-700 mt-1 flex items-center gap-1 flex-wrap">
+            <span class="font-bold text-sage-900">👤 Đã gán:</span>
             <span class="truncate max-w-[200px]">${recList.join(', ')}</span>
           </div>
         ` : '';
 
         return `
-          <div class="bg-white border-2 border-yellow-200/90 rounded-2xl p-2 shadow-xs flex items-center gap-2.5 transition hover:border-yellow-400">
+          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-2 shadow-xs flex items-center gap-2.5 transition hover:border-sage">
             <!-- HÌNH ẢNH ICON SẢN PHẨM CHUẨN CẮT TỈA RÕ NÉT - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
             <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Chạm để phóng to soi chữ">
-              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-14 h-14 object-contain rounded-xl border border-yellow-200 p-0.5 bg-yellow-50/70 shadow-2xs transition group-hover:scale-105">
+              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-14 h-14 object-contain rounded-xl border border-offwhite-border p-0.5 bg-offwhite shadow-2xs transition group-hover:scale-105">
               <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none">🔍</span>
             </div>
             
             <!-- THÔNG TIN QUÀ -->
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-1">
-                <h5 class="font-bold text-yellow-950 text-xs leading-snug truncate" title="${item.name}">${item.name}</h5>
+                <h5 class="font-bold text-sage-900 text-xs leading-snug truncate" title="${item.name}">${item.name}</h5>
                 <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold ${remainBadge} shrink-0">
                   Còn ${remain}/${item.total}
                 </span>
               </div>
 
               <!-- Thanh tiến độ phân chia -->
-              <div class="w-full bg-yellow-100 h-1.5 rounded-full mt-1 overflow-hidden">
-                <div class="bg-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
+              <div class="w-full bg-offwhite-dark h-1.5 rounded-full mt-1 overflow-hidden">
+                <div class="bg-sage h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
               </div>
 
-              <div class="flex items-center justify-between text-[10px] text-yellow-800/70 mt-1 font-medium">
+              <div class="flex items-center justify-between text-[10px] text-sage-700 mt-1 font-medium">
                 <span>Tổng ${item.total} ${item.unit}</span>
                 <div class="flex items-center gap-1">
-                  <button onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="text-yellow-800 bg-yellow-100 hover:bg-yellow-200 px-1.5 py-0.5 rounded-lg text-[10px] font-bold border border-yellow-300 btn-bounce">
+                  <button onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="text-sage-800 bg-offwhite-dark hover:bg-offwhite-border px-1.5 py-0.5 rounded-lg text-[10px] font-bold border border-offwhite-border btn-bounce">
                     🔍 Soi chữ
                   </button>
-                  <button onclick="selectGiftForAdd(${item.id})" class="btn-bounce bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-2 py-0.5 rounded-lg border border-yellow-500 shadow-2xs text-[10px] flex items-center gap-0.5">
+                  <button onclick="selectGiftForAdd(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-bold px-2 py-0.5 rounded-lg border border-tomato-border shadow-2xs text-[10px] flex items-center gap-0.5">
                     <span>+ Chọn tặng</span>
                   </button>
                 </div>
@@ -871,13 +888,13 @@
         const totalItems = (r.items || []).reduce((sum, i) => sum + (parseInt(i.qty) || 0), 0);
         
         const itemsHtml = (r.items || []).map((it, idx) => {
-          let badgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
+          let badgeColor = 'bg-tomato-light text-tomato border-tomato/30';
           let statusLabel = '🎁 Chuẩn bị';
           if (it.status === 'gifted') {
-            badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+            badgeColor = 'bg-sage-100 text-sage-800 border-sage-300';
             statusLabel = '✅ Đã tặng';
           } else if (it.status === 'pending') {
-            badgeColor = 'bg-stone-100 text-stone-700 border-stone-300';
+            badgeColor = 'bg-offwhite-dark text-sage-700 border-offwhite-border';
             statusLabel = '⏳ Chưa tặng';
           }
 
@@ -885,14 +902,14 @@
           const imgSrc = it.image || (giftObj ? giftObj.image : `assets/item_${it.giftId}.jpg`);
 
           return `
-            <div class="flex items-center justify-between py-1 border-b border-yellow-100 last:border-0 text-xs gap-1.5">
+            <div class="flex items-center justify-between py-1 border-b border-offwhite-border last:border-0 text-xs gap-1.5">
               <div class="flex items-center gap-1.5 flex-1 min-w-0">
                 <div onclick="openImageZoom('${imgSrc}', '${escapeHtml(it.giftName)}')" class="cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
-                  <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-8 h-8 rounded-lg object-contain bg-yellow-50/80 border border-yellow-200 p-0.5 shadow-2xs">
+                  <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-8 h-8 rounded-lg object-contain bg-offwhite border border-offwhite-border p-0.5 shadow-2xs">
                 </div>
                 <div class="truncate">
-                  <span class="font-bold text-yellow-950">${it.giftName}</span>
-                  <span class="text-yellow-700 ml-1 font-semibold">x${it.qty}</span>
+                  <span class="font-bold text-sage-900">${it.giftName}</span>
+                  <span class="text-sage-700 ml-1 font-semibold">x${it.qty}</span>
                 </div>
               </div>
               <button onclick="cycleItemStatus('${r.id}', ${idx})" title="Chạm để đổi trạng thái" class="px-2 py-0.5 rounded-full border text-[10px] font-bold ${badgeColor} btn-bounce transition shadow-2xs flex items-center gap-0.5 shrink-0">
@@ -903,25 +920,25 @@
         }).join('');
 
         return `
-          <div class="bg-white border-2 border-yellow-300/80 rounded-2xl p-2.5 shadow-xs transition hover:shadow-md">
-            <div class="flex items-start justify-between pb-1.5 border-b border-yellow-200/80">
+          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-2.5 shadow-xs transition hover:border-sage">
+            <div class="flex items-start justify-between pb-1.5 border-b border-offwhite-border">
               <div>
-                <h4 class="font-bold text-sm text-yellow-950 flex items-center gap-1">
+                <h4 class="font-bold text-sm text-sage-900 flex items-center gap-1">
                   <span>👤</span> ${r.name}
                 </h4>
-                ${r.note ? `<p class="text-[10px] text-yellow-800/70 font-medium">${r.note}</p>` : ''}
+                ${r.note ? `<p class="text-[10px] text-sage-700 font-medium">${r.note}</p>` : ''}
               </div>
               <div class="flex items-center gap-1">
-                <span class="bg-yellow-200/70 text-yellow-900 text-[10px] px-1.5 py-0.2 rounded-lg font-bold">
+                <span class="bg-sage-100 text-sage-900 text-[10px] px-1.5 py-0.2 rounded-lg font-bold border border-sage-200">
                   ${totalItems} món
                 </span>
-                <button onclick="editRecipient('${r.id}')" class="text-yellow-700 hover:text-yellow-950 p-0.5 text-xs">✏️</button>
-                <button onclick="deleteRecipient('${r.id}')" class="text-rose-500 hover:text-rose-700 p-0.5 text-xs">🗑️</button>
+                <button onclick="editRecipient('${r.id}')" class="text-sage-700 hover:text-sage-900 p-0.5 text-xs">✏️</button>
+                <button onclick="deleteRecipient('${r.id}')" class="text-tomato hover:text-tomato-hover p-0.5 text-xs">🗑️</button>
               </div>
             </div>
 
             <div class="pt-1.5">
-              ${itemsHtml || '<p class="text-xs text-yellow-800/50 italic py-0.5">Chưa gán món quà nào</p>'}
+              ${itemsHtml || '<p class="text-xs text-sage-700/60 italic py-0.5">Chưa gán món quà nào</p>'}
             </div>
           </div>
         `;
@@ -962,32 +979,32 @@
         const remain = Math.max(0, item.total - assigned);
         const percent = Math.min(100, Math.round((assigned / item.total) * 100));
 
-        let remainBadge = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        let remainBadge = 'bg-sage-100 text-sage-800 border-sage-300';
         if (remain === 0) remainBadge = 'bg-stone-200 text-stone-600 border-stone-300';
-        else if (remain <= 1) remainBadge = 'bg-amber-100 text-amber-800 border-amber-300';
+        else if (remain <= 1) remainBadge = 'bg-tomato-light text-tomato border-tomato/30';
 
         return `
-          <div class="bg-white border-2 border-yellow-200 rounded-2xl p-2 shadow-2xs flex items-center gap-2.5">
+          <div class="bg-white border-2 border-offwhite-border rounded-2xl p-2 shadow-2xs flex items-center gap-2.5 transition hover:border-sage">
             <!-- Icon hình ảnh sản phẩm chuẩn - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
             <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
-              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-12 h-12 object-contain rounded-xl border border-yellow-200 p-0.5 bg-yellow-50/50 shadow-2xs">
+              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-12 h-12 object-contain rounded-xl border border-offwhite-border p-0.5 bg-offwhite shadow-2xs">
               <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none">🔍</span>
             </div>
             
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-1 text-xs">
                 <div class="truncate">
-                  <span class="text-[9px] font-bold text-yellow-800/60 uppercase tracking-wider block">${item.category}</span>
-                  <h5 class="font-bold text-yellow-950 text-xs leading-tight truncate">${item.name}</h5>
+                  <span class="text-[9px] font-bold text-sage-700 uppercase tracking-wider block">${item.category}</span>
+                  <h5 class="font-bold text-sage-900 text-xs leading-tight truncate">${item.name}</h5>
                 </div>
                 <span class="px-1.5 py-0.2 rounded-full border text-[10px] font-bold ${remainBadge} shrink-0">
                   Còn ${remain}/${item.total}
                 </span>
               </div>
-              <div class="w-full bg-yellow-100 h-1 rounded-full mt-1.5 overflow-hidden">
-                <div class="bg-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
+              <div class="w-full bg-offwhite-dark h-1.5 rounded-full mt-1.5 overflow-hidden">
+                <div class="bg-sage h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
               </div>
-              <div class="flex justify-between text-[9px] text-yellow-800/60 mt-1 font-medium">
+              <div class="flex justify-between text-[9px] text-sage-700 mt-1 font-medium">
                 <span>Đã chia: ${assigned} ${item.unit}</span>
                 <span>Tổng: ${item.total} ${item.unit}</span>
               </div>
@@ -1052,27 +1069,27 @@
 
       const div = document.createElement('div');
       div.id = rowId;
-      div.className = 'bg-white p-2 rounded-xl border border-yellow-200 space-y-1.5 relative';
+      div.className = 'bg-white p-2 rounded-xl border border-offwhite-border space-y-1.5 relative';
       div.innerHTML = `
         <div class="flex items-center gap-1.5">
           <!-- Icon xem trước quà -->
           <div onclick="openImageZoom(document.getElementById('preview-${rowId}').src, '${escapeHtml(initialGift.name)}')" class="cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
-            <img id="preview-${rowId}" src="${initialGift.image}" alt="${initialGift.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-9 h-9 object-contain rounded-lg border border-yellow-200 bg-yellow-50 p-0.5 shadow-2xs">
+            <img id="preview-${rowId}" src="${initialGift.image}" alt="${initialGift.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-9 h-9 object-contain rounded-lg border border-offwhite-border bg-offwhite p-0.5 shadow-2xs">
           </div>
           
-          <select onchange="updateRowPreview('${rowId}', this)" class="gift-select flex-1 bg-yellow-50/50 border border-yellow-200 rounded-lg px-2 py-1 text-xs font-semibold text-yellow-950 focus:outline-none">
+          <select onchange="updateRowPreview('${rowId}', this)" class="gift-select flex-1 bg-offwhite/50 border border-offwhite-border rounded-lg px-2 py-1 text-xs font-semibold text-sage-900 focus:outline-none focus:border-sage">
             ${optionsHtml}
           </select>
-          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-rose-400 hover:text-rose-600 px-1 text-xs font-bold">✕</button>
+          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-tomato hover:text-tomato-hover px-1 text-xs font-bold">✕</button>
         </div>
         <div class="flex items-center gap-2">
           <div class="flex items-center gap-1 text-[11px]">
-            <span class="text-yellow-800 font-bold">SL:</span>
-            <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-12 bg-yellow-50/50 border border-yellow-200 rounded-lg px-1.5 py-0.5 text-xs font-bold text-center text-yellow-950">
+            <span class="text-sage-800 font-bold">SL:</span>
+            <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-12 bg-offwhite/50 border border-offwhite-border rounded-lg px-1.5 py-0.5 text-xs font-bold text-center text-sage-900">
           </div>
           <div class="flex items-center gap-1 text-[11px] flex-1 justify-end">
-            <span class="text-yellow-800 font-bold">Trạng thái:</span>
-            <select class="gift-status bg-yellow-50/50 border border-yellow-200 rounded-lg px-1.5 py-0.5 text-xs font-bold text-yellow-950">
+            <span class="text-sage-800 font-bold">Trạng thái:</span>
+            <select class="gift-status bg-offwhite/50 border border-offwhite-border rounded-lg px-1.5 py-0.5 text-xs font-bold text-sage-900">
               <option value="preparing" ${status === 'preparing' ? 'selected' : ''}>🎁 Chuẩn bị</option>
               <option value="gifted" ${status === 'gifted' ? 'selected' : ''}>✅ Đã tặng</option>
               <option value="pending" ${status === 'pending' ? 'selected' : ''}>⏳ Chưa tặng</option>
