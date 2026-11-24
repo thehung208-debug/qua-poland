@@ -590,20 +590,20 @@
           : `Còn ${totalRemainCount}/${totalItemsCount} sp`;
 
         return `
-          <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 ${meta.themeBorder} rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:shadow-md bg-gradient-to-br ${meta.cardGradient} select-none">
+          <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 border-yellow-200 rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:border-yellow-400 select-none">
             
             <!-- TÊN GỌI LOẠI QUÀ TO RÕ RÀNG -->
-            <h3 class="font-black text-base sm:text-lg ${meta.accent} tracking-wide leading-tight mb-1">
+            <h3 class="font-black text-base sm:text-lg text-yellow-950 tracking-wide leading-tight mb-1">
               ${catName}
             </h3>
 
             <!-- SỐ LOẠI SẢN PHẨM TO DỄ ĐỌC -->
-            <div class="text-xs sm:text-sm font-bold ${meta.accent} opacity-85 leading-tight">
+            <div class="text-xs sm:text-sm font-bold text-yellow-900/80 leading-tight">
               ${allItems.length} loại
             </div>
 
             <!-- TỔNG SỐ LƯỢNG / CÒN LẠI TO RÕ -->
-            <div class="text-xs sm:text-sm font-black ${meta.accent} leading-tight mt-1">
+            <div class="text-xs sm:text-sm font-black text-yellow-950 leading-tight mt-1">
               ${stockText}
             </div>
 
@@ -639,11 +639,11 @@
       document.getElementById('cat-modal-emoji').innerText = meta.emoji;
       document.getElementById('cat-modal-title').innerText = catName;
       document.getElementById('cat-modal-badge').innerText = meta.rankBadge;
-      document.getElementById('cat-modal-badge').className = `px-1.5 py-0.2 rounded-full text-[10px] font-black ${meta.badgeBg}`;
-      document.getElementById('cat-modal-subtitle').innerText = `${allItems.length} loại - ${totalItemsCount} sản phẩm (Còn ${totalRemainCount} món) • ${meta.priceText}`;
+      document.getElementById('cat-modal-badge').className = 'px-1.5 py-0.2 rounded-full text-[10px] font-black bg-yellow-100 text-yellow-900 border border-yellow-300';
+      document.getElementById('cat-modal-subtitle').innerText = `${allItems.length} loại - ${totalItemsCount} sản phẩm (Còn ${totalRemainCount} món)`;
 
       const headerEl = document.getElementById('category-modal-header');
-      headerEl.className = `px-3.5 py-2.5 border-b-2 ${meta.themeBorder} ${meta.headerBg} flex items-center justify-between`;
+      headerEl.className = 'px-3.5 py-2.5 border-b-2 border-yellow-200 bg-yellow-50 flex items-center justify-between';
 
       // Render danh sách các món cụ thể với hình ảnh icon chuẩn
       const itemsContainer = document.getElementById('category-modal-items');
