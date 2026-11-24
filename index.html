@@ -57,6 +57,15 @@
       -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
+    /* Chống giật cục và chống tự động zoom trên thiết bị di động / iOS Safari */
+    input, select, textarea {
+      font-size: 16px !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .custom-scroll {
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
     .custom-scroll::-webkit-scrollbar {
       width: 4px;
       height: 4px;
@@ -163,7 +172,7 @@
       <!-- Tìm kiếm & Lọc trạng thái -->
       <div class="flex items-center gap-2 shrink-0">
         <div class="relative flex-1">
-          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Search recipient..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-3 py-2 pl-9 text-sm focus:outline-none focus:border-sage placeholder-sage-700/50 text-sage-900 font-bold min-h-[40px]">
+          <input type="text" id="search-input" oninput="handleSearchInput()" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" placeholder="Search recipient..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-3 py-2 pl-9 text-sm focus:outline-none focus:border-sage placeholder-sage-700/50 text-sage-900 font-bold min-h-[40px]">
           <svg class="w-4 h-4 absolute left-3 top-3 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
           </svg>
@@ -212,8 +221,8 @@
   </main>
 
   <!-- MODAL BOTTOM-SHEET: CHI TIẾT QUÀ KHI CLICK VÀO TỪNG CARD NHÓM QUÀ -->
-  <div id="category-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="bg-offwhite w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-sage shadow-2xl max-h-[85vh] flex flex-col overflow-hidden">
+  <div id="category-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4 overscroll-contain">
+    <div class="bg-offwhite w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-sage shadow-2xl max-h-[85dvh] max-h-[85vh] flex flex-col overflow-hidden">
       <!-- Sheet Header -->
       <div id="category-modal-header" class="px-3.5 py-2.5 border-b-2 border-offwhite-border bg-white flex items-center justify-between">
         <div class="flex items-center gap-2 min-w-0">
@@ -315,8 +324,8 @@
   </div>
 
   <!-- MODAL: THÊM / SỬA NGƯỜI NHẬN QUÀ -->
-  <div id="modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="bg-offwhite w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-sage shadow-2xl max-h-[88vh] flex flex-col overflow-hidden">
+  <div id="modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4 overscroll-contain">
+    <div class="bg-offwhite w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-sage shadow-2xl max-h-[90dvh] max-h-[90vh] flex flex-col overflow-hidden">
       
       <!-- Modal Header -->
       <div class="bg-white px-4 py-3 border-b-2 border-offwhite-border flex items-center justify-between">
@@ -338,7 +347,7 @@
           <label class="block font-black text-sage-900 mb-1.5 text-sm">
             Recipient Name
           </label>
-          <input type="text" id="modal-person-name" oninput="handlePersonNameInput()" placeholder="Enter name (e.g. Lan, Mom...)" class="w-full bg-white border-2 border-offwhite-border rounded-2xl px-3.5 py-3 text-base focus:outline-none focus:border-sage font-bold text-sage-900 min-h-[48px]">
+          <input type="text" id="modal-person-name" oninput="handlePersonNameInput()" onkeydown="if(event.key==='Enter'){event.preventDefault(); this.blur();}" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" enterkeyhint="done" placeholder="Enter name (e.g. Lan, Mom...)" class="w-full bg-white border-2 border-offwhite-border rounded-2xl px-3.5 py-3 text-base focus:outline-none focus:border-sage font-bold text-sage-900 min-h-[48px]">
         </div>
 
         <!-- Các nhóm quà: Hiện ra sau khi nhập tên để chọn (Lưới 6 Card danh mục) -->
@@ -387,12 +396,12 @@
 
       </div>
 
-      <!-- Modal Footer -->
+      <!-- Modal Footer (Giữ cố định 2 nút để khi gõ tên không bị co giãn giật cục) -->
       <div class="bg-offwhite-dark p-3 border-t-2 border-offwhite-border flex gap-2.5">
-        <button onclick="closeModal()" class="flex-1 py-3 text-sm sm:text-base font-extrabold text-sage-800 bg-white border-2 border-offwhite-border rounded-2xl min-h-[48px] btn-bounce active:scale-95">
+        <button type="button" onclick="closeModal()" class="flex-1 py-3 text-sm sm:text-base font-extrabold text-sage-800 bg-white border-2 border-offwhite-border rounded-2xl min-h-[48px] btn-bounce active:scale-95">
           Cancel
         </button>
-        <button id="modal-save-btn" onclick="saveRecipient()" class="hidden flex-1 py-3 text-sm sm:text-base font-extrabold text-white bg-tomato hover:bg-tomato-hover border-2 border-tomato-border rounded-2xl shadow-sm min-h-[48px] btn-bounce active:scale-95">
+        <button id="modal-save-btn" type="button" onclick="saveRecipient()" disabled class="flex-1 py-3 text-sm sm:text-base font-extrabold text-sage-400 bg-sage-200 border-2 border-sage-300 rounded-2xl min-h-[48px] cursor-not-allowed pointer-events-none opacity-60 shadow-none transition-all duration-150">
           Save
         </button>
       </div>
@@ -861,6 +870,9 @@
     }
 
     function closeCategoryModal() {
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
       document.getElementById('category-modal').classList.add('hidden');
     }
 
@@ -1005,6 +1017,15 @@
         initialPinchDistance = null;
       });
     });
+
+    // TÌM KIẾM NGƯỜI NHẬN CÓ DEBOUNCE (CHỐNG GIẬT LAG KHI GÕ NHANH)
+    let searchDebounceTimer = null;
+    function handleSearchInput() {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        renderRecipients();
+      }, 120);
+    }
 
     // RENDER DANH SÁCH NGƯỜI NHẬN
     function renderRecipients() {
@@ -1302,6 +1323,8 @@
       if (catGiftsContainer) catGiftsContainer.classList.remove('hidden');
       if (!container) return;
 
+      const prevScroll = container.scrollTop;
+
       // Map số lượng đã phân chia để tính tồn kho
       const assignedMap = {};
       recipients.forEach(r => {
@@ -1391,6 +1414,9 @@
           </div>
         `;
       }).join('');
+
+      // Giữ nguyên vị trí cuộn để không bị giật nảy lên đầu trang khi chọn quà
+      container.scrollTop = prevScroll;
     }
 
     // TĂNG / GIẢM SỐ LƯỢNG MÓN QUÀ DỄ DÀNG TRÊN ĐIỆN THOẠI
@@ -1473,7 +1499,7 @@
               <button type="button" onclick="changeRowQty('${rowId}', -1)" class="w-8 h-8 flex items-center justify-center font-black text-lg text-sage-800 hover:bg-white rounded-lg active:scale-90 transition">
                 -
               </button>
-              <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-10 text-center text-sm font-black text-sage-900 bg-transparent focus:outline-none">
+              <input type="number" min="1" max="50" inputmode="numeric" pattern="[0-9]*" value="${qty}" class="gift-qty w-10 text-center text-sm font-black text-sage-900 bg-transparent focus:outline-none">
               <button type="button" onclick="changeRowQty('${rowId}', 1)" class="w-8 h-8 flex items-center justify-center font-black text-lg text-sage-800 hover:bg-white rounded-lg active:scale-90 transition">
                 +
               </button>
@@ -1491,7 +1517,6 @@
       `;
       container.appendChild(div);
       document.getElementById('modal-gifts-section').classList.remove('hidden');
-      document.getElementById('modal-save-btn').classList.remove('hidden');
       updateSelectedGiftsCount();
     }
 
@@ -1505,12 +1530,24 @@
       addGiftToRecipient(gId, qty, status);
     }
 
-    // XỬ LÝ KHI NHẬP TÊN: HIỆN LƯỚI 6 CARD DANH MỤC NHƯ ẢNH
+    // CẬP NHẬT TRẠNG THÁI NÚT LƯU TRONG MODAL (CỐ ĐỊNH LAYOUT, KHÔNG BỊ GIẬT CO GIÃN)
+    function updateSaveButtonState(hasName) {
+      const saveBtn = document.getElementById('modal-save-btn');
+      if (!saveBtn) return;
+      if (hasName) {
+        saveBtn.disabled = false;
+        saveBtn.className = 'flex-1 py-3 text-sm sm:text-base font-extrabold text-white bg-tomato hover:bg-tomato-hover border-2 border-tomato-border rounded-2xl shadow-sm min-h-[48px] btn-bounce active:scale-95 transition-all duration-150 cursor-pointer pointer-events-auto opacity-100';
+      } else {
+        saveBtn.disabled = true;
+        saveBtn.className = 'flex-1 py-3 text-sm sm:text-base font-extrabold text-sage-400 bg-sage-200 border-2 border-sage-300 rounded-2xl min-h-[48px] cursor-not-allowed pointer-events-none opacity-60 shadow-none transition-all duration-150';
+      }
+    }
+
+    // XỬ LÝ KHI NHẬP TÊN: HIỆN LƯỚI 6 CARD DANH MỤC (KHÔNG RE-RENDER GÂY GIẬT CỤC)
     function handlePersonNameInput() {
       const name = document.getElementById('modal-person-name').value.trim();
       const catSec = document.getElementById('modal-category-section');
       const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
-      const saveBtn = document.getElementById('modal-save-btn');
 
       if (name.length > 0) {
         if (pendingPreselectedGiftId) {
@@ -1522,18 +1559,19 @@
         } else if (catGiftsContainer && !catGiftsContainer.classList.contains('hidden')) {
           // Người dùng đang duyệt sản phẩm của nhóm quà đó, giữ nguyên
         } else {
-          // Hiện lưới 6 Card danh mục như ảnh người dùng gửi
-          catSec.classList.remove('hidden');
-          renderModalCategoryCards();
+          // Hiện lưới 6 Card danh mục mà KHÔNG re-render DOM gây giật lag
+          if (catSec && catSec.classList.contains('hidden')) {
+            catSec.classList.remove('hidden');
+          }
           if (catGiftsContainer) catGiftsContainer.classList.add('hidden');
         }
 
-        saveBtn.classList.remove('hidden');
+        updateSaveButtonState(true);
       } else {
-        catSec.classList.add('hidden');
+        if (catSec) catSec.classList.add('hidden');
         if (catGiftsContainer) catGiftsContainer.classList.add('hidden');
         document.getElementById('modal-gifts-section').classList.add('hidden');
-        saveBtn.classList.add('hidden');
+        updateSaveButtonState(false);
       }
     }
 
@@ -1550,11 +1588,15 @@
       const catGiftsContainer = document.getElementById('modal-cat-gifts-container');
       if (catGiftsContainer) catGiftsContainer.classList.add('hidden');
       document.getElementById('modal-gifts-section').classList.add('hidden');
-      document.getElementById('modal-save-btn').classList.add('hidden');
+      
+      // Render trước sẵn lưới 6 card danh mục (để khi gõ tên không bị giật lag/re-render)
+      renderModalCategoryCards();
+      
+      updateSaveButtonState(false);
       updateSelectedGiftsCount();
 
       document.getElementById('modal').classList.remove('hidden');
-      setTimeout(() => nameInput.focus(), 50);
+      setTimeout(() => nameInput.focus(), 80);
     }
 
     function editRecipient(id) {
@@ -1582,13 +1624,16 @@
       if ((rec.items || []).length > 0) {
         document.getElementById('modal-gifts-section').classList.remove('hidden');
       }
-      document.getElementById('modal-save-btn').classList.remove('hidden');
+      updateSaveButtonState(true);
 
       document.getElementById('modal').classList.remove('hidden');
-      setTimeout(() => nameInput.focus(), 50);
+      setTimeout(() => nameInput.focus(), 80);
     }
 
     function closeModal() {
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
       document.getElementById('modal').classList.add('hidden');
     }
 
