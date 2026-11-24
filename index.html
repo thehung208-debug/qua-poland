@@ -392,65 +392,65 @@
     // DỮ LIỆU KHO QUÀ GỐC (49 loại, tổng 148 món) CÓ ĐƯỜNG DẪN ẢNH ICON SẢN PHẨM CHUẨN ĐÃ XOAY THẲNG ĐỨNG
     const INITIAL_INVENTORY = [
       // Chocolate (10 loại - 64 món)
-      { id: 1, name: "Socola đen Biedronka 50% (Czekolada deserowa)", category: "Chocolate", total: 28, unit: "thanh", image: "assets/item_1.jpg" },
-      { id: 2, name: "Socola Hershey's Cookies 'N' Creme Caramel", category: "Chocolate", total: 12, unit: "thanh", image: "assets/item_2.jpg" },
-      { id: 3, name: "Socola trắng dừa Meltie White Coconut", category: "Chocolate", total: 5, unit: "thanh", image: "assets/item_3.jpg" },
-      { id: 4, name: "Socola trắng giòn Meltie White Cocoa Crisps", category: "Chocolate", total: 5, unit: "thanh", image: "assets/item_4.jpg" },
-      { id: 5, name: "Socola KitKat Milk Chocolate (Thanh lớn)", category: "Chocolate", total: 3, unit: "thanh", image: "assets/item_5.jpg" },
-      { id: 6, name: "Socola KitKat Formula 1 (Hình xe F1)", category: "Chocolate", total: 3, unit: "gói", image: "assets/item_6.jpg" },
-      { id: 7, name: "Socola sữa Biedronka (Czekolada Mleczna)", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_7.jpg" },
-      { id: 8, name: "Socola trắng dừa Biedronka (Biała z kokosem)", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_8.jpg" },
-      { id: 9, name: "Socola Matcha mâm xôi Meltie Raspberry", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_9.jpg" },
-      { id: 10, name: "Socola khoai môn dừa Delica Dore Style Ube", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_10.jpg" },
+      { id: 1, priceValue: 48000, priceText: "~48k", name: "Socola đen Biedronka 50% (Czekolada deserowa)", category: "Chocolate", total: 28, unit: "thanh", image: "assets/item_1.jpg" },
+      { id: 2, priceValue: 110000, priceText: "~110k", name: "Socola Hershey's Cookies 'N' Creme Caramel", category: "Chocolate", total: 12, unit: "thanh", image: "assets/item_2.jpg" },
+      { id: 3, priceValue: 65000, priceText: "~65k", name: "Socola trắng dừa Meltie White Coconut", category: "Chocolate", total: 5, unit: "thanh", image: "assets/item_3.jpg" },
+      { id: 4, priceValue: 65000, priceText: "~65k", name: "Socola trắng giòn Meltie White Cocoa Crisps", category: "Chocolate", total: 5, unit: "thanh", image: "assets/item_4.jpg" },
+      { id: 5, priceValue: 95000, priceText: "~95k", name: "Socola KitKat Milk Chocolate (Thanh lớn)", category: "Chocolate", total: 3, unit: "thanh", image: "assets/item_5.jpg" },
+      { id: 6, priceValue: 90000, priceText: "~90k", name: "Socola KitKat Formula 1 (Hình xe F1)", category: "Chocolate", total: 3, unit: "gói", image: "assets/item_6.jpg" },
+      { id: 7, priceValue: 50000, priceText: "~50k", name: "Socola sữa Biedronka (Czekolada Mleczna)", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_7.jpg" },
+      { id: 8, priceValue: 55000, priceText: "~55k", name: "Socola trắng dừa Biedronka (Biała z kokosem)", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_8.jpg" },
+      { id: 9, priceValue: 75000, priceText: "~75k", name: "Socola Matcha mâm xôi Meltie Raspberry", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_9.jpg" },
+      { id: 10, priceValue: 75000, priceText: "~75k", name: "Socola khoai môn dừa Delica Dore Style Ube", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_10.jpg" },
 
       // Nước hoa (25 loại - 41 món)
-      { id: 11, name: "Nước hoa Mexx Whenever Wherever For Him (30ml)", category: "Nước hoa", total: 4, unit: "chai", image: "assets/item_11.jpg" },
-      { id: 12, name: "Nước hoa Kruidvat XD Oud Wood & Pepper", category: "Nước hoa", total: 4, unit: "chai", image: "assets/item_12.jpg" },
-      { id: 13, name: "Nước hoa Adidas Vibes Smooth Pace (50ml)", category: "Nước hoa", total: 3, unit: "chai", image: "assets/item_13.jpg" },
-      { id: 14, name: "Nước hoa Fiorée Choose Joy EDP", category: "Nước hoa", total: 3, unit: "chai", image: "assets/item_14.jpg" },
-      { id: 15, name: "Nước hoa Sorvella Mountain Woodall EDP (50ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_15.jpg" },
-      { id: 16, name: "Nước hoa Elizabeth Arden Green Tea (30ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_16.jpg" },
-      { id: 17, name: "Nước hoa Adidas Champions League Goal (100ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_17.jpg" },
-      { id: 18, name: "Nước hoa La Rive Her Choice EDP (100ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_18.jpg" },
-      { id: 19, name: "Nước hoa NG Aqua Di NG EDT Pour Homme", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_19.jpg" },
-      { id: 20, name: "Nước hoa NG Dominatio For Men EDT", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_20.jpg" },
-      { id: 21, name: "Nước hoa Gucci Flora Gorgeous Jasmine EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_21.jpg" },
-      { id: 22, name: "Nước hoa Hugo Boss BOSS Bottled EDT (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_22.jpg" },
-      { id: 23, name: "Nước hoa Calvin Klein Obsession Night (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_23.jpg" },
-      { id: 24, name: "Nước hoa Tommy Hilfiger Tommy Girl NOW (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_24.jpg" },
-      { id: 25, name: "Nước hoa Guess Seductive Homme EDT (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_25.jpg" },
-      { id: 26, name: "Nước hoa Iceberg Eau de Iceberg EDT (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_26.jpg" },
-      { id: 27, name: "Nước hoa NOU Oliban EDT Pour Homme (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_27.jpg" },
-      { id: 28, name: "Nước hoa Adidas Vibes Wonder Force (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_28.jpg" },
-      { id: 29, name: "Nước hoa Icône L'adore Eau de Parfum (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_29.jpg" },
-      { id: 30, name: "Nước hoa La Rive 315 Prestige For Woman (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_30.jpg" },
-      { id: 31, name: "Nước hoa The Master Perfumer N°07 Vanilla (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_31.jpg" },
-      { id: 32, name: "Nước hoa The Master Perfumer N°21 Tangerine (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_32.jpg" },
-      { id: 33, name: "Nước hoa Kylie Minogue Darling EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_33.jpg" },
-      { id: 34, name: "Nước hoa Kylie Minogue Disco Darling EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_34.jpg" },
-      { id: 35, name: "Nước hoa Kruidvat CM Citrus & Bergamot", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_35.jpg" },
+      { id: 11, priceValue: 380000, priceText: "~380k", name: "Nước hoa Mexx Whenever Wherever For Him (30ml)", category: "Nước hoa", total: 4, unit: "chai", image: "assets/item_11.jpg" },
+      { id: 12, priceValue: 250000, priceText: "~250k", name: "Nước hoa Kruidvat XD Oud Wood & Pepper", category: "Nước hoa", total: 4, unit: "chai", image: "assets/item_12.jpg" },
+      { id: 13, priceValue: 350000, priceText: "~350k", name: "Nước hoa Adidas Vibes Smooth Pace (50ml)", category: "Nước hoa", total: 3, unit: "chai", image: "assets/item_13.jpg" },
+      { id: 14, priceValue: 320000, priceText: "~320k", name: "Nước hoa Fiorée Choose Joy EDP", category: "Nước hoa", total: 3, unit: "chai", image: "assets/item_14.jpg" },
+      { id: 15, priceValue: 600000, priceText: "~600k", name: "Nước hoa Sorvella Mountain Woodall EDP (50ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_15.jpg" },
+      { id: 16, priceValue: 550000, priceText: "~550k", name: "Nước hoa Elizabeth Arden Green Tea (30ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_16.jpg" },
+      { id: 17, priceValue: 500000, priceText: "~500k", name: "Nước hoa Adidas Champions League Goal (100ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_17.jpg" },
+      { id: 18, priceValue: 450000, priceText: "~450k", name: "Nước hoa La Rive Her Choice EDP (100ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_18.jpg" },
+      { id: 19, priceValue: 300000, priceText: "~300k", name: "Nước hoa NG Aqua Di NG EDT Pour Homme", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_19.jpg" },
+      { id: 20, priceValue: 300000, priceText: "~300k", name: "Nước hoa NG Dominatio For Men EDT", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_20.jpg" },
+      { id: 21, priceValue: 2000000, priceText: "~2tr", name: "Nước hoa Gucci Flora Gorgeous Jasmine EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_21.jpg" },
+      { id: 22, priceValue: 1400000, priceText: "~1.4tr", name: "Nước hoa Hugo Boss BOSS Bottled EDT (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_22.jpg" },
+      { id: 23, priceValue: 1100000, priceText: "~1.1tr", name: "Nước hoa Calvin Klein Obsession Night (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_23.jpg" },
+      { id: 24, priceValue: 900000, priceText: "~900k", name: "Nước hoa Tommy Hilfiger Tommy Girl NOW (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_24.jpg" },
+      { id: 25, priceValue: 750000, priceText: "~750k", name: "Nước hoa Guess Seductive Homme EDT (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_25.jpg" },
+      { id: 26, priceValue: 850000, priceText: "~850k", name: "Nước hoa Iceberg Eau de Iceberg EDT (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_26.jpg" },
+      { id: 27, priceValue: 700000, priceText: "~700k", name: "Nước hoa NOU Oliban EDT Pour Homme (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_27.jpg" },
+      { id: 28, priceValue: 350000, priceText: "~350k", name: "Nước hoa Adidas Vibes Wonder Force (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_28.jpg" },
+      { id: 29, priceValue: 480000, priceText: "~480k", name: "Nước hoa Icône L'adore Eau de Parfum (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_29.jpg" },
+      { id: 30, priceValue: 450000, priceText: "~450k", name: "Nước hoa La Rive 315 Prestige For Woman (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_30.jpg" },
+      { id: 31, priceValue: 420000, priceText: "~420k", name: "Nước hoa The Master Perfumer N°07 Vanilla (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_31.jpg" },
+      { id: 32, priceValue: 420000, priceText: "~420k", name: "Nước hoa The Master Perfumer N°21 Tangerine (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_32.jpg" },
+      { id: 33, priceValue: 650000, priceText: "~650k", name: "Nước hoa Kylie Minogue Darling EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_33.jpg" },
+      { id: 34, priceValue: 650000, priceText: "~650k", name: "Nước hoa Kylie Minogue Disco Darling EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_34.jpg" },
+      { id: 35, priceValue: 250000, priceText: "~250k", name: "Nước hoa Kruidvat CM Citrus & Bergamot", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_35.jpg" },
 
       // Kem nền, lót & che khuyết điểm (3 loại - 13 món)
-      { id: 36, name: "Kem che khuyết điểm Paese Nanorevit Brightening", category: "Nền & Che khuyết điểm", total: 8, unit: "thỏi", image: "assets/item_36.jpg" },
-      { id: 37, name: "Kem nền kiêm che khuyết điểm L'Oréal Skin Ink", category: "Nền & Che khuyết điểm", total: 3, unit: "chai", image: "assets/item_37.jpg" },
-      { id: 38, name: "Kem lót bắt sáng Paese Illuminating Base", category: "Nền & Che khuyết điểm", total: 2, unit: "chai", image: "assets/item_38.jpg" },
+      { id: 36, priceValue: 220000, priceText: "~220k", name: "Kem che khuyết điểm Paese Nanorevit Brightening", category: "Nền & Che khuyết điểm", total: 8, unit: "thỏi", image: "assets/item_36.jpg" },
+      { id: 37, priceValue: 380000, priceText: "~380k", name: "Kem nền kiêm che khuyết điểm L'Oréal Skin Ink", category: "Nền & Che khuyết điểm", total: 3, unit: "chai", image: "assets/item_37.jpg" },
+      { id: 38, priceValue: 290000, priceText: "~290k", name: "Kem lót bắt sáng Paese Illuminating Base", category: "Nền & Che khuyết điểm", total: 2, unit: "chai", image: "assets/item_38.jpg" },
 
       // Phấn trang điểm (4 loại - 12 món)
-      { id: 39, name: "Phấn nén che phủ Paese Nanorevit Covering", category: "Phấn", total: 5, unit: "hộp", image: "assets/item_39.jpg" },
-      { id: 40, name: "Phấn bắt sáng đôi Paese Nanorevit Glow Duo", category: "Phấn", total: 3, unit: "hộp", image: "assets/item_40.jpg" },
-      { id: 41, name: "Phấn tạo khối đôi Paese Nanorevit Contour Duo", category: "Phấn", total: 2, unit: "hộp", image: "assets/item_41.jpg" },
-      { id: 42, name: "Phấn phủ bột bắt sáng Paese Powder Mist", category: "Phấn", total: 2, unit: "hộp", image: "assets/item_42.jpg" },
+      { id: 39, priceValue: 280000, priceText: "~280k", name: "Phấn nén che phủ Paese Nanorevit Covering", category: "Phấn", total: 5, unit: "hộp", image: "assets/item_39.jpg" },
+      { id: 40, priceValue: 360000, priceText: "~360k", name: "Phấn bắt sáng đôi Paese Nanorevit Glow Duo", category: "Phấn", total: 3, unit: "hộp", image: "assets/item_40.jpg" },
+      { id: 41, priceValue: 360000, priceText: "~360k", name: "Phấn tạo khối đôi Paese Nanorevit Contour Duo", category: "Phấn", total: 2, unit: "hộp", image: "assets/item_41.jpg" },
+      { id: 42, priceValue: 420000, priceText: "~420k", name: "Phấn phủ bột bắt sáng Paese Powder Mist", category: "Phấn", total: 2, unit: "hộp", image: "assets/item_42.jpg" },
 
       // Son môi & son dưỡng (3 loại - 12 món)
-      { id: 43, name: "Son kem lì Maybelline Superstay Teddy Tint", category: "Son môi", total: 9, unit: "thỏi", image: "assets/item_43.jpg" },
-      { id: 44, name: "Sáp dưỡng đa năng quân đội Försvarets Hudsalva", category: "Son môi", total: 2, unit: "tuýp", image: "assets/item_44.jpg" },
-      { id: 45, name: "Son dưỡng ẩm không mùi Apoliva Cerat", category: "Son môi", total: 1, unit: "thỏi", image: "assets/item_45.jpg" },
+      { id: 43, priceValue: 260000, priceText: "~260k", name: "Son kem lì Maybelline Superstay Teddy Tint", category: "Son môi", total: 9, unit: "thỏi", image: "assets/item_43.jpg" },
+      { id: 44, priceValue: 170000, priceText: "~170k", name: "Sáp dưỡng đa năng quân đội Försvarets Hudsalva", category: "Son môi", total: 2, unit: "tuýp", image: "assets/item_44.jpg" },
+      { id: 45, priceValue: 110000, priceText: "~110k", name: "Son dưỡng ẩm không mùi Apoliva Cerat", category: "Son môi", total: 1, unit: "thỏi", image: "assets/item_45.jpg" },
 
       // Dưỡng da (4 loại - 6 món)
-      { id: 46, name: "Kem ngày chống lão hóa L'Oréal Ekspert Wieku 60+", category: "Dưỡng da", total: 2, unit: "hộp", image: "assets/item_46.jpg" },
-      { id: 47, name: "Mặt nạ ngủ phục hồi Solverx Age.Reset Ceramide", category: "Dưỡng da", total: 2, unit: "hộp", image: "assets/item_47.jpg" },
-      { id: 48, name: "Serum collagen đậm đặc mesoBOOST Collagen Forte", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_48.jpg" },
-      { id: 49, name: "Kem bơ làm dịu da Nacomi Rich & Comfy Avocado", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_49.jpg" }
+      { id: 46, priceValue: 350000, priceText: "~350k", name: "Kem ngày chống lão hóa L'Oréal Ekspert Wieku 60+", category: "Dưỡng da", total: 2, unit: "hộp", image: "assets/item_46.jpg" },
+      { id: 47, priceValue: 280000, priceText: "~280k", name: "Mặt nạ ngủ phục hồi Solverx Age.Reset Ceramide", category: "Dưỡng da", total: 2, unit: "hộp", image: "assets/item_47.jpg" },
+      { id: 48, priceValue: 650000, priceText: "~650k", name: "Serum collagen đậm đặc mesoBOOST Collagen Forte", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_48.jpg" },
+      { id: 49, priceValue: 220000, priceText: "~220k", name: "Kem bơ làm dịu da Nacomi Rich & Comfy Avocado", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_49.jpg" }
     ];
 
     // CẤU HÌNH CÁC NHÓM QUÀ ĐÃ ĐƯỢC XẾP THEO GIÁ TIỀN TỪ CAO XUỐNG THẤP
@@ -619,7 +619,7 @@
 
       grid.innerHTML = SORTED_CATEGORY_NAMES.map(catName => {
         const meta = CATEGORY_META[catName];
-        const allItems = inventory.filter(i => i.category === catName);
+        const allItems = inventory.filter(i => i.category === catName).sort((a, b) => (b.priceValue || 0) - (a.priceValue || 0));
         const totalItemsCount = allItems.reduce((sum, i) => sum + i.total, 0);
         const totalAssignedCount = allItems.reduce((sum, i) => sum + (assignedMap[i.id] || 0), 0);
         const totalRemainCount = Math.max(0, totalItemsCount - totalAssignedCount);
@@ -656,7 +656,10 @@
       const meta = CATEGORY_META[catName];
       if (!meta) return;
 
-      const allItems = inventory.filter(i => i.category === catName);
+      // Sắp xếp các sản phẩm trong card theo thứ tự giá từ cao xuống thấp
+      const allItems = inventory
+        .filter(i => i.category === catName)
+        .sort((a, b) => (b.priceValue || 0) - (a.priceValue || 0));
 
       const assignedMap = {};
       const assignedRecipientsMap = {};
@@ -723,9 +726,10 @@
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-1">
                 <h5 class="font-bold text-sage-900 text-xs leading-snug truncate" title="${item.name}">${item.name}</h5>
-                <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold ${remainBadge} shrink-0">
-                  Còn ${remain}/${item.total}
-                </span>
+                <div class="flex items-center gap-1 shrink-0">
+                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-offwhite text-sage-800 border-offwhite-border">${item.priceText}</span>
+                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold ${remainBadge}">Còn ${remain}/${item.total}</span>
+                </div>
               </div>
 
               <!-- Thanh tiến độ phân chia -->
@@ -1023,10 +1027,15 @@
         });
       });
 
-      let items = inventory;
+      let items = [...inventory];
       if (category !== 'all') {
-        items = inventory.filter(i => i.category === category);
+        items = items.filter(i => i.category === category);
       }
+      items.sort((a, b) => {
+        const catDiff = SORTED_CATEGORY_NAMES.indexOf(a.category) - SORTED_CATEGORY_NAMES.indexOf(b.category);
+        if (catDiff !== 0) return catDiff;
+        return (b.priceValue || 0) - (a.priceValue || 0);
+      });
 
       listEl.innerHTML = items.map(item => {
         const assigned = assignedMap[item.id] || 0;
@@ -1055,9 +1064,12 @@
                   <span class="text-[9px] font-bold text-sage-700 uppercase tracking-wider block">${item.category}</span>
                   <h5 class="font-bold text-sage-900 text-xs leading-tight truncate">${item.name}</h5>
                 </div>
-                <span class="px-1.5 py-0.2 rounded-full border text-[10px] font-bold ${remainBadge} shrink-0">
-                  Còn ${remain}/${item.total}
-                </span>
+                <div class="flex items-center gap-1 shrink-0">
+                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-offwhite text-sage-800 border-offwhite-border">${item.priceText}</span>
+                  <span class="px-1.5 py-0.2 rounded-full border text-[10px] font-bold ${remainBadge}">
+                    Còn ${remain}/${item.total}
+                  </span>
+                </div>
               </div>
               <div class="w-full bg-offwhite-dark h-1.5 rounded-full mt-1.5 overflow-hidden">
                 <div class="bg-sage h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
@@ -1146,7 +1158,7 @@
 
       // Optgroup hiển thị tên nhóm quà gọn gàng
       const optionsHtml = SORTED_CATEGORY_NAMES.map(cat => {
-        const catItems = inventory.filter(i => i.category === cat);
+        const catItems = inventory.filter(i => i.category === cat).sort((a, b) => (b.priceValue || 0) - (a.priceValue || 0));
         const itemsOpt = catItems.map(item => {
           const isSelected = parseInt(defaultGiftId) === item.id ? 'selected' : '';
           return `<option value="${item.id}" data-img="${item.image}" ${isSelected}>${item.name}</option>`;
