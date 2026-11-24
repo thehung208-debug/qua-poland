@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi" class="h-full">
+<html lang="en" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sổ Quà Ba Lan</title>
+  <title>Poland Gifts Tracker</title>
   <!-- Google Fonts: Plus Jakarta Sans (UI/UX Pro Max Standard) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,13 +85,13 @@
           <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
           <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
         </svg>
-        <h1 class="text-base font-bold tracking-tight text-sage-900 leading-tight">Sổ Quà Ba Lan</h1>
+        <h1 class="text-base font-bold tracking-tight text-sage-900 leading-tight">Poland Gifts Tracker</h1>
       </div>
       <button onclick="openAddModal()" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-bold px-3 py-1.5 rounded-xl shadow-xs text-xs flex items-center gap-1.5 border-2 border-tomato-border transition duration-150">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14"/><path d="M12 5v14"/>
         </svg>
-        <span>Tặng quà</span>
+        <span>Give Gift</span>
       </button>
     </div>
   </header>
@@ -107,7 +107,7 @@
           <svg class="w-3 h-3 text-sage-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          <span>Đã tặng</span>
+          <span>Gifted</span>
         </div>
         <div id="stat-gifted" class="text-xl font-black text-sage-900 leading-tight mt-0.5">0</div>
       </div>
@@ -118,7 +118,7 @@
           <svg class="w-3 h-3 text-tomato" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
-          <span>Chuẩn bị</span>
+          <span>Preparing</span>
         </div>
         <div id="stat-preparing" class="text-xl font-black text-tomato leading-tight mt-0.5">0</div>
       </div>
@@ -130,7 +130,7 @@
             <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
             <path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
           </svg>
-          <span>Chưa tặng</span>
+          <span>In Stock</span>
         </div>
         <div id="stat-remaining" class="text-xl font-black text-sage-900 leading-tight mt-0.5">148</div>
       </div>
@@ -142,19 +142,19 @@
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
-        <span>Người nhận (<span id="recipient-count">0</span>)</span>
+        <span>Recipients (<span id="recipient-count">0</span>)</span>
       </button>
       <button id="tab-categories-btn" onclick="switchTab('categories')" class="flex-1 py-1.5 text-xs font-bold rounded-lg transition text-sage-700 hover:text-sage-900 flex items-center justify-center gap-1">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
         </svg>
-        <span>Nhóm quà (6)</span>
+        <span>Categories (6)</span>
       </button>
       <button id="tab-inventory-btn" onclick="switchTab('inventory')" class="flex-1 py-1.5 text-xs font-bold rounded-lg transition text-sage-700 hover:text-sage-900 flex items-center justify-center gap-1">
         <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>
         </svg>
-        <span>Kho tổng (49)</span>
+        <span>Inventory (49)</span>
       </button>
     </div>
 
@@ -163,16 +163,16 @@
       <!-- Tìm kiếm & Lọc trạng thái -->
       <div class="flex items-center gap-1.5 shrink-0">
         <div class="relative flex-1">
-          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Tìm tên người nhận..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-2.5 py-1.5 pl-8 text-xs focus:outline-none focus:border-sage placeholder-sage-700/50 text-sage-900 font-bold">
+          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Search recipient..." class="w-full bg-white border-2 border-offwhite-border rounded-xl px-2.5 py-1.5 pl-8 text-xs focus:outline-none focus:border-sage placeholder-sage-700/50 text-sage-900 font-bold">
           <svg class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
           </svg>
         </div>
         <select id="status-filter" onchange="setFilter(this.value)" class="bg-white border-2 border-offwhite-border rounded-xl px-2 py-1.5 text-[11px] font-bold text-sage-900 focus:outline-none focus:border-sage">
-          <option value="all">Tất cả</option>
-          <option value="preparing">Chuẩn bị</option>
-          <option value="gifted">Đã tặng</option>
-          <option value="pending">Chưa tặng</option>
+          <option value="all">All</option>
+          <option value="preparing">Preparing</option>
+          <option value="gifted">Gifted</option>
+          <option value="pending">Pending</option>
         </select>
       </div>
 
@@ -186,13 +186,13 @@
         <svg class="w-10 h-10 mx-auto mb-1.5 text-sage-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
         </svg>
-        <h3 class="text-xs font-bold text-sage-900">Chưa có người nhận nào</h3>
-        <p class="text-[10px] text-sage-700 mt-0.5 mb-2.5">Bấm nút bên dưới để chọn quà tặng cho người quen nhé!</p>
+        <h3 class="text-xs font-bold text-sage-900">No recipients yet</h3>
+        <p class="text-[10px] text-sage-700 mt-0.5 mb-2.5">Tap below to assign gifts to friends & family!</p>
         <button onclick="openAddModal()" class="bg-tomato hover:bg-tomato-hover text-white font-bold px-3 py-1.5 rounded-xl border border-tomato-border shadow-xs text-xs btn-bounce inline-flex items-center gap-1 transition duration-150">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"/><path d="M12 5v14"/>
           </svg>
-          <span>Thêm người nhận</span>
+          <span>Add Recipient</span>
         </button>
       </div>
     </section>
@@ -208,14 +208,14 @@
     <!-- TAB 3: KHO QUÀ TỔNG HỢP (49 LOẠI) -->
     <section id="tab-inventory" class="hidden flex-1 flex flex-col overflow-hidden space-y-2">
       <div class="flex items-center justify-between shrink-0">
-        <span class="text-[11px] font-bold text-sage-900">Chi tiết 49 loại quà trong kho:</span>
+        <span class="text-[11px] font-bold text-sage-900">Detailed inventory of 49 gifts:</span>
         <select id="category-filter" onchange="renderInventory()" class="bg-white border-2 border-offwhite-border rounded-xl px-2 py-0.5 text-[11px] font-bold text-sage-900 focus:outline-none focus:border-sage">
-          <option value="all">Tất cả nhóm</option>
-          <option value="Nước hoa">Nước hoa (41)</option>
-          <option value="Dưỡng da">Dưỡng da (6)</option>
-          <option value="Phấn">Phấn (12)</option>
-          <option value="Nền & Che khuyết điểm">Nền & CKĐ (13)</option>
-          <option value="Son môi">Son môi (12)</option>
+          <option value="all">All categories</option>
+          <option value="Perfume">Perfume (41)</option>
+          <option value="Skincare">Skincare (6)</option>
+          <option value="Powder">Powder (12)</option>
+          <option value="Foundation & Concealer">Foundation & Concealer (13)</option>
+          <option value="Lipstick">Lipstick (12)</option>
           <option value="Chocolate">Chocolate (64)</option>
         </select>
       </div>
@@ -242,13 +242,13 @@
           </span>
           <div class="truncate">
             <div class="flex items-center gap-1.5">
-              <h3 id="cat-modal-title" class="text-sm font-bold text-sage-900 leading-tight">Chi tiết nhóm quà</h3>
+              <h3 id="cat-modal-title" class="text-sm font-bold text-sage-900 leading-tight">Category Details</h3>
               <span id="cat-modal-badge" class="px-1.5 py-0.2 rounded-full text-[10px] font-black border"></span>
             </div>
             <p id="cat-modal-subtitle" class="text-[10px] text-sage-700 font-semibold"></p>
           </div>
         </div>
-        <button onclick="closeCategoryModal()" class="text-sage-700 hover:text-sage-900 p-1 btn-bounce" aria-label="Đóng">
+        <button onclick="closeCategoryModal()" class="text-sage-700 hover:text-sage-900 p-1 btn-bounce" aria-label="Close">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
           </svg>
@@ -257,7 +257,7 @@
 
       <!-- Sheet Items List (Scrollable) -->
       <div id="category-modal-items" class="p-3 space-y-2 overflow-y-auto custom-scroll flex-1">
-        <!-- Render các món cụ thể có icon minh họa ảnh thật -->
+        <!-- Render các items cụ thể có icon minh họa ảnh thật -->
       </div>
 
       <!-- Sheet Footer -->
@@ -266,10 +266,10 @@
           <svg class="w-3.5 h-3.5 text-sage-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
           </svg>
-          <span>Chạm ảnh để phóng to soi chữ</span>
+          <span>Tap image to zoom in and inspect</span>
         </span>
         <button onclick="closeCategoryModal()" class="px-3 py-1 bg-white border border-offwhite-border rounded-xl font-bold text-sage-900 text-xs btn-bounce">
-          Đóng
+          Close
         </button>
       </div>
     </div>
@@ -280,10 +280,10 @@
     <!-- Top Bar -->
     <div class="px-4 py-2.5 bg-black/50 border-b border-white/10 flex items-center justify-between text-white shrink-0 z-10">
       <div class="min-w-0 pr-2">
-        <h3 id="zoom-image-title" class="text-xs sm:text-sm font-bold truncate text-sage-300">Tên sản phẩm</h3>
-        <p id="zoom-image-category" class="text-[10px] text-white/70">Chạm/cuộn phóng to • Kéo để soi nhãn chữ</p>
+        <h3 id="zoom-image-title" class="text-xs sm:text-sm font-bold truncate text-sage-300">Product Name</h3>
+        <p id="zoom-image-category" class="text-[10px] text-white/70">Pinch/scroll to zoom • Drag to inspect label</p>
       </div>
-      <button onclick="closeImageZoom()" class="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-base btn-bounce shrink-0" aria-label="Đóng">
+      <button onclick="closeImageZoom()" class="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-base btn-bounce shrink-0" aria-label="Close">
         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
         </svg>
@@ -302,14 +302,14 @@
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="8" x2="14" y1="11" y2="11"/>
           </svg>
-          <span>Thu nhỏ</span>
+          <span>Zoom Out</span>
         </button>
         <span id="zoom-level-text" class="px-2 py-1 bg-white/10 rounded-lg font-bold text-[11px] min-w-[44px] text-center">100%</span>
         <button onclick="changeZoom(0.3)" class="bg-white/15 hover:bg-white/25 px-2.5 py-1.5 rounded-xl font-bold btn-bounce flex items-center gap-1.5 text-xs">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/><line x1="11" x2="11" y1="8" y2="14"/><line x1="8" x2="14" y1="11" y2="11"/>
           </svg>
-          <span>Phóng to</span>
+          <span>Zoom In</span>
         </button>
       </div>
 
@@ -318,9 +318,9 @@
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>
           </svg>
-          <span>Xoay 90°</span>
+          <span>Rotate 90°</span>
         </button>
-        <button onclick="resetZoom()" class="bg-white/15 hover:bg-white/25 px-2 py-1.5 rounded-xl font-bold btn-bounce text-xs flex items-center justify-center" title="Khôi phục">
+        <button onclick="resetZoom()" class="bg-white/15 hover:bg-white/25 px-2 py-1.5 rounded-xl font-bold btn-bounce text-xs flex items-center justify-center" title="Reset zoom">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>
           </svg>
@@ -336,9 +336,9 @@
       <!-- Modal Header -->
       <div class="bg-white px-3.5 py-2.5 border-b-2 border-offwhite-border flex items-center justify-between">
         <h3 id="modal-title" class="text-sm font-bold text-sage-900">
-          Thêm người nhận
+          Add Recipient
         </h3>
-        <button onclick="closeModal()" class="text-sage-700 hover:text-sage-900 p-1 btn-bounce" aria-label="Đóng">
+        <button onclick="closeModal()" class="text-sage-700 hover:text-sage-900 p-1 btn-bounce" aria-label="Close">
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
           </svg>
@@ -348,10 +348,10 @@
       <!-- Modal Body (Scrollable) -->
       <div class="p-3.5 space-y-3 overflow-y-auto custom-scroll flex-1 text-xs">
         
-        <!-- Tên người nhận (Hiện đầu tiên) -->
+        <!-- Recipient Name (Hiện đầu tiên) -->
         <div>
           <label class="block font-bold text-sage-900 mb-1 text-xs">
-            Tên người nhận
+            Recipient Name
           </label>
           <input type="text" id="modal-person-name" oninput="handlePersonNameInput()" class="w-full bg-white border-2 border-offwhite-border rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-sage font-bold text-sage-900">
         </div>
@@ -359,23 +359,23 @@
         <!-- Các nhóm quà: Hiện ra sau khi nhập tên để chọn -->
         <div id="modal-category-section" class="hidden space-y-1.5 pt-2 border-t border-offwhite-border">
           <label class="block font-bold text-sage-900 text-xs">
-            Chọn nhóm quà:
+            Choose category:
           </label>
           <div id="category-pills" class="grid grid-cols-3 gap-1.5">
-            <button type="button" onclick="selectCategoryForAdd('Nước hoa')" data-cat="Nước hoa" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Nước hoa
+            <button type="button" onclick="selectCategoryForAdd('Perfume')" data-cat="Perfume" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
+              Perfume
             </button>
-            <button type="button" onclick="selectCategoryForAdd('Dưỡng da')" data-cat="Dưỡng da" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Dưỡng da
+            <button type="button" onclick="selectCategoryForAdd('Skincare')" data-cat="Skincare" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
+              Skincare
             </button>
-            <button type="button" onclick="selectCategoryForAdd('Phấn')" data-cat="Phấn" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Phấn
+            <button type="button" onclick="selectCategoryForAdd('Powder')" data-cat="Powder" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
+              Powder
             </button>
-            <button type="button" onclick="selectCategoryForAdd('Nền & Che khuyết điểm')" data-cat="Nền & Che khuyết điểm" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Nền & CKĐ
+            <button type="button" onclick="selectCategoryForAdd('Foundation & Concealer')" data-cat="Foundation & Concealer" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
+              Foundation
             </button>
-            <button type="button" onclick="selectCategoryForAdd('Son môi')" data-cat="Son môi" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
-              Son môi
+            <button type="button" onclick="selectCategoryForAdd('Lipstick')" data-cat="Lipstick" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
+              Lipstick
             </button>
             <button type="button" onclick="selectCategoryForAdd('Chocolate')" data-cat="Chocolate" class="cat-pill py-2 px-1 text-center font-bold text-xs rounded-xl border-2 border-offwhite-border bg-white text-sage-900 hover:border-sage transition btn-bounce">
               Chocolate
@@ -387,10 +387,10 @@
         <div id="modal-gifts-section" class="hidden space-y-2 pt-2 border-t border-offwhite-border">
           <div class="flex items-center justify-between">
             <label class="font-bold text-sage-900 text-xs">
-              Món quà đã chọn
+              Selected gifts
             </label>
             <button type="button" onclick="addGiftRow()" class="text-xs font-bold text-white bg-sage hover:bg-sage-600 px-2.5 py-1 rounded-lg border border-sage-600 btn-bounce">
-              + Thêm món
+              + Add item
             </button>
           </div>
           
@@ -404,10 +404,10 @@
       <!-- Modal Footer -->
       <div class="bg-offwhite-dark p-2.5 border-t-2 border-offwhite-border flex gap-2">
         <button onclick="closeModal()" class="flex-1 py-2 text-xs font-bold text-sage-700 bg-white border-2 border-offwhite-border rounded-xl btn-bounce">
-          Hủy
+          Cancel
         </button>
         <button id="modal-save-btn" onclick="saveRecipient()" class="hidden flex-1 py-2 text-xs font-bold text-white bg-tomato hover:bg-tomato-hover border-2 border-tomato-border rounded-xl shadow-xs btn-bounce">
-          Lưu lại
+          Save
         </button>
       </div>
 
@@ -416,72 +416,116 @@
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // DỮ LIỆU KHO QUÀ GỐC (49 loại, tổng 148 món) CÓ ĐƯỜNG DẪN ẢNH ICON SẢN PHẨM CHUẨN ĐÃ XOAY THẲNG ĐỨNG
+    // DỮ LIỆU KHO QUÀ GỐC (49 loại, tổng 148 items) CÓ ĐƯỜNG DẪN ẢNH ICON SẢN PHẨM CHUẨN ĐÃ XOAY THẲNG ĐỨNG
     const INITIAL_INVENTORY = [
-      // Chocolate (10 loại - 64 món)
-      { id: 1, priceValue: 48000, priceText: "~48k", name: "Socola đen Biedronka 50% (Czekolada deserowa)", category: "Chocolate", total: 28, unit: "thanh", image: "assets/item_1.jpg" },
-      { id: 2, priceValue: 110000, priceText: "~110k", name: "Socola Hershey's Cookies 'N' Creme Caramel", category: "Chocolate", total: 12, unit: "thanh", image: "assets/item_2.jpg" },
-      { id: 3, priceValue: 65000, priceText: "~65k", name: "Socola trắng dừa Meltie White Coconut", category: "Chocolate", total: 5, unit: "thanh", image: "assets/item_3.jpg" },
-      { id: 4, priceValue: 65000, priceText: "~65k", name: "Socola trắng giòn Meltie White Cocoa Crisps", category: "Chocolate", total: 5, unit: "thanh", image: "assets/item_4.jpg" },
-      { id: 5, priceValue: 95000, priceText: "~95k", name: "Socola KitKat Milk Chocolate (Thanh lớn)", category: "Chocolate", total: 3, unit: "thanh", image: "assets/item_5.jpg" },
-      { id: 6, priceValue: 90000, priceText: "~90k", name: "Socola KitKat Formula 1 (Hình xe F1)", category: "Chocolate", total: 3, unit: "gói", image: "assets/item_6.jpg" },
-      { id: 7, priceValue: 50000, priceText: "~50k", name: "Socola sữa Biedronka (Czekolada Mleczna)", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_7.jpg" },
-      { id: 8, priceValue: 55000, priceText: "~55k", name: "Socola trắng dừa Biedronka (Biała z kokosem)", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_8.jpg" },
-      { id: 9, priceValue: 75000, priceText: "~75k", name: "Socola Matcha mâm xôi Meltie Raspberry", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_9.jpg" },
-      { id: 10, priceValue: 75000, priceText: "~75k", name: "Socola khoai môn dừa Delica Dore Style Ube", category: "Chocolate", total: 2, unit: "thanh", image: "assets/item_10.jpg" },
+      // Chocolate (10 loại - 64 items)
+      { id: 1, priceValue: 48000, priceText: "~48k", name: "Biedronka 50% Dark Chocolate (Czekolada deserowa)", category: "Chocolate", total: 28, unit: "bars", image: "assets/item_1.jpg" },
+      { id: 2, priceValue: 110000, priceText: "~110k", name: "Hershey's Cookies 'N' Creme Caramel Chocolate", category: "Chocolate", total: 12, unit: "bars", image: "assets/item_2.jpg" },
+      { id: 3, priceValue: 65000, priceText: "~65k", name: "Meltie White Coconut Chocolate", category: "Chocolate", total: 5, unit: "bars", image: "assets/item_3.jpg" },
+      { id: 4, priceValue: 65000, priceText: "~65k", name: "Meltie White Cocoa Crisps Chocolate", category: "Chocolate", total: 5, unit: "bars", image: "assets/item_4.jpg" },
+      { id: 5, priceValue: 95000, priceText: "~95k", name: "KitKat Milk Chocolate (Large Bar)", category: "Chocolate", total: 3, unit: "bars", image: "assets/item_5.jpg" },
+      { id: 6, priceValue: 90000, priceText: "~90k", name: "KitKat Formula 1 Limited Edition (F1 Car)", category: "Chocolate", total: 3, unit: "packs", image: "assets/item_6.jpg" },
+      { id: 7, priceValue: 50000, priceText: "~50k", name: "Biedronka Milk Chocolate (Czekolada Mleczna)", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_7.jpg" },
+      { id: 8, priceValue: 55000, priceText: "~55k", name: "Biedronka White Coconut Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_8.jpg" },
+      { id: 9, priceValue: 75000, priceText: "~75k", name: "Meltie Raspberry Matcha Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_9.jpg" },
+      { id: 10, priceValue: 75000, priceText: "~75k", name: "Delica Dore Style Ube Coconut Chocolate", category: "Chocolate", total: 2, unit: "bars", image: "assets/item_10.jpg" },
 
-      // Nước hoa (25 loại - 41 món)
-      { id: 11, priceValue: 380000, priceText: "~380k", name: "Nước hoa Mexx Whenever Wherever For Him (30ml)", category: "Nước hoa", total: 4, unit: "chai", image: "assets/item_11.jpg" },
-      { id: 12, priceValue: 250000, priceText: "~250k", name: "Nước hoa Kruidvat XD Oud Wood & Pepper", category: "Nước hoa", total: 4, unit: "chai", image: "assets/item_12.jpg" },
-      { id: 13, priceValue: 350000, priceText: "~350k", name: "Nước hoa Adidas Vibes Smooth Pace (50ml)", category: "Nước hoa", total: 3, unit: "chai", image: "assets/item_13.jpg" },
-      { id: 14, priceValue: 320000, priceText: "~320k", name: "Nước hoa Fiorée Choose Joy EDP", category: "Nước hoa", total: 3, unit: "chai", image: "assets/item_14.jpg" },
-      { id: 15, priceValue: 600000, priceText: "~600k", name: "Nước hoa Sorvella Mountain Woodall EDP (50ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_15.jpg" },
-      { id: 16, priceValue: 550000, priceText: "~550k", name: "Nước hoa Elizabeth Arden Green Tea (30ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_16.jpg" },
-      { id: 17, priceValue: 500000, priceText: "~500k", name: "Nước hoa Adidas Champions League Goal (100ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_17.jpg" },
-      { id: 18, priceValue: 450000, priceText: "~450k", name: "Nước hoa La Rive Her Choice EDP (100ml)", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_18.jpg" },
-      { id: 19, priceValue: 300000, priceText: "~300k", name: "Nước hoa NG Aqua Di NG EDT Pour Homme", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_19.jpg" },
-      { id: 20, priceValue: 300000, priceText: "~300k", name: "Nước hoa NG Dominatio For Men EDT", category: "Nước hoa", total: 2, unit: "chai", image: "assets/item_20.jpg" },
-      { id: 21, priceValue: 2000000, priceText: "~2tr", name: "Nước hoa Gucci Flora Gorgeous Jasmine EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_21.jpg" },
-      { id: 22, priceValue: 1400000, priceText: "~1.4tr", name: "Nước hoa Hugo Boss BOSS Bottled EDT (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_22.jpg" },
-      { id: 23, priceValue: 1100000, priceText: "~1.1tr", name: "Nước hoa Calvin Klein Obsession Night (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_23.jpg" },
-      { id: 24, priceValue: 900000, priceText: "~900k", name: "Nước hoa Tommy Hilfiger Tommy Girl NOW (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_24.jpg" },
-      { id: 25, priceValue: 750000, priceText: "~750k", name: "Nước hoa Guess Seductive Homme EDT (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_25.jpg" },
-      { id: 26, priceValue: 850000, priceText: "~850k", name: "Nước hoa Iceberg Eau de Iceberg EDT (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_26.jpg" },
-      { id: 27, priceValue: 700000, priceText: "~700k", name: "Nước hoa NOU Oliban EDT Pour Homme (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_27.jpg" },
-      { id: 28, priceValue: 350000, priceText: "~350k", name: "Nước hoa Adidas Vibes Wonder Force (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_28.jpg" },
-      { id: 29, priceValue: 480000, priceText: "~480k", name: "Nước hoa Icône L'adore Eau de Parfum (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_29.jpg" },
-      { id: 30, priceValue: 450000, priceText: "~450k", name: "Nước hoa La Rive 315 Prestige For Woman (100ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_30.jpg" },
-      { id: 31, priceValue: 420000, priceText: "~420k", name: "Nước hoa The Master Perfumer N°07 Vanilla (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_31.jpg" },
-      { id: 32, priceValue: 420000, priceText: "~420k", name: "Nước hoa The Master Perfumer N°21 Tangerine (50ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_32.jpg" },
-      { id: 33, priceValue: 650000, priceText: "~650k", name: "Nước hoa Kylie Minogue Darling EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_33.jpg" },
-      { id: 34, priceValue: 650000, priceText: "~650k", name: "Nước hoa Kylie Minogue Disco Darling EDP (30ml)", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_34.jpg" },
-      { id: 35, priceValue: 250000, priceText: "~250k", name: "Nước hoa Kruidvat CM Citrus & Bergamot", category: "Nước hoa", total: 1, unit: "chai", image: "assets/item_35.jpg" },
+      // Nước hoa (25 loại - 41 items)
+      { id: 11, priceValue: 380000, priceText: "~380k", name: "Mexx Whenever Wherever For Him EDT (30ml)", category: "Perfume", total: 4, unit: "bottles", image: "assets/item_11.jpg" },
+      { id: 12, priceValue: 250000, priceText: "~250k", name: "Kruidvat XD Oud Wood & Pepper EDT (50ml)", category: "Perfume", total: 4, unit: "bottles", image: "assets/item_12.jpg" },
+      { id: 13, priceValue: 350000, priceText: "~350k", name: "Adidas Vibes Smooth Pace EDT (50ml)", category: "Perfume", total: 3, unit: "bottles", image: "assets/item_13.jpg" },
+      { id: 14, priceValue: 320000, priceText: "~320k", name: "Fiorée Choose Joy EDP (50ml)", category: "Perfume", total: 3, unit: "bottles", image: "assets/item_14.jpg" },
+      { id: 15, priceValue: 600000, priceText: "~600k", name: "Sorvella Mountain Woodall EDP (50ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_15.jpg" },
+      { id: 16, priceValue: 550000, priceText: "~550k", name: "Elizabeth Arden Green Tea Scent Spray (30ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_16.jpg" },
+      { id: 17, priceValue: 500000, priceText: "~500k", name: "Adidas Champions League Goal EDT (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_17.jpg" },
+      { id: 18, priceValue: 450000, priceText: "~450k", name: "La Rive Her Choice EDP (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_18.jpg" },
+      { id: 19, priceValue: 300000, priceText: "~300k", name: "NG Aqua Di NG EDT Pour Homme (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_19.jpg" },
+      { id: 20, priceValue: 300000, priceText: "~300k", name: "NG Dominatio For Men EDT (100ml)", category: "Perfume", total: 2, unit: "bottles", image: "assets/item_20.jpg" },
+      { id: 21, priceValue: 2000000, priceText: "~2M", name: "Gucci Flora Gorgeous Jasmine EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_21.jpg" },
+      { id: 22, priceValue: 1400000, priceText: "~1.4M", name: "Hugo Boss BOSS Bottled EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_22.jpg" },
+      { id: 23, priceValue: 1100000, priceText: "~1.1M", name: "Calvin Klein Obsession Night For Men EDT (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_23.jpg" },
+      { id: 24, priceValue: 900000, priceText: "~900k", name: "Tommy Hilfiger Tommy Girl NOW EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_24.jpg" },
+      { id: 25, priceValue: 750000, priceText: "~750k", name: "Guess Seductive Homme EDT (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_25.jpg" },
+      { id: 26, priceValue: 850000, priceText: "~850k", name: "Iceberg Eau de Iceberg Pour Homme EDT (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_26.jpg" },
+      { id: 27, priceValue: 700000, priceText: "~700k", name: "NOU Oliban EDT Pour Homme (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_27.jpg" },
+      { id: 28, priceValue: 350000, priceText: "~350k", name: "Adidas Vibes Wonder Force EDT (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_28.jpg" },
+      { id: 29, priceValue: 480000, priceText: "~480k", name: "Icône L'adore Eau de Parfum (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_29.jpg" },
+      { id: 30, priceValue: 450000, priceText: "~450k", name: "La Rive 315 Prestige For Woman EDP (100ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_30.jpg" },
+      { id: 31, priceValue: 420000, priceText: "~420k", name: "The Master Perfumer N°07 Absolute Vanilla (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_31.jpg" },
+      { id: 32, priceValue: 420000, priceText: "~420k", name: "The Master Perfumer N°21 Vibrant Tangerine (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_32.jpg" },
+      { id: 33, priceValue: 650000, priceText: "~650k", name: "Kylie Minogue Darling EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_33.jpg" },
+      { id: 34, priceValue: 650000, priceText: "~650k", name: "Kylie Minogue Disco Darling EDP (30ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_34.jpg" },
+      { id: 35, priceValue: 250000, priceText: "~250k", name: "Kruidvat CM Citrus & Bergamot EDT (50ml)", category: "Perfume", total: 1, unit: "bottles", image: "assets/item_35.jpg" },
 
-      // Kem nền, lót & che khuyết điểm (3 loại - 13 món)
-      { id: 36, priceValue: 220000, priceText: "~220k", name: "Kem che khuyết điểm Paese Nanorevit Brightening", category: "Nền & Che khuyết điểm", total: 8, unit: "thỏi", image: "assets/item_36.jpg" },
-      { id: 37, priceValue: 380000, priceText: "~380k", name: "Kem nền kiêm che khuyết điểm L'Oréal Skin Ink", category: "Nền & Che khuyết điểm", total: 3, unit: "chai", image: "assets/item_37.jpg" },
-      { id: 38, priceValue: 290000, priceText: "~290k", name: "Kem lót bắt sáng Paese Illuminating Base", category: "Nền & Che khuyết điểm", total: 2, unit: "chai", image: "assets/item_38.jpg" },
+      // Kem nền, lót & che khuyết điểm (3 loại - 13 items)
+      { id: 36, priceValue: 220000, priceText: "~220k", name: "Paese Nanorevit Brightening Concealer Stick", category: "Foundation & Concealer", total: 8, unit: "sticks", image: "assets/item_36.jpg" },
+      { id: 37, priceValue: 380000, priceText: "~380k", name: "L'Oréal Skin Ink Foundation & Concealer", category: "Foundation & Concealer", total: 3, unit: "bottles", image: "assets/item_37.jpg" },
+      { id: 38, priceValue: 290000, priceText: "~290k", name: "Paese Illuminating Makeup Base Primer", category: "Foundation & Concealer", total: 2, unit: "bottles", image: "assets/item_38.jpg" },
 
-      // Phấn trang điểm (4 loại - 12 món)
-      { id: 39, priceValue: 280000, priceText: "~280k", name: "Phấn nén che phủ Paese Nanorevit Covering", category: "Phấn", total: 5, unit: "hộp", image: "assets/item_39.jpg" },
-      { id: 40, priceValue: 360000, priceText: "~360k", name: "Phấn bắt sáng đôi Paese Nanorevit Glow Duo", category: "Phấn", total: 3, unit: "hộp", image: "assets/item_40.jpg" },
-      { id: 41, priceValue: 360000, priceText: "~360k", name: "Phấn tạo khối đôi Paese Nanorevit Contour Duo", category: "Phấn", total: 2, unit: "hộp", image: "assets/item_41.jpg" },
-      { id: 42, priceValue: 420000, priceText: "~420k", name: "Phấn phủ bột bắt sáng Paese Powder Mist", category: "Phấn", total: 2, unit: "hộp", image: "assets/item_42.jpg" },
+      // Phấn trang điểm (4 loại - 12 items)
+      { id: 39, priceValue: 280000, priceText: "~280k", name: "Paese Nanorevit Covering Compact Powder", category: "Powder", total: 5, unit: "boxes", image: "assets/item_39.jpg" },
+      { id: 40, priceValue: 360000, priceText: "~360k", name: "Paese Nanorevit Glow Duo Highlighter", category: "Powder", total: 3, unit: "boxes", image: "assets/item_40.jpg" },
+      { id: 41, priceValue: 360000, priceText: "~360k", name: "Paese Nanorevit Contour Duo Powder", category: "Powder", total: 2, unit: "boxes", image: "assets/item_41.jpg" },
+      { id: 42, priceValue: 420000, priceText: "~420k", name: "Paese Powder Mist Illuminating Loose Powder", category: "Powder", total: 2, unit: "boxes", image: "assets/item_42.jpg" },
 
-      // Son môi & son dưỡng (3 loại - 12 món)
-      { id: 43, priceValue: 260000, priceText: "~260k", name: "Son kem lì Maybelline Superstay Teddy Tint", category: "Son môi", total: 9, unit: "thỏi", image: "assets/item_43.jpg" },
-      { id: 44, priceValue: 170000, priceText: "~170k", name: "Sáp dưỡng đa năng quân đội Försvarets Hudsalva", category: "Son môi", total: 2, unit: "tuýp", image: "assets/item_44.jpg" },
-      { id: 45, priceValue: 110000, priceText: "~110k", name: "Son dưỡng ẩm không mùi Apoliva Cerat", category: "Son môi", total: 1, unit: "thỏi", image: "assets/item_45.jpg" },
+      // Son môi & son dưỡng (3 loại - 12 items)
+      { id: 43, priceValue: 260000, priceText: "~260k", name: "Maybelline Superstay Teddy Tint Liquid Lipstick", category: "Lipstick", total: 9, unit: "sticks", image: "assets/item_43.jpg" },
+      { id: 44, priceValue: 170000, priceText: "~170k", name: "Försvarets Hudsalva Swedish Military Salve", category: "Lipstick", total: 2, unit: "tubes", image: "assets/item_44.jpg" },
+      { id: 45, priceValue: 110000, priceText: "~110k", name: "Apoliva Cerat Unscented Moisturizing Lip Balm", category: "Lipstick", total: 1, unit: "sticks", image: "assets/item_45.jpg" },
 
-      // Dưỡng da (4 loại - 6 món)
-      { id: 46, priceValue: 350000, priceText: "~350k", name: "Kem ngày chống lão hóa L'Oréal Ekspert Wieku 60+", category: "Dưỡng da", total: 2, unit: "hộp", image: "assets/item_46.jpg" },
-      { id: 47, priceValue: 280000, priceText: "~280k", name: "Mặt nạ ngủ phục hồi Solverx Age.Reset Ceramide", category: "Dưỡng da", total: 2, unit: "hộp", image: "assets/item_47.jpg" },
-      { id: 48, priceValue: 650000, priceText: "~650k", name: "Serum collagen đậm đặc mesoBOOST Collagen Forte", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_48.jpg" },
-      { id: 49, priceValue: 220000, priceText: "~220k", name: "Kem bơ làm dịu da Nacomi Rich & Comfy Avocado", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_49.jpg" }
+      // Dưỡng da (4 loại - 6 items)
+      { id: 46, priceValue: 350000, priceText: "~350k", name: "L'Oréal Age Expert 60+ Anti-Aging Day Cream", category: "Skincare", total: 2, unit: "boxes", image: "assets/item_46.jpg" },
+      { id: 47, priceValue: 280000, priceText: "~280k", name: "Solverx Age.Reset Ceramide Sleeping Mask", category: "Skincare", total: 2, unit: "boxes", image: "assets/item_47.jpg" },
+      { id: 48, priceValue: 650000, priceText: "~650k", name: "mesoBOOST Collagen Forte Concentrated Serum", category: "Skincare", total: 1, unit: "boxes", image: "assets/item_48.jpg" },
+      { id: 49, priceValue: 220000, priceText: "~220k", name: "Nacomi Rich & Comfy Avocado Calming Cream", category: "Skincare", total: 1, unit: "boxes", image: "assets/item_49.jpg" }
     ];
 
     // CẤU HÌNH CÁC NHÓM QUÀ ĐÃ ĐƯỢC XẾP THEO GIÁ TIỀN TỪ CAO XUỐNG THẤP
     const CATEGORY_META = {
+      "Perfume": {
+        rank: 1,
+        rankBadge: "Top 1",
+        priceText: "~400k - 2M+",
+        priceLabel: "Highest value",
+        previewIds: [21, 22, 11]
+      },
+      "Skincare": {
+        rank: 2,
+        rankBadge: "Top 2",
+        priceText: "~250k - 650k",
+        priceLabel: "Premium skincare",
+        previewIds: [48, 46, 47]
+      },
+      "Powder": {
+        rank: 3,
+        rankBadge: "Top 3",
+        priceText: "~200k - 450k",
+        priceLabel: "Powder & highlighter",
+        previewIds: [42, 40, 41]
+      },
+      "Foundation & Concealer": {
+        rank: 4,
+        rankBadge: "Top 4",
+        priceText: "~180k - 380k",
+        priceLabel: "Foundation & concealer",
+        previewIds: [37, 38, 36]
+      },
+      "Lipstick": {
+        rank: 5,
+        rankBadge: "Top 5",
+        priceText: "~110k - 260k",
+        priceLabel: "Lipstick & balm",
+        previewIds: [43, 44, 45]
+      },
+      "Chocolate": {
+        rank: 6,
+        rankBadge: "Top 6",
+        priceText: "~48k - 110k",
+        priceLabel: "Polish chocolate",
+        previewIds: [2, 5, 6]
+      }
+    };
+    const OLD_META_UNUSED = {
       "Nước hoa": {
         rank: 1,
         rankBadge: "Top 1",
@@ -528,11 +572,11 @@
 
     // THỨ TỰ SẮP XẾP CHÍNH THỨC TỪ GIÁ CAO XUỐNG THẤP
     const SORTED_CATEGORY_NAMES = [
-      "Nước hoa",
-      "Dưỡng da",
-      "Phấn",
-      "Nền & Che khuyết điểm",
-      "Son môi",
+      "Perfume",
+      "Skincare",
+      "Powder",
+      "Foundation & Concealer",
+      "Lipstick",
       "Chocolate"
     ];
 
@@ -652,8 +696,8 @@
         const totalRemainCount = Math.max(0, totalItemsCount - totalAssignedCount);
 
         const stockText = totalRemainCount === totalItemsCount 
-          ? `${totalItemsCount} sản phẩm`
-          : `Còn ${totalRemainCount}/${totalItemsCount} sp`;
+          ? `${totalItemsCount} products`
+          : `${totalRemainCount}/${totalItemsCount} left`;
 
         return `
           <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 border-offwhite-border rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:border-sage select-none">
@@ -665,7 +709,7 @@
 
             <!-- SỐ LOẠI SẢN PHẨM: MÀU XANH SAGE RÕ NÉT -->
             <div class="text-xs sm:text-sm font-bold text-[#507A38] leading-tight">
-              ${allItems.length} loại
+              ${allItems.length} types
             </div>
 
             <!-- TỔNG SỐ LƯỢNG / CÒN LẠI: MÀU ĐỎ TOMATO NỔI BẬT -->
@@ -708,12 +752,12 @@
       document.getElementById('cat-modal-title').innerText = catName;
       document.getElementById('cat-modal-badge').innerText = meta.rankBadge;
       document.getElementById('cat-modal-badge').className = 'px-1.5 py-0.2 rounded-full text-[10px] font-black bg-sage-100 text-sage-900 border border-sage-300';
-      document.getElementById('cat-modal-subtitle').innerText = `${allItems.length} loại - ${totalItemsCount} sản phẩm (Còn ${totalRemainCount} món)`;
+      document.getElementById('cat-modal-subtitle').innerText = `${allItems.length} types · ${totalItemsCount} sản phẩm (Còn ${totalRemainCount} items)`;
 
       const headerEl = document.getElementById('category-modal-header');
       headerEl.className = 'px-3.5 py-2.5 border-b-2 border-offwhite-border bg-white flex items-center justify-between';
 
-      // Render danh sách các món cụ thể với hình ảnh icon chuẩn
+      // Render danh sách các items cụ thể với hình ảnh icon chuẩn
       const itemsContainer = document.getElementById('category-modal-items');
       itemsContainer.innerHTML = allItems.map(item => {
         const assigned = assignedMap[item.id] || 0;
@@ -731,7 +775,7 @@
               <svg class="w-3 h-3 text-sage-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
               </svg>
-              Đã gán:
+              Assigned:
             </span>
             <span class="truncate max-w-[200px]">${recList.join(', ')}</span>
           </div>
@@ -740,7 +784,7 @@
         return `
           <div class="bg-white border-2 border-offwhite-border rounded-2xl p-2 shadow-xs flex items-center gap-2.5 transition hover:border-sage">
             <!-- HÌNH ẢNH ICON SẢN PHẨM CHUẨN CẮT TỈA RÕ NÉT - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
-            <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Chạm để phóng to soi chữ">
+            <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Tap to zoom in">
               <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-14 h-14 object-contain rounded-xl border border-offwhite-border p-0.5 bg-offwhite shadow-2xs transition group-hover:scale-105">
               <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none flex items-center justify-center">
                 <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -755,7 +799,7 @@
                 <h5 class="font-bold text-sage-900 text-xs leading-snug truncate" title="${item.name}">${item.name}</h5>
                 <div class="flex items-center gap-1 shrink-0">
                   <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-offwhite text-sage-800 border-offwhite-border">${item.priceText}</span>
-                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold ${remainBadge}">Còn ${remain}/${item.total}</span>
+                  <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold ${remainBadge}">${remain}/${item.total} left</span>
                 </div>
               </div>
 
@@ -765,19 +809,19 @@
               </div>
 
               <div class="flex items-center justify-between text-[10px] text-sage-700 mt-1 font-medium">
-                <span>Tổng ${item.total} ${item.unit}</span>
+                <span>Total ${item.total} ${item.unit}</span>
                 <div class="flex items-center gap-1">
                   <button onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="text-sage-800 bg-offwhite-dark hover:bg-offwhite-border px-1.5 py-0.5 rounded-lg text-[10px] font-bold border border-offwhite-border btn-bounce inline-flex items-center gap-0.5">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
                     </svg>
-                    <span>Soi chữ</span>
+                    <span>Zoom</span>
                   </button>
                   <button onclick="selectGiftForAdd(${item.id})" class="btn-bounce bg-tomato hover:bg-tomato-hover text-white font-bold px-2 py-0.5 rounded-lg border border-tomato-border shadow-2xs text-[10px] inline-flex items-center gap-0.5">
                     <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M5 12h14"/><path d="M12 5v14"/>
                     </svg>
-                    <span>Chọn tặng</span>
+                    <span>Select</span>
                   </button>
                 </div>
               </div>
@@ -814,7 +858,7 @@
     function openImageZoom(imgSrc, title = '', category = '') {
       const modal = document.getElementById('image-zoom-modal');
       const imgEl = document.getElementById('zoom-target-image');
-      document.getElementById('zoom-image-title').innerText = title || 'Ảnh chi tiết sản phẩm';
+      document.getElementById('zoom-image-title').innerText = title || 'Product details';
       document.getElementById('zoom-image-category').innerText = category ? `Nhóm: ${category} • Cuộn/Chạm để phóng to đọc chữ` : 'Cuộn/Chạm để phóng to đọc chữ';
       imgEl.src = imgSrc;
       currentZoomScale = 1;
@@ -963,13 +1007,13 @@
         
         const itemsHtml = (r.items || []).map((it, idx) => {
           let badgeColor = 'bg-tomato-light text-tomato border-tomato/30';
-          let statusLabel = `<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5 text-tomato" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Chuẩn bị</span>`;
+          let statusLabel = `<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5 text-tomato" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Preparing</span>`;
           if (it.status === 'gifted') {
             badgeColor = 'bg-sage-100 text-sage-800 border-sage-300';
-            statusLabel = `<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Đã tặng</span>`;
+            statusLabel = `<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5 text-sage-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Gifted</span>`;
           } else if (it.status === 'pending') {
             badgeColor = 'bg-offwhite-dark text-sage-700 border-offwhite-border';
-            statusLabel = `<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5 text-sage-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Chưa tặng</span>`;
+            statusLabel = `<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5 text-sage-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Pending</span>`;
           }
 
           const giftObj = inventory.find(g => g.id === it.giftId);
@@ -978,7 +1022,7 @@
           return `
             <div class="flex items-center justify-between py-1.5 border-b border-offwhite-border last:border-0 text-xs gap-1.5">
               <div class="flex items-center gap-1.5 flex-1 min-w-0">
-                <div onclick="openImageZoom('${imgSrc}', '${escapeHtml(it.giftName)}')" class="cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
+                <div onclick="openImageZoom('${imgSrc}', '${escapeHtml(it.giftName)}')" class="cursor-zoom-in shrink-0" title="Tap to zoom in">
                   <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-8 h-8 rounded-lg object-contain bg-offwhite border border-offwhite-border p-0.5 shadow-2xs">
                 </div>
                 <div class="truncate">
@@ -986,7 +1030,7 @@
                   <span class="text-sage-700 ml-1 font-semibold">x${it.qty}</span>
                 </div>
               </div>
-              <button onclick="cycleItemStatus('${r.id}', ${idx})" title="Chạm để đổi trạng thái" class="px-2 py-0.5 rounded-full border text-[10px] font-bold ${badgeColor} btn-bounce transition shadow-2xs flex items-center gap-0.5 shrink-0">
+              <button onclick="cycleItemStatus('${r.id}', ${idx})" title="Tap to change status" class="px-2 py-0.5 rounded-full border text-[10px] font-bold ${badgeColor} btn-bounce transition shadow-2xs flex items-center gap-0.5 shrink-0">
                 ${statusLabel}
               </button>
             </div>
@@ -1007,14 +1051,14 @@
               </div>
               <div class="flex items-center gap-1">
                 <span class="bg-sage-100 text-sage-900 text-[10px] px-1.5 py-0.2 rounded-lg font-bold border border-sage-200">
-                  ${totalItems} món
+                  ${totalItems} items
                 </span>
-                <button onclick="editRecipient('${r.id}')" class="text-sage-700 hover:text-sage-900 p-1 rounded-md hover:bg-offwhite-dark transition" aria-label="Sửa">
+                <button onclick="editRecipient('${r.id}')" class="text-sage-700 hover:text-sage-900 p-1 rounded-md hover:bg-offwhite-dark transition" aria-label="Edit">
                   <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/>
                   </svg>
                 </button>
-                <button onclick="deleteRecipient('${r.id}')" class="text-tomato hover:text-tomato-hover p-1 rounded-md hover:bg-tomato-light transition" aria-label="Xóa">
+                <button onclick="deleteRecipient('${r.id}')" class="text-tomato hover:text-tomato-hover p-1 rounded-md hover:bg-tomato-light transition" aria-label="Delete">
                   <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>
                   </svg>
@@ -1023,7 +1067,7 @@
             </div>
 
             <div class="pt-1.5">
-              ${itemsHtml || '<p class="text-xs text-sage-700/60 italic py-0.5">Chưa gán món quà nào</p>'}
+              ${itemsHtml || '<p class="text-xs text-sage-700/60 italic py-0.5">No gifts assigned yet</p>'}
             </div>
           </div>
         `;
@@ -1076,7 +1120,7 @@
         return `
           <div class="bg-white border-2 border-offwhite-border rounded-2xl p-2 shadow-2xs flex items-center gap-2.5 transition hover:border-sage">
             <!-- Icon hình ảnh sản phẩm chuẩn - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
-            <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
+            <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Tap to zoom in">
               <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-12 h-12 object-contain rounded-xl border border-offwhite-border p-0.5 bg-offwhite shadow-2xs">
               <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none flex items-center justify-center">
                 <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1094,7 +1138,7 @@
                 <div class="flex items-center gap-1 shrink-0">
                   <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold bg-offwhite text-sage-800 border-offwhite-border">${item.priceText}</span>
                   <span class="px-1.5 py-0.2 rounded-full border text-[10px] font-bold ${remainBadge}">
-                    Còn ${remain}/${item.total}
+                    ${remain}/${item.total} left
                   </span>
                 </div>
               </div>
@@ -1102,8 +1146,8 @@
                 <div class="bg-sage h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
               </div>
               <div class="flex justify-between text-[9px] text-sage-700 mt-1 font-medium">
-                <span>Đã chia: ${assigned} ${item.unit}</span>
-                <span>Tổng: ${item.total} ${item.unit}</span>
+                <span>Assigned: ${assigned} ${item.unit}</span>
+                <span>Total: ${item.total} ${item.unit}</span>
               </div>
             </div>
           </div>
@@ -1161,7 +1205,7 @@
         } else {
           const rows = document.querySelectorAll('#modal-gift-rows > div');
           if (rows.length === 0) {
-            selectCategoryForAdd('Nước hoa');
+            selectCategoryForAdd('Perfume');
           } else {
             giftSec.classList.remove('hidden');
             saveBtn.classList.remove('hidden');
@@ -1178,7 +1222,7 @@
     function openAddModal(preselectedGiftId = null) {
       editingRecipientId = null;
       pendingPreselectedGiftId = preselectedGiftId;
-      document.getElementById('modal-title').innerText = 'Thêm người nhận';
+      document.getElementById('modal-title').innerText = 'Add Recipient';
       const nameInput = document.getElementById('modal-person-name');
       nameInput.value = '';
       
@@ -1202,7 +1246,7 @@
 
       editingRecipientId = id;
       pendingPreselectedGiftId = null;
-      document.getElementById('modal-title').innerText = 'Sửa người nhận';
+      document.getElementById('modal-title').innerText = 'Edit Recipient';
       const nameInput = document.getElementById('modal-person-name');
       nameInput.value = rec.name;
 
@@ -1210,11 +1254,11 @@
       rowsContainer.innerHTML = '';
       (rec.items || []).forEach(it => {
         const gift = inventory.find(i => i.id === it.giftId);
-        const cat = gift ? gift.category : 'Nước hoa';
+        const cat = gift ? gift.category : 'Perfume';
         addGiftRow(cat, it.giftId, it.qty, it.status);
       });
       if ((rec.items || []).length === 0) {
-        addGiftRow('Nước hoa');
+        addGiftRow('Perfume');
       }
 
       document.getElementById('modal-category-section').classList.remove('hidden');
@@ -1243,7 +1287,7 @@
         activeCat = currentSelectedCategory || SORTED_CATEGORY_NAMES[0];
       }
 
-      // Lấy danh sách các món trong nhóm activeCat, xếp theo giá từ cao xuống thấp
+      // Lấy danh sách các items trong nhóm activeCat, xếp theo giá từ cao xuống thấp
       const catItems = inventory
         .filter(i => i.category === activeCat)
         .sort((a, b) => (b.priceValue || 0) - (a.priceValue || 0));
@@ -1268,14 +1312,14 @@
       div.innerHTML = `
         <!-- Hàng 1: Ảnh xem trước + Chọn nhóm quà + Chọn sản phẩm + Nút Xóa -->
         <div class="flex items-center gap-2">
-          <div onclick="openImageZoom(document.getElementById('preview-${rowId}').src, '${escapeHtml(initialGift.name)}')" class="cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
+          <div onclick="openImageZoom(document.getElementById('preview-${rowId}').src, '${escapeHtml(initialGift.name)}')" class="cursor-zoom-in shrink-0" title="Tap to zoom in">
             <img id="preview-${rowId}" src="${initialGift.image}" alt="${initialGift.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%239CAF88%22 stroke-width=%222%22><rect x=%223%22 y=%228%22 width=%2218%22 height=%224%22 rx=%221%22/><path d=%22M12 8v13%22/><path d=%22M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7%22/></svg>'" class="w-11 h-11 object-contain rounded-xl border border-offwhite-border bg-offwhite p-0.5 shadow-2xs">
           </div>
           
           <div class="flex-1 space-y-1 min-w-0">
             <!-- Nhóm quà -->
             <div class="flex items-center gap-1">
-              <span class="text-[10px] text-sage-700 font-bold">Nhóm:</span>
+              <span class="text-[10px] text-sage-700 font-bold">Category:</span>
               <select onchange="onRowCategoryChange('${rowId}', this.value)" class="row-cat-select bg-offwhite-dark font-bold text-xs text-sage-900 border border-offwhite-border rounded-lg px-2 py-0.5 focus:outline-none focus:border-sage">
                 ${catOptionsHtml}
               </select>
@@ -1287,7 +1331,7 @@
             </select>
           </div>
 
-          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-tomato hover:text-tomato-hover p-1 rounded-md transition shrink-0" aria-label="Xóa món">
+          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-tomato hover:text-tomato-hover p-1 rounded-md transition shrink-0" aria-label="Remove item">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
             </svg>
@@ -1297,15 +1341,15 @@
         <!-- Hàng 2: Số lượng & Trạng thái -->
         <div class="flex items-center justify-between gap-2 pt-1 border-t border-offwhite-border text-[11px]">
           <div class="flex items-center gap-1">
-            <span class="text-sage-800 font-bold">SL:</span>
+            <span class="text-sage-800 font-bold">Qty:</span>
             <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-12 bg-offwhite/50 border border-offwhite-border rounded-lg px-1.5 py-0.5 text-xs font-bold text-center text-sage-900">
           </div>
           <div class="flex items-center gap-1">
-            <span class="text-sage-800 font-bold">Trạng thái:</span>
+            <span class="text-sage-800 font-bold">Status:</span>
             <select class="gift-status bg-offwhite/50 border border-offwhite-border rounded-lg px-1.5 py-0.5 text-xs font-bold text-sage-900">
-              <option value="preparing" ${status === 'preparing' ? 'selected' : ''}>Chuẩn bị</option>
-              <option value="gifted" ${status === 'gifted' ? 'selected' : ''}>Đã tặng</option>
-              <option value="pending" ${status === 'pending' ? 'selected' : ''}>Chưa tặng</option>
+              <option value="preparing" ${status === 'preparing' ? 'selected' : ''}>Preparing</option>
+              <option value="gifted" ${status === 'gifted' ? 'selected' : ''}>Gifted</option>
+              <option value="pending" ${status === 'pending' ? 'selected' : ''}>Pending</option>
             </select>
           </div>
         </div>
@@ -1358,7 +1402,7 @@
       const note = '';
 
       if (!name) {
-        alert('Vui lòng nhập tên người nhận!');
+        alert('Please enter recipient name!');
         return;
       }
 
@@ -1402,7 +1446,7 @@
     }
 
     function deleteRecipient(id) {
-      if (confirm('Đại ca có chắc muốn xóa người nhận này khỏi danh sách không?')) {
+      if (confirm('Are you sure you want to delete this recipient?')) {
         recipients = recipients.filter(r => r.id !== id);
         saveData();
       }
