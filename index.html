@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="h-full">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -38,6 +38,7 @@
       background-color: #FEFCE8;
       color: #451a03;
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
     .custom-scroll::-webkit-scrollbar {
       width: 4px;
@@ -50,78 +51,78 @@
     .btn-bounce:active {
       transform: scale(0.96);
     }
+    .touch-none {
+      touch-action: none;
+    }
   </style>
 </head>
-<body class="min-h-screen pb-24 selection:bg-yellow-200">
+<body class="h-full flex flex-col justify-between overflow-hidden selection:bg-yellow-200">
 
-  <!-- HEADER -->
-  <header class="sticky top-0 z-30 bg-[#FEF9C3]/95 backdrop-blur-md border-b-2 border-yellow-200 px-4 py-3 shadow-sm">
+  <!-- HEADER GỌN GÀNG -->
+  <header class="shrink-0 bg-[#FEF9C3]/95 backdrop-blur-md border-b-2 border-yellow-200 px-3.5 py-2 shadow-xs">
     <div class="max-w-md mx-auto flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <span class="text-2xl">🎁</span>
-        <div>
-          <h1 class="text-xl font-bold tracking-wide text-yellow-950 leading-tight">Sổ Quà Ba Lan</h1>
-          <p class="text-xs text-yellow-700 font-medium">Phân chia quà tặng người thân & bạn bè</p>
-        </div>
+        <span class="text-xl">🎁</span>
+        <h1 class="text-base font-bold tracking-wide text-yellow-950 leading-tight">Sổ Quà Ba Lan</h1>
       </div>
-      <button onclick="openAddModal()" class="btn-bounce bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-3 py-1.5 rounded-2xl shadow-sm text-sm flex items-center gap-1 border-2 border-yellow-500">
+      <button onclick="openAddModal()" class="btn-bounce bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-2.5 py-1 rounded-xl shadow-xs text-xs flex items-center gap-1 border-2 border-yellow-500">
         <span>+ Tặng quà</span>
       </button>
     </div>
   </header>
 
-  <!-- MAIN CONTAINER (Tối ưu cho Mobile) -->
-  <main class="max-w-md mx-auto px-4 pt-3 space-y-4">
+  <!-- MAIN CONTAINER (VỪA KHÍT MÀN HÌNH ĐIỆN THOẠI, KHÔNG PHẢI TRƯỢT LÊN XUỐNG) -->
+  <main class="max-w-md mx-auto w-full px-3 py-2 flex-1 flex flex-col justify-between overflow-hidden space-y-2">
 
-    <!-- DASHBOARD THỐNG KÊ (Đơn giản, ít chữ, chạm để lọc) -->
-    <div class="grid grid-cols-3 gap-2">
+    <!-- DASHBOARD THỐNG KÊ (THANH COMPACT TIẾT KIỆM KHÔNG GIAN, KHÔNG CHÚ THÍCH) -->
+    <div class="grid grid-cols-3 gap-1.5 shrink-0">
       <!-- Đã tặng -->
-      <div onclick="setFilter('gifted')" class="cursor-pointer bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-2.5 text-center shadow-sm btn-bounce transition hover:bg-emerald-100">
-        <div class="text-xs font-bold text-emerald-800 flex items-center justify-center gap-1">
+      <div onclick="setFilter('gifted')" class="cursor-pointer bg-emerald-50 border-2 border-emerald-300 rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-emerald-100">
+        <div class="text-[10px] font-bold text-emerald-800 flex items-center justify-center gap-0.5">
           <span>✅ Đã tặng</span>
         </div>
-        <div id="stat-gifted" class="text-2xl font-black text-emerald-700 mt-0.5">0</div>
-        <div class="text-[10px] text-emerald-600 font-bold">món</div>
+        <div id="stat-gifted" class="text-xl font-black text-emerald-700 leading-tight mt-0.5">0</div>
       </div>
 
       <!-- Chuẩn bị tặng -->
-      <div onclick="setFilter('preparing')" class="cursor-pointer bg-amber-50 border-2 border-amber-300 rounded-2xl p-2.5 text-center shadow-sm btn-bounce transition hover:bg-amber-100">
-        <div class="text-xs font-bold text-amber-800 flex items-center justify-center gap-1">
+      <div onclick="setFilter('preparing')" class="cursor-pointer bg-amber-50 border-2 border-amber-300 rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-amber-100">
+        <div class="text-[10px] font-bold text-amber-800 flex items-center justify-center gap-0.5">
           <span>🎁 Chuẩn bị</span>
         </div>
-        <div id="stat-preparing" class="text-2xl font-black text-amber-700 mt-0.5">0</div>
-        <div class="text-[10px] text-amber-600 font-bold">món</div>
+        <div id="stat-preparing" class="text-xl font-black text-amber-700 leading-tight mt-0.5">0</div>
       </div>
 
       <!-- Chưa tặng / Còn tồn kho -->
-      <div onclick="setFilter('all')" class="cursor-pointer bg-yellow-100/80 border-2 border-yellow-300 rounded-2xl p-2.5 text-center shadow-sm btn-bounce transition hover:bg-yellow-200">
-        <div class="text-xs font-bold text-yellow-900 flex items-center justify-center gap-1">
+      <div onclick="switchTab('categories')" class="cursor-pointer bg-yellow-100/90 border-2 border-yellow-300 rounded-xl p-1.5 text-center shadow-xs btn-bounce transition hover:bg-yellow-200">
+        <div class="text-[10px] font-bold text-yellow-900 flex items-center justify-center gap-0.5">
           <span>📦 Chưa tặng</span>
         </div>
-        <div id="stat-remaining" class="text-2xl font-black text-yellow-800 mt-0.5">148</div>
-        <div class="text-[10px] text-yellow-700 font-bold">/ 148 món</div>
+        <div id="stat-remaining" class="text-xl font-black text-yellow-800 leading-tight mt-0.5">148</div>
       </div>
     </div>
 
-    <!-- TABS ĐIỀU HƯỚNG -->
-    <div class="flex bg-yellow-200/70 p-1 rounded-2xl border border-yellow-300">
-      <button id="tab-recipients-btn" onclick="switchTab('recipients')" class="flex-1 py-1.5 text-sm font-bold rounded-xl transition bg-white text-yellow-950 shadow-sm">
+    <!-- TABS ĐIỀU HƯỚNG GỌN (Người nhận -> Nhóm quà -> Kho tổng) -->
+    <div class="flex bg-yellow-200/70 p-0.5 rounded-xl border border-yellow-300 gap-1 text-center shrink-0">
+      <button id="tab-recipients-btn" onclick="switchTab('recipients')" class="flex-1 py-1 text-xs font-bold rounded-lg transition bg-white text-yellow-950 shadow-xs">
         👥 Người nhận (<span id="recipient-count">0</span>)
       </button>
-      <button id="tab-inventory-btn" onclick="switchTab('inventory')" class="flex-1 py-1.5 text-sm font-bold rounded-xl transition text-yellow-800 hover:text-yellow-950">
-        📋 Kho quà (49 loại)
+      <button id="tab-categories-btn" onclick="switchTab('categories')" class="flex-1 py-1 text-xs font-bold rounded-lg transition text-yellow-800 hover:text-yellow-950">
+        🎁 Nhóm quà (6)
+      </button>
+      <button id="tab-inventory-btn" onclick="switchTab('inventory')" class="flex-1 py-1 text-xs font-bold rounded-lg transition text-yellow-800 hover:text-yellow-950">
+        📋 Kho tổng (49)
       </button>
     </div>
 
-    <!-- TAB 1: DANH SÁCH NGƯỜI NHẬN -->
-    <section id="tab-recipients" class="space-y-3">
+    <!-- TAB 1: DANH SÁCH NGƯỜI NHẬN (HIỂN THỊ ĐẦU TIÊN) -->
+    <section id="tab-recipients" class="flex-1 flex flex-col overflow-hidden space-y-2">
       <!-- Tìm kiếm & Lọc trạng thái -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1.5 shrink-0">
         <div class="relative flex-1">
-          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Tìm tên người nhận..." class="w-full bg-white border-2 border-yellow-200 rounded-2xl px-3 py-1.5 pl-8 text-sm focus:outline-none focus:border-yellow-400 placeholder-yellow-800/40 text-yellow-950 font-bold">
-          <span class="absolute left-2.5 top-1.5 text-xs text-yellow-700">🔍</span>
+          <input type="text" id="search-input" oninput="renderRecipients()" placeholder="Tìm tên người nhận..." class="w-full bg-white border-2 border-yellow-200 rounded-xl px-2.5 py-1 pl-7 text-xs focus:outline-none focus:border-yellow-400 placeholder-yellow-800/40 text-yellow-950 font-bold">
+          <span class="absolute left-2 top-1.5 text-xs text-yellow-700">🔍</span>
         </div>
-        <select id="status-filter" onchange="setFilter(this.value)" class="bg-white border-2 border-yellow-200 rounded-2xl px-2.5 py-1.5 text-xs font-bold text-yellow-900 focus:outline-none focus:border-yellow-400">
+        <select id="status-filter" onchange="setFilter(this.value)" class="bg-white border-2 border-yellow-200 rounded-xl px-2 py-1 text-[11px] font-bold text-yellow-900 focus:outline-none">
           <option value="all">Tất cả</option>
           <option value="preparing">Chuẩn bị</option>
           <option value="gifted">Đã tặng</option>
@@ -129,75 +130,164 @@
         </select>
       </div>
 
-      <!-- Danh sách card người nhận -->
-      <div id="recipients-list" class="space-y-2.5">
+      <!-- Danh sách card người nhận (cuộn độc lập trong tab) -->
+      <div id="recipients-list" class="flex-1 overflow-y-auto custom-scroll space-y-2 pr-0.5">
         <!-- Render bằng JavaScript -->
       </div>
 
       <!-- Trạng thái trống -->
-      <div id="empty-recipients" class="hidden text-center py-10 px-4 bg-white/70 border-2 border-dashed border-yellow-300 rounded-3xl">
-        <div class="text-4xl mb-2">💌</div>
-        <h3 class="text-base font-bold text-yellow-950">Chưa có người nhận nào</h3>
-        <p class="text-xs text-yellow-800/70 mt-1 mb-4">Bấm nút bên dưới để chọn quà tặng cho người quen nhé đại ca!</p>
-        <button onclick="openAddModal()" class="bg-yellow-400 text-yellow-950 font-bold px-4 py-2 rounded-2xl border-2 border-yellow-500 shadow-sm text-sm btn-bounce">
-          + Thêm người nhận đầu tiên
+      <div id="empty-recipients" class="hidden text-center py-6 px-3 bg-white/70 border-2 border-dashed border-yellow-300 rounded-2xl shrink-0">
+        <div class="text-3xl mb-1">💌</div>
+        <h3 class="text-xs font-bold text-yellow-950">Chưa có người nhận nào</h3>
+        <p class="text-[10px] text-yellow-800/70 mt-0.5 mb-2">Bấm nút bên dưới để chọn quà tặng cho người quen nhé!</p>
+        <button onclick="openAddModal()" class="bg-yellow-400 text-yellow-950 font-bold px-3 py-1 rounded-xl border border-yellow-500 shadow-xs text-xs btn-bounce">
+          + Thêm người nhận
         </button>
       </div>
     </section>
 
-    <!-- TAB 2: KHO QUÀ (INVENTORY VIEW VỚI HÌNH ICON) -->
-    <section id="tab-inventory" class="hidden space-y-3">
-      <div class="flex items-center justify-between">
-        <span class="text-xs font-bold text-yellow-900">Chi tiết 49 loại quà trong kho:</span>
-        <select id="category-filter" onchange="renderInventory()" class="bg-white border-2 border-yellow-200 rounded-2xl px-2 py-1 text-xs font-bold text-yellow-900 focus:outline-none">
+    <!-- TAB 2: CÁC NHÓM QUÀ TẶNG (6 CARD NHỎ GỌN) -->
+    <section id="tab-categories" class="hidden flex-1 flex flex-col justify-between overflow-hidden">
+      <!-- LƯỚI 6 CARD NHỎ GỌN (2 CỘT x 3 DÒNG) - VỪA KHÍT MÀN HÌNH ĐIỆN THOẠI -->
+      <div id="category-cards-grid" class="grid grid-cols-2 gap-2 flex-1">
+        <!-- Render 6 card động qua JavaScript -->
+      </div>
+    </section>
+
+    <!-- TAB 3: KHO QUÀ TỔNG HỢP (49 LOẠI) -->
+    <section id="tab-inventory" class="hidden flex-1 flex flex-col overflow-hidden space-y-2">
+      <div class="flex items-center justify-between shrink-0">
+        <span class="text-[11px] font-bold text-yellow-900">Chi tiết 49 loại quà trong kho:</span>
+        <select id="category-filter" onchange="renderInventory()" class="bg-white border-2 border-yellow-200 rounded-xl px-2 py-0.5 text-[11px] font-bold text-yellow-900 focus:outline-none">
           <option value="all">Tất cả nhóm</option>
-          <option value="Chocolate">Chocolate (64)</option>
           <option value="Nước hoa">Nước hoa (41)</option>
-          <option value="Nền & Che khuyết điểm">Nền & CKĐ (13)</option>
-          <option value="Phấn">Phấn (12)</option>
-          <option value="Son môi">Son môi (12)</option>
           <option value="Dưỡng da">Dưỡng da (6)</option>
+          <option value="Phấn">Phấn (12)</option>
+          <option value="Nền & Che khuyết điểm">Nền & CKĐ (13)</option>
+          <option value="Son môi">Son môi (12)</option>
+          <option value="Chocolate">Chocolate (64)</option>
         </select>
       </div>
-      <div id="inventory-list" class="space-y-2.5">
+      <div id="inventory-list" class="flex-1 overflow-y-auto custom-scroll space-y-2 pr-0.5">
         <!-- Render danh sách tồn kho -->
       </div>
     </section>
 
+    <!-- NÚT HÀNH ĐỘNG DƯỚI CÙNG -->
+    <div class="pt-1 shrink-0 flex justify-center">
+      <button onclick="openAddModal()" class="w-full bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold py-2 rounded-2xl shadow-sm border-2 border-yellow-500 flex items-center justify-center gap-1.5 btn-bounce text-xs sm:text-sm">
+        <span class="text-sm">✨</span> Thêm người nhận quà mới
+      </button>
+    </div>
+
   </main>
 
+  <!-- MODAL BOTTOM-SHEET: CHI TIẾT QUÀ KHI CLICK VÀO TỪNG CARD NHÓM QUÀ -->
+  <div id="category-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-[#FEFCE8] w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-yellow-400 shadow-2xl max-h-[85vh] flex flex-col overflow-hidden">
+      <!-- Sheet Header -->
+      <div id="category-modal-header" class="px-3.5 py-2.5 border-b-2 border-yellow-300 flex items-center justify-between">
+        <div class="flex items-center gap-2 min-w-0">
+          <span id="cat-modal-emoji" class="text-2xl">🎁</span>
+          <div class="truncate">
+            <div class="flex items-center gap-1.5">
+              <h3 id="cat-modal-title" class="text-sm font-bold text-yellow-950 leading-tight">Chi tiết nhóm quà</h3>
+              <span id="cat-modal-badge" class="px-1.5 py-0.2 rounded-full text-[10px] font-black border"></span>
+            </div>
+            <p id="cat-modal-subtitle" class="text-[10px] text-yellow-800/80 font-semibold"></p>
+          </div>
+        </div>
+        <button onclick="closeCategoryModal()" class="text-yellow-800 hover:text-yellow-950 font-bold text-lg p-1 btn-bounce">✕</button>
+      </div>
+
+      <!-- Sheet Items List (Scrollable) -->
+      <div id="category-modal-items" class="p-3 space-y-2 overflow-y-auto custom-scroll flex-1">
+        <!-- Render các món cụ thể có icon minh họa ảnh thật -->
+      </div>
+
+      <!-- Sheet Footer -->
+      <div class="bg-yellow-100/90 px-3 py-2 border-t border-yellow-200 flex justify-between items-center text-xs">
+        <span class="text-[10px] text-yellow-800 font-semibold">Chạm ảnh để <strong>🔍 Phóng to soi chữ</strong></span>
+        <button onclick="closeCategoryModal()" class="px-3 py-1 bg-white border border-yellow-300 rounded-xl font-bold text-yellow-900 text-xs btn-bounce">
+          Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PHÓNG TO HÌNH ẢNH (ZOOM LIGHTBOX ĐỂ SOI CHỮ SẢN PHẨM RÕ NÉT) -->
+  <div id="image-zoom-modal" class="fixed inset-0 z-[60] bg-black/90 backdrop-blur-md hidden flex flex-col justify-between select-none">
+    <!-- Top Bar -->
+    <div class="px-4 py-2.5 bg-black/50 border-b border-white/10 flex items-center justify-between text-white shrink-0 z-10">
+      <div class="min-w-0 pr-2">
+        <h3 id="zoom-image-title" class="text-xs sm:text-sm font-bold truncate text-yellow-300">Tên sản phẩm</h3>
+        <p id="zoom-image-category" class="text-[10px] text-white/70">🔍 Chạm/cuộn phóng to • Kéo để soi nhãn chữ</p>
+      </div>
+      <button onclick="closeImageZoom()" class="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-base btn-bounce shrink-0">
+        ✕
+      </button>
+    </div>
+
+    <!-- Viewport Area (Kéo, Zoom, Xoay) -->
+    <div id="zoom-viewport" class="flex-1 relative overflow-hidden flex items-center justify-center touch-none cursor-grab active:cursor-grabbing">
+      <img id="zoom-target-image" src="" alt="Zoom preview" class="max-h-[75vh] max-w-[90vw] object-contain transition-transform duration-100 ease-out drop-shadow-2xl">
+    </div>
+
+    <!-- Bottom Toolbar -->
+    <div class="px-3 py-2 bg-black/60 border-t border-white/10 flex items-center justify-between gap-1.5 shrink-0 z-10 text-white text-xs">
+      <div class="flex items-center gap-1">
+        <button onclick="changeZoom(-0.3)" class="bg-white/15 hover:bg-white/25 px-2.5 py-1.5 rounded-xl font-bold btn-bounce flex items-center gap-1 text-xs">
+          <span>➖</span> Thu nhỏ
+        </button>
+        <span id="zoom-level-text" class="px-2 py-1 bg-white/10 rounded-lg font-bold text-[11px] min-w-[44px] text-center">100%</span>
+        <button onclick="changeZoom(0.3)" class="bg-white/15 hover:bg-white/25 px-2.5 py-1.5 rounded-xl font-bold btn-bounce flex items-center gap-1 text-xs">
+          <span>➕</span> Phóng to
+        </button>
+      </div>
+
+      <div class="flex items-center gap-1">
+        <button onclick="rotateZoomImage()" class="bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-2.5 py-1.5 rounded-xl btn-bounce flex items-center gap-1 text-xs">
+          <span>⟳</span> Xoay 90°
+        </button>
+        <button onclick="resetZoom()" class="bg-white/15 hover:bg-white/25 px-2 py-1.5 rounded-xl font-bold btn-bounce text-xs" title="Khôi phục">
+          ↺
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: THÊM / SỬA NGƯỜI NHẬN QUÀ -->
-  <div id="modal" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="bg-[#FEFCE8] w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-yellow-400 shadow-2xl max-h-[90vh] flex flex-col overflow-hidden">
+  <div id="modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="bg-[#FEFCE8] w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border-t-4 sm:border-4 border-yellow-400 shadow-2xl max-h-[88vh] flex flex-col overflow-hidden">
       
       <!-- Modal Header -->
-      <div class="bg-yellow-200 px-4 py-3 border-b-2 border-yellow-300 flex items-center justify-between">
-        <h3 id="modal-title" class="text-base font-bold text-yellow-950 flex items-center gap-1.5">
+      <div class="bg-yellow-200 px-3.5 py-2.5 border-b-2 border-yellow-300 flex items-center justify-between">
+        <h3 id="modal-title" class="text-sm font-bold text-yellow-950 flex items-center gap-1">
           <span>🎁</span> Thêm người nhận quà
         </h3>
-        <button onclick="closeModal()" class="text-yellow-800 hover:text-yellow-950 font-bold text-xl px-2">✕</button>
+        <button onclick="closeModal()" class="text-yellow-800 hover:text-yellow-950 font-bold text-lg p-1 btn-bounce">✕</button>
       </div>
 
       <!-- Modal Body (Scrollable) -->
-      <div class="p-4 space-y-3.5 overflow-y-auto custom-scroll flex-1 text-sm">
+      <div class="p-3.5 space-y-3 overflow-y-auto custom-scroll flex-1 text-xs">
         
         <!-- Tên người nhận -->
         <div>
-          <label class="block font-bold text-yellow-950 mb-1 text-xs">👤 Tên người nhận:</label>
-          <input type="text" id="modal-person-name" placeholder="VD: Mẹ, Em Lan, Anh Tuấn..." class="w-full bg-white border-2 border-yellow-300 rounded-2xl px-3 py-2 text-sm focus:outline-none focus:border-yellow-500 font-bold text-yellow-950">
+          <label class="block font-bold text-yellow-950 mb-1 text-[11px]">👤 Tên người nhận:</label>
+          <input type="text" id="modal-person-name" placeholder="VD: Mẹ, Em Lan, Anh Tuấn..." class="w-full bg-white border-2 border-yellow-300 rounded-xl px-2.5 py-1.5 text-xs focus:outline-none focus:border-yellow-500 font-bold text-yellow-950">
         </div>
 
         <!-- Ghi chú nhanh -->
         <div>
-          <label class="block font-bold text-yellow-950 mb-1 text-xs">📝 Ghi chú (không bắt buộc):</label>
-          <input type="text" id="modal-person-note" placeholder="VD: Quà Tết, mang về quê, đồng nghiệp..." class="w-full bg-white border-2 border-yellow-200 rounded-2xl px-3 py-1.5 text-xs focus:outline-none focus:border-yellow-400 text-yellow-900">
+          <label class="block font-bold text-yellow-950 mb-1 text-[11px]">📝 Ghi chú (không bắt buộc):</label>
+          <input type="text" id="modal-person-note" placeholder="VD: Quà Tết, mang về quê, đồng nghiệp..." class="w-full bg-white border-2 border-yellow-200 rounded-xl px-2.5 py-1 text-xs focus:outline-none focus:border-yellow-400 text-yellow-900">
         </div>
 
         <!-- Danh sách quà tặng -->
         <div>
-          <div class="flex items-center justify-between mb-1.5">
-            <label class="font-bold text-yellow-950 text-xs">🎁 Các món quà tặng:</label>
-            <button type="button" onclick="addGiftRow()" class="text-xs font-bold text-yellow-900 bg-yellow-200 hover:bg-yellow-300 px-2.5 py-1 rounded-xl border border-yellow-400 btn-bounce">
+          <div class="flex items-center justify-between mb-1">
+            <label class="font-bold text-yellow-950 text-[11px]">🎁 Các món quà tặng:</label>
+            <button type="button" onclick="addGiftRow()" class="text-[11px] font-bold text-yellow-900 bg-yellow-200 hover:bg-yellow-300 px-2 py-0.5 rounded-lg border border-yellow-400 btn-bounce">
               + Thêm món
             </button>
           </div>
@@ -210,11 +300,11 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="bg-yellow-100 p-3 border-t-2 border-yellow-200 flex gap-2">
-        <button onclick="closeModal()" class="flex-1 py-2 text-sm font-bold text-yellow-800 bg-white border-2 border-yellow-300 rounded-2xl btn-bounce">
+      <div class="bg-yellow-100 p-2.5 border-t-2 border-yellow-200 flex gap-2">
+        <button onclick="closeModal()" class="flex-1 py-1.5 text-xs font-bold text-yellow-800 bg-white border-2 border-yellow-300 rounded-xl btn-bounce">
           Hủy
         </button>
-        <button onclick="saveRecipient()" class="flex-1 py-2 text-sm font-bold text-yellow-950 bg-yellow-400 hover:bg-yellow-500 border-2 border-yellow-500 rounded-2xl shadow-sm btn-bounce">
+        <button onclick="saveRecipient()" class="flex-1 py-1.5 text-xs font-bold text-yellow-950 bg-yellow-400 hover:bg-yellow-500 border-2 border-yellow-500 rounded-xl shadow-xs btn-bounce">
           💾 Lưu lại
         </button>
       </div>
@@ -222,16 +312,9 @@
     </div>
   </div>
 
-  <!-- FLOATING BOTTOM ACTION BUTTON TRÊN MOBILE -->
-  <div class="fixed bottom-3 inset-x-0 max-w-md mx-auto px-4 z-20 pointer-events-none flex justify-center">
-    <button onclick="openAddModal()" class="pointer-events-auto bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-6 py-2.5 rounded-full shadow-lg border-2 border-yellow-500 flex items-center gap-2 btn-bounce text-sm">
-      <span class="text-lg">✨</span> Thêm người nhận quà
-    </button>
-  </div>
-
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // DỮ LIỆU KHO QUÀ GỐC (49 loại, tổng 148 món) CÓ ĐƯỜNG DẪN ẢNH ICON SẢN PHẨM CHUẨN
+    // DỮ LIỆU KHO QUÀ GỐC (49 loại, tổng 148 món) CÓ ĐƯỜNG DẪN ẢNH ICON SẢN PHẨM CHUẨN ĐÃ XOAY THẲNG ĐỨNG
     const INITIAL_INVENTORY = [
       // Chocolate (10 loại - 64 món)
       { id: 1, name: "Socola đen Biedronka 50% (Czekolada deserowa)", category: "Chocolate", total: 28, unit: "thanh", image: "assets/item_1.jpg" },
@@ -295,6 +378,98 @@
       { id: 49, name: "Kem bơ làm dịu da Nacomi Rich & Comfy Avocado", category: "Dưỡng da", total: 1, unit: "hộp", image: "assets/item_49.jpg" }
     ];
 
+    // CẤU HÌNH CÁC NHÓM QUÀ ĐÃ ĐƯỢC XẾP THEO GIÁ TIỀN TỪ CAO XUỐNG THẤP
+    const CATEGORY_META = {
+      "Nước hoa": {
+        emoji: "🌸",
+        rank: 1,
+        rankBadge: "💎 Top 1",
+        priceText: "~400k - 2tr+",
+        priceLabel: "Giá trị cao nhất",
+        themeBorder: "border-rose-300",
+        headerBg: "bg-rose-100",
+        cardGradient: "from-rose-50/90 to-pink-50/60",
+        badgeBg: "bg-rose-200 text-rose-900 border-rose-300",
+        accent: "text-rose-950",
+        previewIds: [21, 22, 11]
+      },
+      "Dưỡng da": {
+        emoji: "🌿",
+        rank: 2,
+        rankBadge: "✨ Top 2",
+        priceText: "~250k - 650k",
+        priceLabel: "Dược mỹ phẩm cao cấp",
+        themeBorder: "border-emerald-300",
+        headerBg: "bg-emerald-100",
+        cardGradient: "from-emerald-50/90 to-teal-50/60",
+        badgeBg: "bg-emerald-200 text-emerald-900 border-emerald-300",
+        accent: "text-emerald-950",
+        previewIds: [48, 46, 47]
+      },
+      "Phấn": {
+        emoji: "🪞",
+        rank: 3,
+        rankBadge: "🌟 Top 3",
+        priceText: "~200k - 450k",
+        priceLabel: "Trang điểm phủ & bắt sáng",
+        themeBorder: "border-purple-300",
+        headerBg: "bg-purple-100",
+        cardGradient: "from-purple-50/90 to-fuchsia-50/60",
+        badgeBg: "bg-purple-200 text-purple-900 border-purple-300",
+        accent: "text-purple-950",
+        previewIds: [39, 40, 42]
+      },
+      "Nền & Che khuyết điểm": {
+        emoji: "✨",
+        rank: 4,
+        rankBadge: "⭐ Top 4",
+        priceText: "~180k - 380k",
+        priceLabel: "Kem nền & che khuyết điểm",
+        themeBorder: "border-orange-300",
+        headerBg: "bg-orange-100",
+        cardGradient: "from-orange-50/90 to-amber-50/60",
+        badgeBg: "bg-orange-200 text-orange-900 border-orange-300",
+        accent: "text-orange-950",
+        previewIds: [37, 36, 38]
+      },
+      "Son môi": {
+        emoji: "💄",
+        rank: 5,
+        rankBadge: "💄 Top 5",
+        priceText: "~120k - 280k",
+        priceLabel: "Son kem lì & son dưỡng",
+        themeBorder: "border-red-300",
+        headerBg: "bg-red-100",
+        cardGradient: "from-red-50/90 to-rose-50/60",
+        badgeBg: "bg-red-200 text-red-900 border-red-300",
+        accent: "text-red-950",
+        previewIds: [43, 44, 45]
+      },
+      "Chocolate": {
+        emoji: "🍫",
+        rank: 6,
+        rankBadge: "🍫 Top 6",
+        priceText: "~45k - 120k",
+        priceLabel: "Socola Ba Lan thơm ngon",
+        themeBorder: "border-amber-300",
+        headerBg: "bg-amber-100",
+        cardGradient: "from-amber-50/90 to-yellow-50/60",
+        badgeBg: "bg-amber-200 text-amber-900 border-amber-300",
+        accent: "text-amber-950",
+        previewIds: [1, 2, 6]
+      }
+    };
+
+    // THỨ TỰ SẮP XẾP CHÍNH THỨC TỪ GIÁ CAO XUỐNG THẤP
+    const SORTED_CATEGORY_NAMES = [
+      "Nước hoa",
+      "Dưỡng da",
+      "Phấn",
+      "Nền & Che khuyết điểm",
+      "Son môi",
+      "Chocolate"
+    ];
+
     let storedInv = JSON.parse(localStorage.getItem('poland_gifts_inventory'));
     let inventory = INITIAL_INVENTORY;
     if (storedInv && Array.isArray(storedInv) && storedInv.length === INITIAL_INVENTORY.length) {
@@ -309,10 +484,17 @@
     let currentTab = 'recipients';
     let editingRecipientId = null;
 
+    function escapeHtml(str) {
+      return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
     function saveData() {
       localStorage.setItem('poland_gifts_inventory', JSON.stringify(inventory));
       localStorage.setItem('poland_gifts_recipients', JSON.stringify(recipients));
       updateStats();
+      renderCategoryCards();
+      renderRecipients();
+      renderInventory();
     }
 
     function updateStats() {
@@ -344,22 +526,36 @@
 
     function switchTab(tab) {
       currentTab = tab;
+      const catTab = document.getElementById('tab-categories');
       const recTab = document.getElementById('tab-recipients');
       const invTab = document.getElementById('tab-inventory');
+
+      const catBtn = document.getElementById('tab-categories-btn');
       const recBtn = document.getElementById('tab-recipients-btn');
       const invBtn = document.getElementById('tab-inventory-btn');
 
-      if (tab === 'recipients') {
+      catTab.classList.add('hidden');
+      recTab.classList.add('hidden');
+      invTab.classList.add('hidden');
+
+      const inactiveClass = 'flex-1 py-1 text-xs font-bold rounded-lg transition text-yellow-800 hover:text-yellow-950';
+      const activeClass = 'flex-1 py-1 text-xs font-bold rounded-lg transition bg-white text-yellow-950 shadow-xs';
+
+      catBtn.className = inactiveClass;
+      recBtn.className = inactiveClass;
+      invBtn.className = inactiveClass;
+
+      if (tab === 'categories') {
+        catTab.classList.remove('hidden');
+        catBtn.className = activeClass;
+        renderCategoryCards();
+      } else if (tab === 'recipients') {
         recTab.classList.remove('hidden');
-        invTab.classList.add('hidden');
-        recBtn.className = 'flex-1 py-1.5 text-sm font-bold rounded-xl transition bg-white text-yellow-950 shadow-sm';
-        invBtn.className = 'flex-1 py-1.5 text-sm font-bold rounded-xl transition text-yellow-800 hover:text-yellow-950';
+        recBtn.className = activeClass;
         renderRecipients();
       } else {
-        recTab.classList.add('hidden');
         invTab.classList.remove('hidden');
-        invBtn.className = 'flex-1 py-1.5 text-sm font-bold rounded-xl transition bg-white text-yellow-950 shadow-sm';
-        recBtn.className = 'flex-1 py-1.5 text-sm font-bold rounded-xl transition text-yellow-800 hover:text-yellow-950';
+        invBtn.className = activeClass;
         renderInventory();
       }
     }
@@ -371,10 +567,297 @@
       renderRecipients();
     }
 
+    // RENDER LƯỚI 6 CARD NHỎ GỌN (VỪA KHÍT MÀN HÌNH ĐIỆN THOẠI)
+    function renderCategoryCards() {
+      const grid = document.getElementById('category-cards-grid');
+
+      const assignedMap = {};
+      recipients.forEach(r => {
+        (r.items || []).forEach(it => {
+          assignedMap[it.giftId] = (assignedMap[it.giftId] || 0) + (parseInt(it.qty) || 0);
+        });
+      });
+
+      grid.innerHTML = SORTED_CATEGORY_NAMES.map(catName => {
+        const meta = CATEGORY_META[catName];
+        const allItems = inventory.filter(i => i.category === catName);
+        const totalItemsCount = allItems.reduce((sum, i) => sum + i.total, 0);
+        const totalAssignedCount = allItems.reduce((sum, i) => sum + (assignedMap[i.id] || 0), 0);
+        const totalRemainCount = Math.max(0, totalItemsCount - totalAssignedCount);
+
+        const stockText = totalRemainCount === totalItemsCount 
+          ? `${totalItemsCount} sản phẩm`
+          : `Còn ${totalRemainCount}/${totalItemsCount} sp`;
+
+        return `
+          <div onclick="openCategoryModal('${catName}')" class="cursor-pointer bg-white border-2 ${meta.themeBorder} rounded-2xl p-3 flex flex-col items-center justify-center text-center shadow-xs btn-bounce transition hover:shadow-md bg-gradient-to-br ${meta.cardGradient} select-none">
+            
+            <!-- TÊN GỌI LOẠI QUÀ TO RÕ RÀNG -->
+            <h3 class="font-black text-base sm:text-lg ${meta.accent} tracking-wide leading-tight mb-1">
+              ${catName}
+            </h3>
+
+            <!-- SỐ LOẠI SẢN PHẨM TO DỄ ĐỌC -->
+            <div class="text-xs sm:text-sm font-bold ${meta.accent} opacity-85 leading-tight">
+              ${allItems.length} loại
+            </div>
+
+            <!-- TỔNG SỐ LƯỢNG / CÒN LẠI TO RÕ -->
+            <div class="text-xs sm:text-sm font-black ${meta.accent} leading-tight mt-1">
+              ${stockText}
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    // MỞ MODAL XEM CHI TIẾT TỪNG MÓN CỦA NHÓM QUÀ KHI CLICK CARD
+    function openCategoryModal(catName) {
+      const meta = CATEGORY_META[catName];
+      if (!meta) return;
+
+      const allItems = inventory.filter(i => i.category === catName);
+
+      const assignedMap = {};
+      const assignedRecipientsMap = {};
+      recipients.forEach(r => {
+        (r.items || []).forEach(it => {
+          const gId = it.giftId;
+          const qty = parseInt(it.qty) || 0;
+          assignedMap[gId] = (assignedMap[gId] || 0) + qty;
+          if (!assignedRecipientsMap[gId]) assignedRecipientsMap[gId] = [];
+          assignedRecipientsMap[gId].push(`${r.name} (${qty})`);
+        });
+      });
+
+      const totalItemsCount = allItems.reduce((sum, i) => sum + i.total, 0);
+      const totalAssignedCount = allItems.reduce((sum, i) => sum + (assignedMap[i.id] || 0), 0);
+      const totalRemainCount = Math.max(0, totalItemsCount - totalAssignedCount);
+
+      // Thiết lập Header Modal
+      document.getElementById('cat-modal-emoji').innerText = meta.emoji;
+      document.getElementById('cat-modal-title').innerText = catName;
+      document.getElementById('cat-modal-badge').innerText = meta.rankBadge;
+      document.getElementById('cat-modal-badge').className = `px-1.5 py-0.2 rounded-full text-[10px] font-black ${meta.badgeBg}`;
+      document.getElementById('cat-modal-subtitle').innerText = `${allItems.length} loại - ${totalItemsCount} sản phẩm (Còn ${totalRemainCount} món) • ${meta.priceText}`;
+
+      const headerEl = document.getElementById('category-modal-header');
+      headerEl.className = `px-3.5 py-2.5 border-b-2 ${meta.themeBorder} ${meta.headerBg} flex items-center justify-between`;
+
+      // Render danh sách các món cụ thể với hình ảnh icon chuẩn
+      const itemsContainer = document.getElementById('category-modal-items');
+      itemsContainer.innerHTML = allItems.map(item => {
+        const assigned = assignedMap[item.id] || 0;
+        const remain = Math.max(0, item.total - assigned);
+        const percent = Math.min(100, Math.round((assigned / item.total) * 100));
+
+        let remainBadge = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        if (remain === 0) remainBadge = 'bg-stone-200 text-stone-600 border-stone-300';
+        else if (remain <= 1) remainBadge = 'bg-amber-100 text-amber-800 border-amber-300';
+
+        const recList = assignedRecipientsMap[item.id] || [];
+        const recText = recList.length > 0 ? `
+          <div class="text-[9px] text-yellow-800/80 mt-1 flex items-center gap-1 flex-wrap">
+            <span class="font-bold text-yellow-950">👤 Đã gán:</span>
+            <span class="truncate max-w-[200px]">${recList.join(', ')}</span>
+          </div>
+        ` : '';
+
+        return `
+          <div class="bg-white border-2 border-yellow-200/90 rounded-2xl p-2 shadow-xs flex items-center gap-2.5 transition hover:border-yellow-400">
+            <!-- HÌNH ẢNH ICON SẢN PHẨM CHUẨN CẮT TỈA RÕ NÉT - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
+            <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Chạm để phóng to soi chữ">
+              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-14 h-14 object-contain rounded-xl border border-yellow-200 p-0.5 bg-yellow-50/70 shadow-2xs transition group-hover:scale-105">
+              <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none">🔍</span>
+            </div>
+            
+            <!-- THÔNG TIN QUÀ -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-1">
+                <h5 class="font-bold text-yellow-950 text-xs leading-snug truncate" title="${item.name}">${item.name}</h5>
+                <span class="px-1.5 py-0.2 rounded-full border text-[9px] font-bold ${remainBadge} shrink-0">
+                  Còn ${remain}/${item.total}
+                </span>
+              </div>
+
+              <!-- Thanh tiến độ phân chia -->
+              <div class="w-full bg-yellow-100 h-1.5 rounded-full mt-1 overflow-hidden">
+                <div class="bg-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
+              </div>
+
+              <div class="flex items-center justify-between text-[10px] text-yellow-800/70 mt-1 font-medium">
+                <span>Tổng ${item.total} ${item.unit}</span>
+                <div class="flex items-center gap-1">
+                  <button onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="text-yellow-800 bg-yellow-100 hover:bg-yellow-200 px-1.5 py-0.5 rounded-lg text-[10px] font-bold border border-yellow-300 btn-bounce">
+                    🔍 Soi chữ
+                  </button>
+                  <button onclick="selectGiftForAdd(${item.id})" class="btn-bounce bg-yellow-400 hover:bg-yellow-500 text-yellow-950 font-bold px-2 py-0.5 rounded-lg border border-yellow-500 shadow-2xs text-[10px] flex items-center gap-0.5">
+                    <span>+ Chọn tặng</span>
+                  </button>
+                </div>
+              </div>
+
+              ${recText}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('category-modal').classList.remove('hidden');
+    }
+
+    function closeCategoryModal() {
+      document.getElementById('category-modal').classList.add('hidden');
+    }
+
+    function selectGiftForAdd(giftId) {
+      closeCategoryModal();
+      openAddModal(giftId);
+    }
+
+    // ====== TÍNH NĂNG ZOOM HÌNH ẢNH & XOAY ĐỂ ĐỌC CHỮ SẢN PHẨM ======
+    let currentZoomScale = 1;
+    let currentRotation = 0;
+    let panX = 0;
+    let panY = 0;
+    let isPanning = false;
+    let startX = 0;
+    let startY = 0;
+    let initialPinchDistance = null;
+    let initialPinchScale = 1;
+
+    function openImageZoom(imgSrc, title = '', category = '') {
+      const modal = document.getElementById('image-zoom-modal');
+      const imgEl = document.getElementById('zoom-target-image');
+      document.getElementById('zoom-image-title').innerText = title || 'Ảnh chi tiết sản phẩm';
+      document.getElementById('zoom-image-category').innerText = category ? `Nhóm: ${category} • Cuộn/Chạm để phóng to đọc chữ` : 'Cuộn/Chạm để phóng to đọc chữ';
+      imgEl.src = imgSrc;
+      currentZoomScale = 1;
+      currentRotation = 0;
+      panX = 0;
+      panY = 0;
+      applyImageTransform();
+      modal.classList.remove('hidden');
+    }
+
+    function closeImageZoom() {
+      document.getElementById('image-zoom-modal').classList.add('hidden');
+    }
+
+    function applyImageTransform() {
+      const imgEl = document.getElementById('zoom-target-image');
+      if (!imgEl) return;
+      imgEl.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoomScale}) rotate(${currentRotation}deg)`;
+      const levelText = document.getElementById('zoom-level-text');
+      if (levelText) levelText.innerText = Math.round(currentZoomScale * 100) + '%';
+    }
+
+    function changeZoom(delta) {
+      currentZoomScale = Math.max(0.7, Math.min(5, currentZoomScale + delta));
+      if (currentZoomScale <= 1) {
+        panX = 0;
+        panY = 0;
+      }
+      applyImageTransform();
+    }
+
+    function rotateZoomImage() {
+      currentRotation = (currentRotation + 90) % 360;
+      applyImageTransform();
+    }
+
+    function resetZoom() {
+      currentZoomScale = 1;
+      currentRotation = 0;
+      panX = 0;
+      panY = 0;
+      applyImageTransform();
+    }
+
+    // Khởi tạo các sự kiện kéo & zoom đa điểm trên viewport
+    window.addEventListener('DOMContentLoaded', () => {
+      const viewport = document.getElementById('zoom-viewport');
+      if (!viewport) return;
+
+      // Mouse drag pan
+      viewport.addEventListener('mousedown', (e) => {
+        isPanning = true;
+        startX = e.clientX - panX;
+        startY = e.clientY - panY;
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isPanning) return;
+        panX = e.clientX - startX;
+        panY = e.clientY - startY;
+        applyImageTransform();
+      });
+
+      window.addEventListener('mouseup', () => {
+        isPanning = false;
+      });
+
+      // Mouse wheel zoom
+      viewport.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.25 : -0.25;
+        changeZoom(delta);
+      }, { passive: false });
+
+      // Double-click to zoom
+      viewport.addEventListener('dblclick', () => {
+        if (currentZoomScale > 1.2) {
+          resetZoom();
+        } else {
+          currentZoomScale = 2.5;
+          applyImageTransform();
+        }
+      });
+
+      // Mobile Touch pan & pinch to zoom
+      viewport.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isPanning = true;
+          startX = e.touches[0].clientX - panX;
+          startY = e.touches[0].clientY - panY;
+        } else if (e.touches.length === 2) {
+          isPanning = false;
+          initialPinchDistance = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          initialPinchScale = currentZoomScale;
+        }
+      }, { passive: true });
+
+      viewport.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1 && isPanning) {
+          panX = e.touches[0].clientX - startX;
+          panY = e.touches[0].clientY - startY;
+          applyImageTransform();
+        } else if (e.touches.length === 2 && initialPinchDistance) {
+          const currentDistance = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          const scaleRatio = currentDistance / initialPinchDistance;
+          currentZoomScale = Math.max(0.7, Math.min(5, initialPinchScale * scaleRatio));
+          applyImageTransform();
+        }
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', () => {
+        isPanning = false;
+        initialPinchDistance = null;
+      });
+    });
+
+    // RENDER DANH SÁCH NGƯỜI NHẬN
     function renderRecipients() {
       const listEl = document.getElementById('recipients-list');
       const emptyEl = document.getElementById('empty-recipients');
-      const searchKeyword = (document.getElementById('search-input').value || '').trim().toLowerCase();
+      const searchKeyword = (document.getElementById('search-input')?.value || '').trim().toLowerCase();
 
       let filtered = recipients.filter(r => {
         const matchName = r.name.toLowerCase().includes(searchKeyword) || (r.note && r.note.toLowerCase().includes(searchKeyword));
@@ -409,15 +892,17 @@
           const imgSrc = it.image || (giftObj ? giftObj.image : `assets/item_${it.giftId}.jpg`);
 
           return `
-            <div class="flex items-center justify-between py-1.5 border-b border-yellow-100 last:border-0 text-xs gap-2">
-              <div class="flex items-center gap-2 flex-1 min-w-0">
-                <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-8 h-8 rounded-lg object-contain bg-yellow-50/80 border border-yellow-200 shrink-0 p-0.5 shadow-2xs">
+            <div class="flex items-center justify-between py-1 border-b border-yellow-100 last:border-0 text-xs gap-1.5">
+              <div class="flex items-center gap-1.5 flex-1 min-w-0">
+                <div onclick="openImageZoom('${imgSrc}', '${escapeHtml(it.giftName)}')" class="cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
+                  <img src="${imgSrc}" alt="${it.giftName}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-8 h-8 rounded-lg object-contain bg-yellow-50/80 border border-yellow-200 p-0.5 shadow-2xs">
+                </div>
                 <div class="truncate">
                   <span class="font-bold text-yellow-950">${it.giftName}</span>
                   <span class="text-yellow-700 ml-1 font-semibold">x${it.qty}</span>
                 </div>
               </div>
-              <button onclick="cycleItemStatus('${r.id}', ${idx})" title="Chạm để đổi trạng thái" class="px-2 py-0.5 rounded-full border text-[11px] font-bold ${badgeColor} btn-bounce transition shadow-xs flex items-center gap-0.5 shrink-0">
+              <button onclick="cycleItemStatus('${r.id}', ${idx})" title="Chạm để đổi trạng thái" class="px-2 py-0.5 rounded-full border text-[10px] font-bold ${badgeColor} btn-bounce transition shadow-2xs flex items-center gap-0.5 shrink-0">
                 ${statusLabel}
               </button>
             </div>
@@ -425,25 +910,25 @@
         }).join('');
 
         return `
-          <div class="bg-white border-2 border-yellow-300/80 rounded-2xl p-3 shadow-sm transition hover:shadow-md">
-            <div class="flex items-start justify-between pb-2 border-b border-yellow-200/80">
+          <div class="bg-white border-2 border-yellow-300/80 rounded-2xl p-2.5 shadow-xs transition hover:shadow-md">
+            <div class="flex items-start justify-between pb-1.5 border-b border-yellow-200/80">
               <div>
-                <h4 class="font-bold text-base text-yellow-950 flex items-center gap-1.5">
+                <h4 class="font-bold text-sm text-yellow-950 flex items-center gap-1">
                   <span>👤</span> ${r.name}
                 </h4>
-                ${r.note ? `<p class="text-[11px] text-yellow-800/70 font-medium">${r.note}</p>` : ''}
+                ${r.note ? `<p class="text-[10px] text-yellow-800/70 font-medium">${r.note}</p>` : ''}
               </div>
-              <div class="flex items-center gap-1.5">
-                <span class="bg-yellow-200/70 text-yellow-900 text-xs px-2 py-0.5 rounded-xl font-bold">
+              <div class="flex items-center gap-1">
+                <span class="bg-yellow-200/70 text-yellow-900 text-[10px] px-1.5 py-0.2 rounded-lg font-bold">
                   ${totalItems} món
                 </span>
-                <button onclick="editRecipient('${r.id}')" class="text-yellow-700 hover:text-yellow-950 p-1 text-xs">✏️</button>
-                <button onclick="deleteRecipient('${r.id}')" class="text-rose-500 hover:text-rose-700 p-1 text-xs">🗑️</button>
+                <button onclick="editRecipient('${r.id}')" class="text-yellow-700 hover:text-yellow-950 p-0.5 text-xs">✏️</button>
+                <button onclick="deleteRecipient('${r.id}')" class="text-rose-500 hover:text-rose-700 p-0.5 text-xs">🗑️</button>
               </div>
             </div>
 
-            <div class="pt-2">
-              ${itemsHtml || '<p class="text-xs text-yellow-800/50 italic py-1">Chưa gán món quà nào</p>'}
+            <div class="pt-1.5">
+              ${itemsHtml || '<p class="text-xs text-yellow-800/50 italic py-0.5">Chưa gán món quà nào</p>'}
             </div>
           </div>
         `;
@@ -460,12 +945,12 @@
       rec.items[itemIndex].status = nextStatus;
 
       saveData();
-      renderRecipients();
     }
 
+    // RENDER TAB KHO TỔNG (49 LOẠI)
     function renderInventory() {
       const listEl = document.getElementById('inventory-list');
-      const category = document.getElementById('category-filter').value;
+      const category = document.getElementById('category-filter')?.value || 'all';
 
       const assignedMap = {};
       recipients.forEach(r => {
@@ -489,24 +974,27 @@
         else if (remain <= 1) remainBadge = 'bg-amber-100 text-amber-800 border-amber-300';
 
         return `
-          <div class="bg-white border-2 border-yellow-200 rounded-2xl p-2.5 shadow-xs flex items-center gap-3">
-            <!-- Icon hình ảnh sản phẩm chuẩn -->
-            <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-14 h-14 object-contain rounded-xl border border-yellow-200 p-0.5 bg-yellow-50/50 shrink-0 shadow-2xs">
+          <div class="bg-white border-2 border-yellow-200 rounded-2xl p-2 shadow-2xs flex items-center gap-2.5">
+            <!-- Icon hình ảnh sản phẩm chuẩn - CHẠM ĐỂ PHÓNG TO SOI CHỮ -->
+            <div onclick="openImageZoom('${item.image}', '${escapeHtml(item.name)}', '${item.category}')" class="relative group cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
+              <img src="${item.image}" alt="${item.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-12 h-12 object-contain rounded-xl border border-yellow-200 p-0.5 bg-yellow-50/50 shadow-2xs">
+              <span class="absolute bottom-0.5 right-0.5 bg-black/60 text-white rounded p-0.5 text-[8px] leading-none">🔍</span>
+            </div>
             
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-1 text-xs">
                 <div class="truncate">
-                  <span class="text-[10px] font-bold text-yellow-800/60 uppercase tracking-wider block">${item.category}</span>
-                  <h5 class="font-bold text-yellow-950 text-sm leading-tight truncate">${item.name}</h5>
+                  <span class="text-[9px] font-bold text-yellow-800/60 uppercase tracking-wider block">${item.category}</span>
+                  <h5 class="font-bold text-yellow-950 text-xs leading-tight truncate">${item.name}</h5>
                 </div>
-                <span class="px-2 py-0.5 rounded-full border text-[11px] font-bold ${remainBadge} shrink-0">
+                <span class="px-1.5 py-0.2 rounded-full border text-[10px] font-bold ${remainBadge} shrink-0">
                   Còn ${remain}/${item.total}
                 </span>
               </div>
-              <div class="w-full bg-yellow-100 h-1.5 rounded-full mt-2 overflow-hidden">
+              <div class="w-full bg-yellow-100 h-1 rounded-full mt-1.5 overflow-hidden">
                 <div class="bg-yellow-400 h-full rounded-full transition-all duration-300" style="width: ${percent}%"></div>
               </div>
-              <div class="flex justify-between text-[10px] text-yellow-800/60 mt-1 font-medium">
+              <div class="flex justify-between text-[9px] text-yellow-800/60 mt-1 font-medium">
                 <span>Đã chia: ${assigned} ${item.unit}</span>
                 <span>Tổng: ${item.total} ${item.unit}</span>
               </div>
@@ -516,13 +1004,14 @@
       }).join('');
     }
 
-    function openAddModal() {
+    // MỞ MODAL THÊM / SỬA NGƯỜI NHẬN
+    function openAddModal(preselectedGiftId = null) {
       editingRecipientId = null;
       document.getElementById('modal-title').innerHTML = '<span>🎁</span> Thêm người nhận quà';
       document.getElementById('modal-person-name').value = '';
       document.getElementById('modal-person-note').value = '';
       document.getElementById('modal-gift-rows').innerHTML = '';
-      addGiftRow();
+      addGiftRow(preselectedGiftId);
       document.getElementById('modal').classList.remove('hidden');
     }
 
@@ -549,6 +1038,7 @@
       document.getElementById('modal').classList.add('hidden');
     }
 
+    // THÊM DÒNG CHỌN MÓN QUÀ
     function addGiftRow(selectedGiftId = null, qty = 1, status = 'preparing') {
       const container = document.getElementById('modal-gift-rows');
       const rowId = 'gift-row-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4);
@@ -556,32 +1046,40 @@
       const defaultGiftId = selectedGiftId || inventory[0].id;
       const initialGift = inventory.find(i => i.id === parseInt(defaultGiftId)) || inventory[0];
 
-      const options = inventory.map(item => {
-        const isSelected = parseInt(defaultGiftId) === item.id ? 'selected' : '';
-        return `<option value="${item.id}" data-img="${item.image}" ${isSelected}>${item.name} (${item.category})</option>`;
+      // Sắp xếp các optgroup theo thứ tự giá từ cao xuống thấp
+      const optionsHtml = SORTED_CATEGORY_NAMES.map(cat => {
+        const catItems = inventory.filter(i => i.category === cat);
+        const meta = CATEGORY_META[cat] || { emoji: '🎁', rankBadge: '' };
+        const itemsOpt = catItems.map(item => {
+          const isSelected = parseInt(defaultGiftId) === item.id ? 'selected' : '';
+          return `<option value="${item.id}" data-img="${item.image}" ${isSelected}>${item.name}</option>`;
+        }).join('');
+        return `<optgroup label="${meta.emoji} [${meta.rankBadge}] ${cat}">${itemsOpt}</optgroup>`;
       }).join('');
 
       const div = document.createElement('div');
       div.id = rowId;
-      div.className = 'bg-white p-2.5 rounded-2xl border border-yellow-200 space-y-2 relative';
+      div.className = 'bg-white p-2 rounded-xl border border-yellow-200 space-y-1.5 relative';
       div.innerHTML = `
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5">
           <!-- Icon xem trước quà -->
-          <img id="preview-${rowId}" src="${initialGift.image}" alt="${initialGift.name}" class="w-10 h-10 object-contain rounded-xl border border-yellow-200 bg-yellow-50 p-0.5 shrink-0 shadow-2xs">
+          <div onclick="openImageZoom(document.getElementById('preview-${rowId}').src, '${escapeHtml(initialGift.name)}')" class="cursor-zoom-in shrink-0" title="Chạm để phóng to xem chữ">
+            <img id="preview-${rowId}" src="${initialGift.image}" alt="${initialGift.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>'" class="w-9 h-9 object-contain rounded-lg border border-yellow-200 bg-yellow-50 p-0.5 shadow-2xs">
+          </div>
           
-          <select onchange="updateRowPreview('${rowId}', this)" class="gift-select flex-1 bg-yellow-50/50 border border-yellow-200 rounded-xl px-2 py-1.5 text-xs font-semibold text-yellow-950 focus:outline-none">
-            ${options}
+          <select onchange="updateRowPreview('${rowId}', this)" class="gift-select flex-1 bg-yellow-50/50 border border-yellow-200 rounded-lg px-2 py-1 text-xs font-semibold text-yellow-950 focus:outline-none">
+            ${optionsHtml}
           </select>
-          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-rose-400 hover:text-rose-600 px-1 text-sm font-bold">✕</button>
+          <button type="button" onclick="document.getElementById('${rowId}').remove()" class="text-rose-400 hover:text-rose-600 px-1 text-xs font-bold">✕</button>
         </div>
         <div class="flex items-center gap-2">
-          <div class="flex items-center gap-1 text-xs">
-            <span class="text-yellow-800 font-bold">Số lượng:</span>
-            <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-14 bg-yellow-50/50 border border-yellow-200 rounded-xl px-2 py-1 text-xs font-bold text-center text-yellow-950">
+          <div class="flex items-center gap-1 text-[11px]">
+            <span class="text-yellow-800 font-bold">SL:</span>
+            <input type="number" min="1" max="50" value="${qty}" class="gift-qty w-12 bg-yellow-50/50 border border-yellow-200 rounded-lg px-1.5 py-0.5 text-xs font-bold text-center text-yellow-950">
           </div>
-          <div class="flex items-center gap-1 text-xs flex-1 justify-end">
+          <div class="flex items-center gap-1 text-[11px] flex-1 justify-end">
             <span class="text-yellow-800 font-bold">Trạng thái:</span>
-            <select class="gift-status bg-yellow-50/50 border border-yellow-200 rounded-xl px-2 py-1 text-xs font-bold text-yellow-950">
+            <select class="gift-status bg-yellow-50/50 border border-yellow-200 rounded-lg px-1.5 py-0.5 text-xs font-bold text-yellow-950">
               <option value="preparing" ${status === 'preparing' ? 'selected' : ''}>🎁 Chuẩn bị</option>
               <option value="gifted" ${status === 'gifted' ? 'selected' : ''}>✅ Đã tặng</option>
               <option value="pending" ${status === 'pending' ? 'selected' : ''}>⏳ Chưa tặng</option>
@@ -646,19 +1144,19 @@
 
       saveData();
       closeModal();
-      renderRecipients();
+      switchTab('recipients');
     }
 
     function deleteRecipient(id) {
       if (confirm('Đại ca có chắc muốn xóa người nhận này khỏi danh sách không?')) {
         recipients = recipients.filter(r => r.id !== id);
         saveData();
-        renderRecipients();
       }
     }
 
+    // KHỞI TẠO BAN ĐẦU
     updateStats();
-    renderRecipients();
+    switchTab('recipients');
   </script>
 </body>
 </html>
